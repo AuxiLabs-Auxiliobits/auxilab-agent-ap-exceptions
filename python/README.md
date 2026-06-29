@@ -1,133 +1,189 @@
-# Agent Development Kit (ADK) Python Samples
+# auxilab-agent-ap-exceptions
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+> Agentic AI · AP exception queue triage, root-cause classification, resolution path assignment, and communication drafting
 
-<img src="https://github.com/google/adk-docs/blob/main/docs/assets/agent-development-kit.png" alt="Agent Development Kit Logo" width="150">
+**Part of [AuxiLab](https://auxiliobits.com/auxilab) — Auxiliobits' open-source agentic AI lab for Finance and AP operations.**
 
-This collection provides ready-to-use sample agents built on top of Python
-[Agent Development Kit](https://github.com/google/adk-python). These agents
-cover a range of common use cases and complexities, from simple conversational
-bots to complex multi-agent workflows.
+---
 
-## 🚀 Getting Started with Python Samples
+## What This Does
 
-Follow these steps to set up and run the sample agents:
+**auxilab-agent-ap-exceptions** is an enterprise-grade agentic AI pipeline powered by Google's Agent Development Kit (ADK) and Gemini 2.5 Pro that automates Accounts Payable (AP) exception management and triage. It eliminates manual diagnosis bottlenecks by ingesting batch exception queues, cross-referencing simulated ERP records (POs, GRNs, and Vendor Master data) to establish root causes, and deterministically routing resolutions with calculated priority scores, dynamic SLAs, and automated communication drafts. AP operations teams, controllers, and finance specialists use this tool to prevent duplicate payments, unblock vendor cash flow, and continuously evolve system accuracy through an interactive human-in-the-loop Adaptive Learning Framework (ALF).
 
-1.  **Prerequisites:**
-    *   **Install Python ADK:** Ensure you have Python Agent
-        Development Kit installed and configured. Follow the Python instructions in the
-        [ADK Installation Guide](https://google.github.io/adk-docs/get-started/installation/#python).
-    *   **Set Up Environment Variables:** Each agent example relies on a `.env`
-        file for configuration (like API keys, Google Cloud project IDs, and
-        location). This keeps secrets out of the code.
-        *   You will need to create a `.env` file in each agent's directory you
-            wish to run (usually by copying the provided `.env.example`).
-        *   Setting up these variables, especially obtaining Google Cloud
-            credentials, requires careful steps. Refer to the **Environment
-            Setup** section in the [ADK Installation
-            Guide](https://google.github.io/adk-docs/get-started/installation/#python)
-            for detailed instructions.
-    *   **Google Cloud Project (Recommended):** While some agents might run
-        locally with just an API key, most leverage Google Cloud services like
-        Vertex AI and BigQuery. A configured Google Cloud project is highly
-        recommended. See the
-        [ADK Quickstart](https://google.github.io/adk-docs/get-started/quickstart/#python)
-        for setup details.
+---
 
+## Tools / Capabilities
 
-2.  **Clone this repository:**
+| Name | Description |
+|------|-------------|
+| `ingest_exception_queue` | Ingests and maps multi-format exception queues (CSV/JSON) into a canonical schema while validating headers against source fields |
+| `classify_exceptions` | Utilizes Gemini 2.5 Pro and evidence-based ERP matching to identify root-cause hypotheses (e.g., duplicate detection, PO not found, tolerance breach) |
+| `assign_resolution_paths` | Deterministically calculates priority scores, dynamic SLAs, ownership routing, and payment block/escalation decisions without LLM hallucination |
+| `draft_communications` | Automatically generates contextual vendor and internal escalation emails based on extracted evidence and missing data requirements |
+| `build_priority_output` | Assembles a sorted priority work queue alongside an executive dashboard tracking blocked value, duplicate risk, and valid invoice metrics |
+| `run_inference` | Executes the core 9-agent Acting Pipeline (Intake, PO matching, Status validation, EWAF checks) paired with optional investigation audits |
+| `discover_safe_rule` | Enables interactive SME teaching via the Adaptive Learning Framework (ALF), automatically validating proposed rules against historical cross-case impact |
+| `revise_safe_rule` | Modifies existing business correction rules with an automated safety loop to ensure zero collateral damage across prior cases |
 
-    To start working with the ADK Python samples, first clone the public `adk-samples` repository:
-    ```bash
-    git clone https://github.com/google/adk-samples.git
-    cd adk-samples/python
-    ```
+---
 
-3.  **Explore the Agents:**
+## Installation
 
-    *   Navigate to the `agents/` directory.
-    *   The `agents/README.md` provides an overview and categorization of the available agents.
-    *   Browse the subdirectories. Each contains a specific sample agent with its own
-    `README.md`.
-
-4.  **Run an Agent:**
-    *   Choose an agent from the `agents/` directory.
-    *   Navigate into that agent's specific directory (e.g., `cd agents/llm-auditor`).
-    *   Follow the instructions in *that agent's* `README.md` file for specific
-        setup (like installing dependencies via `poetry install`) and running
-        the agent.
-    *   Browse the folders in this repository. Each agent and tool have its own
-        `README.md` file with detailed instructions.
-
-**Notes:**
-
-These agents have been built and tested using
-[Google models](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models)
-on Vertex AI. You can test these samples with other models as well. Please refer
-to [ADK Tutorials](https://google.github.io/adk-docs/tutorials/) to use
-other models for these samples.
-
-## 🧱 Repository Structure
 ```bash
-.
-├── python                      # Contains all the Python sample code
-│   ├── agents                  # Contains individual agent samples
-│   │   ├── agent1              # Specific agent directory
-│   │   │   └── README.md       # Agent-specific instructions
-│   │   ├── agent2
-│   │   │   └── README.md
-│   │   ├── ...
-│   │   └── README.md           # Overview and categorization of agents
-│   └── README.md               # This file (Repository overview)
+# Clone the repo
+git clone https://github.com/AuxiLabs-Auxiliobits/auxilab-agent-ap-exceptions.git
+cd auxilab-agent-ap-exceptions
+
+# Create a virtual environment
+python -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
-## Local Contributor Pre-Check
+### Environment Variables
 
-Before submitting a Pull Request with changes to Python files, please run the following script locally to quickly validate your changes against our standards.
+Copy `.env.example` to `.env` and fill in your values:
 
-1.  Ensure you have **Python** installed and the script is executable (`chmod +x python-checks.sh`).
-2.  Run the script from the repository root using a **run flag**, specifying the **relative path** to the agent or notebook folder you modified.
+```bash
+cp .env.example .env
+```
 
-| Purpose | Command |
-| :--- | :--- |
-| **Run all checks** (Black, iSort, Flake8) | `./python-checks.sh --run-all agents/agent_directory_name` |
-| **Run only `flake8`** (Linting) | `./python-checks.sh --run-lint agents/agent_directory_name` |
-| **Run only `black`** (Formatting) | `./python-checks.sh --run-black notebooks/notebook_directory_name` |
-| **Run only `isort`** (Import Sorting) | `./python-checks.sh --run-isort notebooks/notebook_directory_name` |
-| **Get detailed usage and options** | `./python-checks.sh --help` |
+```env
+ANTHROPIC_API_KEY=your_key_here
+GOOGLE_API_KEY=your_gemini_api_key_here
+PROJECT_ID=your-gcp-project-id
+LOCATION=us-central1
+```
 
-> **Note:** The script requires the full relative path starting with `agents/` or `notebooks/` (e.g., `agents/academic-research`). This ensures checks are scoped strictly to the component you are working on.
+---
 
-## 📝 Code Quality Checks
+## Usage
 
-We use automated checks to ensure high quality and consistency across all code samples.
+```python
+from invoice_processing.agent import run_exception_queue
 
-This script will run `black`, `isort` and `flake8` to check for formatting and linting errors.
+# Run the batch exception queue pipeline against sample exception files
+result = run_exception_queue(
+    file_paths=["python/agents/invoice-processing/invoice_processing/exemplary_data/exception_queue/exception_queue.csv"],
+    debug=True
+)
 
-## ℹ️ Getting help
+# Access the executive dashboard metrics
+dashboard = result.get("dashboard", {})
+print(f"Total Invoices Processed: {dashboard.get('total_invoices')}")
+print(f"Payments Blocked: {dashboard.get('payments_blocked')}")
+print(f"Escalations Required: {dashboard.get('escalations_required')}")
 
-If you have any questions or if you found any problems with this repository,
-please report through
-[GitHub issues](https://github.com/google/adk-samples/issues).
+# Inspect high-priority exception items
+for invoice in result.get("priority_queue", []):
+    print(f"\nInvoice: {invoice['invoice_id']} | Priority: {invoice['priority_tier']} | Score: {invoice['normalized_priority_score']}")
+    for exc in invoice.get("final_exception_list", []):
+        print(f"  -> Root Cause: {exc['primary_type']} ({exc['root_cause_hypothesis']})")
+```
 
-## 🤝 Contributing
+### Run the Demo
 
-We welcome contributions from the community! Whether it's bug reports, feature
-requests, documentation improvements, or code contributions, please see our
-[**Contributing Guidelines**](https://github.com/google/adk-samples/blob/main/CONTRIBUTING.md)
-to get started.
+```bash
+python python/agents/invoice-processing/run_queue_cli.py --file python/agents/invoice-processing/invoice_processing/exemplary_data/exception_queue/exception_queue.csv --debug
+```
 
-## 📄 License
+---
 
-This project is licensed under the Apache 2.0 License - see the
-[LICENSE](https://github.com/google/adk-samples/blob/main/LICENSE) file for
-details.
+## Example
 
-## Disclaimers
+To run this specific test case from `exception_queue.csv`, execute:
 
-This is not an officially supported Google product. This project is not eligible
-for the
-[Google Open Source Software Vulnerability Rewards Program](https://bughunters.google.com/open-source-security).
+```bash
+python python/agents/invoice-processing/run_queue_cli.py --file python/agents/invoice-processing/invoice_processing/exemplary_data/exception_queue/exception_queue.csv --debug
+```
 
-The agents in this project are intended for demonstration purposes only. They is
-not intended for use in a production environment.
+**Input (Test Case TC-010 from `exception_queue.csv`):**
+```json
+{
+  "exceptions": [
+    {
+      "invoice_id": "TC-010",
+      "vendor_name": "Epsilon Parts",
+      "invoice_number": "INV-E001",
+      "invoice_amount": "4500",
+      "currency": "USD",
+      "po_number": "PO-INVALID-999",
+      "invoice_date": "2026-05-12"
+    }
+  ]
+}
+```
+
+**Output:**
+```json
+{
+  "dashboard": {
+    "total_invoices": 1,
+    "payments_blocked": 1,
+    "escalations_required": 1,
+    "high_priority_count": 1
+  },
+  "priority_queue": [
+    {
+      "invoice_id": "TC-010",
+      "invoice_number": "INV-E001",
+      "vendor_name": "Epsilon Parts",
+      "invoice_amount": 4500.0,
+      "priority_tier": "HIGH",
+      "normalized_priority_score": 85.0,
+      "payment_blocked": true,
+      "escalation_required": true,
+      "sla_hours": 24,
+      "resolution_owners": [
+        "AP_Level_2",
+        "Procurement"
+      ],
+      "final_exception_list": [
+        {
+          "primary_type": "PO Not Found",
+          "root_cause_hypothesis": "Purchase order PO-INVALID-999 does not exist in the ERP database.",
+          "recommended_action": "Contact vendor to confirm valid PO number or request procurement to issue retroactive PO.",
+          "confidence": 0.98,
+          "evidence_used": "Cross-referenced PO-INVALID-999 against erp_database.json; no record found."
+        }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## Running Tests
+
+```bash
+python python/agents/invoice-processing/test_exception_queue.py
+```
+
+---
+
+## Known Limitations
+
+- **Language & Localization**: Currently optimized for English-language invoices and communication drafts; multi-language OCR and automated translation are not natively handled.
+- **Real-Time FX Conversion**: While currency mismatches are flagged during classification, live real-time foreign exchange rate conversion is not calculated during numerical tolerance checks.
+- **Line-Item Split Reconciliation**: Exception classification operates primarily at the header/total level rather than reconciling complex, multi-page line-item splits against partial 3-way goods receipts.
+- **Mock ERP State Grounding**: Database lookups query static JSON/YAML reference stores (`erp_database.json`); live bidirectional SQL or REST API ERP integrations require custom adapter implementations.
+
+---
+
+## Built By
+
+| Name | GitHub | Role |
+|------|--------|------|
+| Rohan Walia | [@rohanwalia1](https://github.com/rohanwalia1) | Backend Developer |
+| Pawandeep Singh | [@pawandeepsingh1](https://github.com/pawandeepsingh1) | Frontend Developer |
+
+Built during the **AuxiLab Founding Hackathon** by [Auxiliobits Technologies](https://auxiliobits.com).
+
+---
+
+## Licence
+
+MIT — see [LICENSE](./LICENSE)
