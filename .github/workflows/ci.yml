@@ -1,0 +1,118 @@
+name: CI
+
+# Repo layout is a monorepo: Backend/ (FastAPI) and Frontend/ (Vite React).
+# GitHub Actions only discovers workflows under the repo-root .github/workflows,
+# so this file lives here (NOT under Backend/.github/) and fans out to both
+# sub-projects with explicit working-directory + path filters.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ------------------------------------------------------------------ #
+  # Backend — lint, type-check, tests, migrations                       #
+  # ------------------------------------------------------------------ #
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: Backend/pyproject.toml
+
+      - name: Install
+        run: pip install -e ".[dev]"
+
+      - name: Lint (ruff)
+        run: ruff check .
+
+      - name: Type-check (mypy)
+        # Advisory for now: the codebase is mid-adoption of type-checking and
+        # carries a known baseline of pre-existing errors (mostly LangGraph
+        # TypedDict variance + third-party stub gaps). Burn the baseline down,
+        # then flip `continue-on-error` to false to make this a hard gate.
+        continue-on-error: true
+        run: mypy app
+
+      - name: Tests (pytest)
+        env:
+          # Hermetic: no external services, auth off, in-memory store.
+          AUTH_ENABLED: "false"
+          DB_PERSISTENCE_ENABLED: "false"
+          SUPABASE_URL: ""
+          SUPABASE_KEY: ""
+        run: pytest -q
+
+      - name: Migrations apply cleanly
+        env:
+          DATABASE_URL: "sqlite+pysqlite:///./ci_migrations.db"
+        run: |
+          python -m alembic upgrade head
+          python -m alembic downgrade base
+
+  # ------------------------------------------------------------------ #
+  # Frontend — lint, type-check, unit tests, production build           #
+  # ------------------------------------------------------------------ #
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: Frontend/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint (eslint)
+        run: npm run lint
+
+      - name: Unit tests (vitest)
+        run: npm test
+
+      - name: Type-check & build
+        # `tsc -b` is the hard type-safety gate; `vite build` proves the bundle
+        # compiles. A dummy publishable key satisfies main.tsx's pk_ guard at
+        # build time (no network — Clerk only initializes in the browser).
+        env:
+          VITE_CLERK_PUBLISHABLE_KEY: "pk_test_ci-build-placeholder"
+        run: npm run build
+
+  # ------------------------------------------------------------------ #
+  # Security — dependency vulnerability scan (hard gate)                #
+  # ------------------------------------------------------------------ #
+  security:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Dependency vulnerability scan (pip-audit)
+        # Surfaces known CVEs in the dependency tree. Now a hard gate — a CVE
+        # fails CI. Use `--ignore-vuln <ID>` to consciously accept a finding.
+        run: |
+          pip install pip-audit
+          pip install -e .
+          pip-audit --skip-editable

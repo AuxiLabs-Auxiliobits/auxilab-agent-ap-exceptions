@@ -1,0 +1,37 @@
+services:
+  api:
+    build: .
+    image: ap-exception-agent:latest
+    ports:
+      - "8000:8000"
+    environment:
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      LOG_LEVEL: INFO
+      ARTIFACT_DIR: /app/artifacts
+    volumes:
+      - artifacts:/app/artifacts
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/readyz', timeout=2)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  web:
+    # React (Vite) reviewer console — the only UI.
+    # nginx serves the built SPA and reverse-proxies /v1, /healthz, /readyz to
+    # the api service, so the browser talks to a single origin.
+    build:
+      context: ../Frontend
+      args:
+        # Same-origin: the SPA calls "/v1/..." which nginx proxies to api:8000.
+        VITE_API_BASE_URL: ""
+        # Publishable key is public; supply it from the host environment.
+        VITE_CLERK_PUBLISHABLE_KEY: ${VITE_CLERK_PUBLISHABLE_KEY:-}
+        VITE_TENANT_ID: default
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  artifacts:

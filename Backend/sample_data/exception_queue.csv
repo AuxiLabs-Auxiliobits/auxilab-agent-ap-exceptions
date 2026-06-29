@@ -1,0 +1,26 @@
+invoice_id,vendor_name,invoice_amount,po_number,exception_type,exception_description,days_outstanding,approver_assigned
+INV-2001,Oracle,45000,PO-9001,Price Variance,Invoice exceeds PO by 8%,12,jane.doe
+INV-2002,SAP,32000,PO-9002,Price Variance,Unit rate 6.5% above contract,34,sarah.k
+INV-2003,Salesforce,18500,PO-9003,Price Variance,Price 3.2% above approved PO,18,john.smith
+INV-2004,ServiceNow,12200,PO-9004,Price Variance,Invoice exceeds PO by 1.5%,7,jane.doe
+INV-2005,Workday,27500,PO-9005,Price Variance,Unit rate 12% above contract,38,sarah.k
+INV-2006,Microsoft,4200,PO-9006,Price Variance,Price 0.8% above approved PO,3,
+INV-2007,Adobe,8900,PO-9007,Price Variance,Invoice exceeds PO by 4.5%,22,john.smith
+INV-2008,Snowflake,36000,PO-9008,Price Variance,Unit rate 7% above contract,28,jane.doe
+INV-2009,Atlassian,14500,,Missing PO,Invoice submitted without PO reference,15,
+INV-2010,Slack,6800,,Missing PO,No PO attached,9,john.smith
+INV-2011,Zoom,22000,,Missing PO,PO field empty per AP gateway,25,sarah.k
+INV-2012,DocuSign,3400,,Missing PO,Invoice submitted without PO reference,4,
+INV-2013,Box,11200,,Missing PO,No PO attached,33,jane.doe
+INV-2014,GitHub,7500,PO-9014,Duplicate,Potential duplicate of INV-1923 paid 2026-04-12,6,
+INV-2015,MongoDB,19800,PO-9015,Duplicate,Same vendor/amount/date as prior invoice INV-1845,11,john.smith
+INV-2016,Datadog,28500,PO-9016,Duplicate,Potential duplicate of INV-1789 paid 2026-03-28,21,sarah.k
+INV-2017,Cloudflare,850,PO-9017,Duplicate,Same vendor/amount/date as prior invoice INV-1612,2,
+INV-2018,Okta,16700,PO-9018,Quantity Mismatch,Invoiced 500 units; GRN shows 450,8,jane.doe
+INV-2019,HubSpot,9300,PO-9019,Quantity Mismatch,Billed for 200 cases; receiving confirms 180,14,john.smith
+INV-2020,Shopify,31500,PO-9020,Quantity Mismatch,Invoiced 1200 units; GRN shows 1000,31,sarah.k
+INV-2021,Twilio,5800,PO-9021,Quantity Mismatch,Billed for 80 cases; receiving confirms 70,17,
+INV-2022,Stripe,23400,PO-9022,Unapproved Vendor,Vendor not present in vendor master,12,sarah.k
+INV-2023,PagerDuty,4900,PO-9023,Unapproved Vendor,First-time vendor not yet onboarded,5,
+INV-2024,NetSuite,13800,PO-9024,Unapproved Vendor,Vendor not present in vendor master,19,jane.doe
+INV-2025,Splunk,38200,PO-9025,Unapproved Vendor,First-time vendor not yet onboarded,42,john.smith

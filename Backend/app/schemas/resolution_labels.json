@@ -1,0 +1,9 @@
+{
+  "AUTO_APPROVE": "Auto Approve",
+  "REQUEST_PO": "Request PO",
+  "REQUEST_GRN": "Request GRN",
+  "ESCALATE_CONTROLLER": "Escalate to Controller",
+  "HOLD_INVESTIGATION": "Hold for Investigation",
+  "VENDOR_VALIDATION_REVIEW": "Vendor Validation Review",
+  "MANUAL_REVIEW": "Manual Review"
+}

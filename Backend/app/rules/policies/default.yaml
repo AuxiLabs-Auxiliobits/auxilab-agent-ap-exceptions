@@ -1,0 +1,106 @@
+# Default AP exception resolution policy.
+# Rules are evaluated top-down; first match wins.
+# A catch-all rule (with empty `when`) MUST be present at the bottom.
+#
+# Predicate vocabulary (extend in engine.py::match if you add more):
+#   exception_type            == string
+#   amount_lt / amount_gte    invoice amount comparisons
+#   amount_lte / amount_gt
+#   days_outstanding_gte / _gt
+#   variance_pct_lt / _gte    derived from description (best-effort numeric parse)
+#   severity_in               list of allowed severities
+#   confidence_lt             classifier confidence floor
+
+version: "2026.05.1"
+rules:
+  - id: pv_auto_approve_small
+    description: "Tiny price variance under $10k auto-approves."
+    when:
+      exception_type: "Price Variance"
+      variance_pct_lt: 2.0
+      amount_lt: 10000
+    then:
+      resolution_path: AUTO_APPROVE
+      requires_communication: false
+      sla_hours: 24
+
+  - id: pv_escalate_controller_high
+    description: "Material price variance escalates to finance controller."
+    when:
+      exception_type: "Price Variance"
+      variance_pct_gte: 5.0
+    then:
+      resolution_path: ESCALATE_CONTROLLER
+      requires_communication: true
+      sla_hours: 8
+
+  - id: pv_manual_default
+    description: "Moderate price variance defaults to manual review."
+    when:
+      exception_type: "Price Variance"
+    then:
+      resolution_path: MANUAL_REVIEW
+      requires_communication: true
+      sla_hours: 24
+
+  - id: missing_po_request
+    description: "Missing PO triggers vendor PO request."
+    when:
+      exception_type: "Missing PO"
+    then:
+      resolution_path: REQUEST_PO
+      requires_communication: true
+      sla_hours: 48
+
+  - id: qty_mismatch_grn
+    description: "Quantity mismatch — request GRN reconciliation."
+    when:
+      exception_type: "Quantity Mismatch"
+    then:
+      resolution_path: REQUEST_GRN
+      requires_communication: true
+      sla_hours: 48
+
+  - id: duplicate_hold
+    description: "Duplicate invoice — hold for investigation, no vendor contact."
+    when:
+      exception_type: "Duplicate"
+    then:
+      resolution_path: HOLD_INVESTIGATION
+      requires_communication: false
+      sla_hours: 24
+
+  - id: unapproved_vendor_validation
+    description: "Unapproved vendor — vendor validation review."
+    when:
+      exception_type: "Unapproved Vendor"
+    then:
+      resolution_path: VENDOR_VALIDATION_REVIEW
+      requires_communication: true
+      sla_hours: 24
+
+  - id: grn_missing_request
+    description: "GRN not received — request from receiving team."
+    when:
+      exception_type: "GRN Not Received"
+    then:
+      resolution_path: REQUEST_GRN
+      requires_communication: true
+      sla_hours: 48
+
+  - id: low_confidence_manual
+    description: "Any classification with confidence < 0.6 routes to manual review."
+    when:
+      confidence_lt: 0.6
+    then:
+      resolution_path: MANUAL_REVIEW
+      requires_communication: false
+      sla_hours: 24
+
+  - id: default_manual
+    description: "Catch-all: everything unmatched goes to manual review."
+    when: {}
+    then:
+      resolution_path: MANUAL_REVIEW
+      requires_communication: false
+      sla_hours: 72

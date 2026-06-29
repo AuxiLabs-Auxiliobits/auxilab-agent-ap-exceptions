@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================================================
+   "Auxilio" — corporate design tokens for the AP reconciliation console.
+
+   Identity: the clean enterprise-B2B aesthetic of auxiliobits.com — a white
+   canvas, cool slate neutrals, and a single saturated corporate BLUE as the
+   one action color (Approve / Send / Review / "cleared" / focus). Status keeps
+   the universal traffic-light semantics: green = settled, amber = pending,
+   red = overdue. Structure (sidebar/chrome) is deep ink-slate.
+   =========================================================================== */
+@layer base {
+  :root {
+    /* Canvas: clean white with cool slate neutrals (Tailwind slate family). */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;          /* slate-900 — body & headings (#333/#181818 family) */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Primary = corporate blue (#2563EB). The single saturated action color,
+       reserved for clearing actions (Approve / Send / Review) and "settled". */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96%;           /* slate-100 surfaces */
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;    /* slate-500 — secondary text */
+
+    /* Faint blue wash for hover / active surfaces. */
+    --accent: 214 95% 93%;              /* blue-100 */
+    --accent-foreground: 221 83% 33%;   /* blue-800 */
+
+    /* Destructive = red-600. */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;              /* slate-200 hairlines */
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;                /* blue focus ring */
+    --radius: 0.5rem;
+
+    /* ---- Domain-semantic tokens (consumed via tailwind with <alpha-value>) ---- */
+    --ink: 222 47% 11%;          /* structural ink-slate — the sidebar / chrome */
+    --ink-foreground: 210 40% 96%;
+    --settled: 152 69% 31%;      /* cleared / low risk — emerald (success) */
+    --pending: 32 95% 44%;       /* under review / medium — amber-600 (darkened for small-text contrast) */
+    --overdue: 0 72% 51%;        /* in the red / high — red-600 */
+    --review: 215 28% 45%;       /* awaiting review — slate (distinct 4th lifecycle hue) */
+    --ledger: 214 32% 91%;       /* hairline ruling */
+  }
+
+  .dark {
+    /* Neutral BLACK canvas. Every surface is grayscale (0% saturation) so the
+       theme reads as black/charcoal, not navy. Blue survives only as the action
+       accent (--primary / --ring) on top of the neutral surfaces. Status hues
+       stay for traffic-light semantics. */
+    --background: 0 0% 4%;              /* near-black #0a0a0a */
+    --foreground: 0 0% 96%;
+    --card: 0 0% 7%;                    /* #121212 raised surface */
+    --card-foreground: 0 0% 96%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 217 91% 60%;             /* blue-500 — the single action accent */
+    --primary-foreground: 0 0% 100%;    /* white label on the blue action button (was near-black → unreadable) */
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 0 0% 18%;                 /* neutral hover/active wash (was blue) */
+    --accent-foreground: 0 0% 96%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 17%;
+    --input: 0 0% 17%;
+    --ring: 217 91% 60%;
+
+    --ink: 0 0% 3%;                     /* deepest chrome */
+    --ink-foreground: 0 0% 96%;
+    --settled: 152 60% 50%;
+    --pending: 38 92% 58%;
+    --overdue: 0 84% 65%;
+    --review: 0 0% 65%;                /* neutralized (was blue-slate) */
+    --ledger: 0 0% 17%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: 14px;            /* corporate base density (font.size.base) */
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Blue text selection — the brand action color. */
+  ::selection {
+    background: hsl(var(--primary) / 0.22);
+  }
+
+  /* Theme-aware ledger scrollbars. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.35) transparent;
+  }
+  *::-webkit-scrollbar { width: 10px; height: 10px; }
+  *::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  *::-webkit-scrollbar-thumb:hover { background-color: hsl(var(--muted-foreground) / 0.5); }
+  *::-webkit-scrollbar-track { background: transparent; }
+
+  /* Tabular numerals everywhere monospace data appears — columns must align. */
+  .font-mono { font-variant-numeric: tabular-nums; }
+}
+
+@layer utilities {
+  /* Hairline ledger ruling — used behind the clearing strip and empty states. */
+  .ledger-rule {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 31px,
+      hsl(var(--ledger) / 0.6) 31px,
+      hsl(var(--ledger) / 0.6) 32px
+    );
+  }
+
+  /* Faint hairline GRID (horizontal + vertical) for marketing-page backgrounds.
+     Theme-aware via --ledger; meant to sit BEHIND content (low z-index). */
+  .grid-bg {
+    background-image:
+      repeating-linear-gradient(
+        to right,
+        hsl(var(--ledger) / 0.55) 0,
+        hsl(var(--ledger) / 0.55) 1px,
+        transparent 1px,
+        transparent 48px
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        hsl(var(--ledger) / 0.55) 0,
+        hsl(var(--ledger) / 0.55) 1px,
+        transparent 1px,
+        transparent 48px
+      );
+  }
+
+  /* Brand gradient: ink-slate -> corporate blue. */
+  .gradient-bg {
+    background: linear-gradient(135deg, hsl(222 47% 13%) 0%, hsl(221 83% 45%) 100%);
+  }
+  .gradient-text {
+    background: linear-gradient(120deg, hsl(var(--foreground)) 0%, hsl(221 83% 53%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Horizontal grow for the reconciliation bar. Rest state = fully grown, so
+     if the animation never runs the segment is still visible at full width. */
+  .animate-grow-x {
+    transform-origin: left;
+    animation: grow-x 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes grow-x {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}
+
+/* Respect the OS reduced-motion preference — finance users on long sessions. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,16 @@
+# MkDocs build output (the public docs site is generated from docs/ + mkdocs.yml)
+/site/
+
+# Claude Code local settings
+.claude/
+
+# Frontend build output
+Frontend/dist/
+
+# Internal project docs (not for submission)
+AUDIT_GAP_ANALYSIS.md
+PHASE2_INTEGRATIONS_DESIGN.md
+PRODUCTION_READINESS_REVIEW.md
+PROJECT_OVERVIEW.md
+DEMO_GUIDE.md
+mkdocs.yml
