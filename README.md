@@ -86,7 +86,7 @@ for invoice in result.get("priority_queue", []):
 ### Run the Demo
 
 ```bash
-python demo/demo.py
+python python/agents/invoice-processing/run_queue_cli.py --file python/agents/invoice-processing/invoice_processing/exemplary_data/exception_queue/exception_queue.csv --debug
 ```
 
 ---
@@ -157,6 +157,8 @@ python python/agents/invoice-processing/run_queue_cli.py --file python/agents/in
 ---
 
 ## Running Tests
+
+```bash
 python python/agents/invoice-processing/test_exception_queue.py
 ```
 
@@ -175,8 +177,8 @@ python python/agents/invoice-processing/test_exception_queue.py
 
 | Name | GitHub | Role |
 |------|--------|------|
-| Rohan Walia |https://github.com/rohanwalia1 | Backend Developer |
-| Pawandeep Singh |https://github.com/pawandeepsingh1 | Frontend Developer |
+| Rohan Walia | [@rohanwalia1](https://github.com/rohanwalia1) | Backend Developer |
+| Pawandeep Singh | [@pawandeepsingh1](https://github.com/pawandeepsingh1) | Frontend Developer |
 
 Built during the **AuxiLab Founding Hackathon** by [Auxiliobits Technologies](https://auxiliobits.com).
 
