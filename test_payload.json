@@ -1,0 +1,9 @@
+{
+  "invoice_no": "INV-1029",
+  "amount": 45000,
+  "supplier": "Amazon Ads",
+  "payment_vendor": "Wire Transfer",
+  "exception_type": "Missing PO",
+  "exception_description": "P-ID (Purchase Order) is missing from the invoice.",
+  "days_outstanding": 0
+}

@@ -1,0 +1,252 @@
+[
+    {
+        "invoice_id": "INV-1784",
+        "vendor_name": "Acme Corp",
+        "invoice_amount": 4171.85,
+        "po_number": "PO-23067",
+        "exception_type_raw": "Unapproved Vendor",
+        "exception_description": "New vendor, needs onboarding approval.",
+        "days_outstanding": 15,
+        "approver_assigned": "jane.smith@company.com"
+    },
+    {
+        "invoice_id": "INV-6847",
+        "vendor_name": "Global Supplies",
+        "invoice_amount": 4012.13,
+        "po_number": "PO-74611",
+        "exception_type_raw": "Duplicate",
+        "exception_description": "Invoice number seems identical to a previously submitted invoice.",
+        "days_outstanding": 73,
+        "approver_assigned": "finance@company.com"
+    },
+    {
+        "invoice_id": "INV-2728",
+        "vendor_name": "Unknown Vendor LLC",
+        "invoice_amount": 859.46,
+        "po_number": "PO-57299",
+        "exception_type_raw": "Other",
+        "exception_description": "Currency mismatch.",
+        "days_outstanding": 42,
+        "approver_assigned": "jane.smith@company.com"
+    },
+    {
+        "invoice_id": "INV-8190",
+        "vendor_name": "Tech Solutions Inc",
+        "invoice_amount": 2047.81,
+        "po_number": "PO-40099",
+        "exception_type_raw": "Duplicate",
+        "exception_description": "Invoice number seems identical to a previously submitted invoice.",
+        "days_outstanding": 3,
+        "approver_assigned": "jane.smith@company.com"
+    },
+    {
+        "invoice_id": "INV-7335",
+        "vendor_name": "Unknown Vendor LLC",
+        "invoice_amount": 2545.71,
+        "po_number": null,
+        "exception_type_raw": "GRN Not Received",
+        "exception_description": "Items not marked as received by warehouse.",
+        "days_outstanding": 7,
+        "approver_assigned": "finance@company.com"
+    },
+    {
+        "invoice_id": "INV-2393",
+        "vendor_name": "Office Depot",
+        "invoice_amount": 4800.91,
+        "po_number": null,
+        "exception_type_raw": "Missing PO",
+        "exception_description": "PO number is blank or illegible.",
+        "days_outstanding": 63,
+        "approver_assigned": "finance@company.com"
+    },
+    {
+        "invoice_id": "INV-9162",
+        "vendor_name": "Unknown Vendor LLC",
+        "invoice_amount": 4310.93,
+        "po_number": "PO-81598",
+        "exception_type_raw": "Duplicate",
+        "exception_description": "Potential duplicate billing for last month's services.",
+        "days_outstanding": 17,
+        "approver_assigned": "finance@company.com"
+    },
+    {
+        "invoice_id": "INV-1214",
+        "vendor_name": "Unknown Vendor LLC",
+        "invoice_amount": 2023.88,
+        "po_number": "PO-85074",
+        "exception_type_raw": "Duplicate",
+        "exception_description": "Potential duplicate billing for last month's services.",
+        "days_outstanding": 11,
+        "approver_assigned": "finance@company.com"
+    },
+    {
+        "invoice_id": "INV-8692",
+        "vendor_name": "Tech Solutions Inc",
+        "invoice_amount": 1611.34,
+        "po_number": "PO-79020",
+        "exception_type_raw": "Other",
+        "exception_description": "Incorrect billing address.",
+        "days_outstanding": 64,
+        "approver_assigned": "manager@company.com"
+    },
+    {
+        "invoice_id": "INV-4381",
+        "vendor_name": "Logistics Pros",
+        "invoice_amount": 4581.72,
+        "po_number": "PO-95724",
+        "exception_type_raw": "Unapproved Vendor",
+        "exception_description": "New vendor, needs onboarding approval.",
+        "days_outstanding": 78,
+        "approver_assigned": "jane.smith@company.com"
+    },
+    {
+        "invoice_id": "INV-5530",
+        "vendor_name": "Acme Corp",
+        "invoice_amount": 4758.96,
+        "po_number": "PO-63329",
+        "exception_type_raw": "GRN Not Received",
+        "exception_description": "Items not marked as received by warehouse.",
+        "days_outstanding": 88,
+        "approver_assigned": "finance@company.com"
+    },
+    {
+        "invoice_id": "INV-8922",
+        "vendor_name": "Global Supplies",
+        "invoice_amount": 3819.69,
+        "po_number": "PO-35946",
+        "exception_type_raw": "Duplicate",
+        "exception_description": "Invoice number seems identical to a previously submitted invoice.",
+        "days_outstanding": 48,
+        "approver_assigned": "finance@company.com"
+    },
+    {
+        "invoice_id": "INV-1027",
+        "vendor_name": "Office Depot",
+        "invoice_amount": 3304.47,
+        "po_number": "PO-18599",
+        "exception_type_raw": "Price Variance",
+        "exception_description": "Major price discrepancy, billed $500 more.",
+        "days_outstanding": 70,
+        "approver_assigned": "jane.smith@company.com"
+    },
+    {
+        "invoice_id": "INV-8355",
+        "vendor_name": "Tech Solutions Inc",
+        "invoice_amount": 2037.94,
+        "po_number": "PO-75403",
+        "exception_type_raw": "Price Variance",
+        "exception_description": "Invoice price is 10% higher than PO due to raw material costs.",
+        "days_outstanding": 9,
+        "approver_assigned": "finance@company.com"
+    },
+    {
+        "invoice_id": "INV-5173",
+        "vendor_name": "Office Depot",
+        "invoice_amount": 1396.79,
+        "po_number": "PO-14368",
+        "exception_type_raw": "Duplicate",
+        "exception_description": "Potential duplicate billing for last month's services.",
+        "days_outstanding": 73,
+        "approver_assigned": "finance@company.com"
+    },
+    {
+        "invoice_id": "INV-6090",
+        "vendor_name": "Global Supplies",
+        "invoice_amount": 3516.58,
+        "po_number": "PO-54406",
+        "exception_type_raw": "Other",
+        "exception_description": "Tax calculation error.",
+        "days_outstanding": 5,
+        "approver_assigned": "jane.smith@company.com"
+    },
+    {
+        "invoice_id": "INV-8534",
+        "vendor_name": "Acme Corp",
+        "invoice_amount": 2914.37,
+        "po_number": null,
+        "exception_type_raw": "Missing PO",
+        "exception_description": "No PO referenced on the invoice.",
+        "days_outstanding": 79,
+        "approver_assigned": "manager@company.com"
+    },
+    {
+        "invoice_id": "INV-4839",
+        "vendor_name": "Tech Solutions Inc",
+        "invoice_amount": 1115.74,
+        "po_number": "PO-62965",
+        "exception_type_raw": "Price Variance",
+        "exception_description": "Invoice price is 10% higher than PO due to raw material costs.",
+        "days_outstanding": 3,
+        "approver_assigned": "finance@company.com"
+    },
+    {
+        "invoice_id": "INV-3933",
+        "vendor_name": "Logistics Pros",
+        "invoice_amount": 3418.23,
+        "po_number": null,
+        "exception_type_raw": "Missing PO",
+        "exception_description": "PO number is blank or illegible.",
+        "days_outstanding": 57,
+        "approver_assigned": "jane.smith@company.com"
+    },
+    {
+        "invoice_id": "INV-6785",
+        "vendor_name": "Global Supplies",
+        "invoice_amount": 3725.99,
+        "po_number": "PO-63889",
+        "exception_type_raw": "Other",
+        "exception_description": "Currency mismatch.",
+        "days_outstanding": 74,
+        "approver_assigned": "finance@company.com"
+    },
+    {
+        "invoice_id": "INV-1979",
+        "vendor_name": "Office Depot",
+        "invoice_amount": 4573.98,
+        "po_number": "PO-15020",
+        "exception_type_raw": "Duplicate",
+        "exception_description": "Invoice number seems identical to a previously submitted invoice.",
+        "days_outstanding": 44,
+        "approver_assigned": "john.doe@company.com"
+    },
+    {
+        "invoice_id": "INV-6763",
+        "vendor_name": "Unknown Vendor LLC",
+        "invoice_amount": 3297.89,
+        "po_number": "PO-32618",
+        "exception_type_raw": "Quantity Mismatch",
+        "exception_description": "Over-delivered by 10 units.",
+        "days_outstanding": 80,
+        "approver_assigned": "john.doe@company.com"
+    },
+    {
+        "invoice_id": "INV-2245",
+        "vendor_name": "Unknown Vendor LLC",
+        "invoice_amount": 908.18,
+        "po_number": "PO-62387",
+        "exception_type_raw": "Price Variance",
+        "exception_description": "Invoice price is 1% higher than PO.",
+        "days_outstanding": 32,
+        "approver_assigned": "jane.smith@company.com"
+    },
+    {
+        "invoice_id": "INV-4227",
+        "vendor_name": "Acme Corp",
+        "invoice_amount": 1006.11,
+        "po_number": "PO-20702",
+        "exception_type_raw": "Quantity Mismatch",
+        "exception_description": "Billed for 50 items, but PO only says 40.",
+        "days_outstanding": 16,
+        "approver_assigned": "john.doe@company.com"
+    },
+    {
+        "invoice_id": "INV-8779",
+        "vendor_name": "Logistics Pros",
+        "invoice_amount": 3063.6,
+        "po_number": "PO-11287",
+        "exception_type_raw": "Duplicate",
+        "exception_description": "Potential duplicate billing for last month's services.",
+        "days_outstanding": 71,
+        "approver_assigned": "john.doe@company.com"
+    }
+]
