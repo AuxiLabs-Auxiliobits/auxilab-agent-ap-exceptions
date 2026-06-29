@@ -29,7 +29,6 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ConsolePreview } from '@/components/marketing/ConsolePreview';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
@@ -1254,4 +1253,3 @@ function SiteFooter({ goTo }: { goTo: (id: string) => () => void }) {
     </footer>
   );
 }
-
