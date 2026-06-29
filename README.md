@@ -11,30 +11,131 @@
 <!-- TODO: Replace this section with a clear 2-3 sentence description of what the tool does,
      what problem it solves, and who would use it. -->
 
-auxilab-agent-ap-exceptions is a production-grade, AI-powered Accounts Payable Exception Handling agent built on Google Agent Development Kit (ADK). It automates the full lifecycle of invoice exception management — from ingesting a raw exception queue to generating resolution-ready outputs — using a multi-layer agentic pipeline.
+````markdown
+# auxilab-agent-ap-exceptions
 
-The agent operates in two modes:
+**auxilab-agent-ap-exceptions** is a production-grade, AI-powered **Accounts Payable (AP) Exception Handling** agent built using the **Google Agent Development Kit (ADK)**. It automates the complete invoice exception management lifecycle—from processing raw exception queues to generating resolution-ready outputs—through a robust multi-agent pipeline.
 
-Inference Mode — Fully autonomous end-to-end processing: ingests a batch exception CSV queue, classifies each invoice anomaly by root cause, assigns a human-readable resolution path, prioritizes exceptions by financial risk, and auto-resolves cases where ALF correction rules apply.
+The system combines deterministic validation, AI reasoning, and human oversight to deliver accurate, auditable, and scalable exception handling for enterprise AP operations.
 
-Learning Mode — A human-in-the-loop SME interface where AP managers review rejected cases, propose new exception rules (with automatic safety and impact validation), and approve them into the live rule base for future autonomous resolution.
+---
 
-What the pipeline does for every invoice exception:
-Ingests the AP exception queue from CSV (exception_queue.csv) and cross-references against the ERP database (erp_database.json) for PO, GRN, vendor master, and payment history data.
+## Operating Modes
 
-Classifies root causes across categories: vendor mismatch, PO tolerance breach, duplicate invoice, missing work authorization (WAF), tax/GST calculation error, currency discrepancy, and more.
+### Inference Mode
 
-Validates through a 4-phase, 9-sub-agent acting pipeline (Classify → Extract → Phase 1–4 → Transform → Output → Audit).
+A fully autonomous, end-to-end processing pipeline that:
 
-Investigates outputs with a 3-layer critic agent (deterministic checks → LLM rule discovery with SHA-256 caching → per-group ultra-conservative validation).
+- Ingests batches of invoice exceptions from a CSV queue.
+- Classifies each invoice exception by its root cause.
+- Determines the appropriate resolution path.
+- Prioritizes exceptions based on financial risk.
+- Automatically resolves eligible cases using the Adaptive Learning Framework (ALF).
 
-Applies the Adaptive Learning Framework (ALF) to auto-correct cases that match approved exception rules — deterministically, without re-running the full pipeline.
+### Learning Mode
 
-Prioritizes remaining human exceptions by normalized risk score and assigns structured resolution paths.
+A human-in-the-loop workflow designed for Accounts Payable Subject Matter Experts (SMEs).
 
-Drafts vendor communication emails and internal escalation notes for every case requiring human intervention.
+In this mode, AP managers can:
 
-Logs a full audit trail of all decisions, rule matches, and corrections for financial compliance.
+- Review exceptions that could not be resolved automatically.
+- Propose new exception-handling rules.
+- Validate proposed rules using automated safety and impact analysis.
+- Approve validated rules into the production rule base, enabling future autonomous resolution.
+
+---
+
+## Pipeline Overview
+
+For every invoice exception, the agent performs the following steps:
+
+### Data Ingestion
+
+- Reads invoice exceptions from `exception_queue.csv`.
+- Cross-references each invoice against `erp_database.json`.
+- Retrieves supporting ERP information including:
+  - Purchase Orders (PO)
+  - Goods Receipt Notes (GRN)
+  - Vendor Master records
+  - Payment history
+
+### Root Cause Classification
+
+Identifies the underlying cause of each exception, including:
+
+- Vendor mismatch
+- PO tolerance breach
+- Duplicate invoice
+- Missing Work Authorization (WAF)
+- Tax/GST calculation errors
+- Currency discrepancies
+- Other Accounts Payable exception categories
+
+### Multi-Agent Processing Pipeline
+
+Each invoice passes through a structured 4-phase, 9-sub-agent pipeline:
+
+```text
+Classify
+    ↓
+Extract
+    ↓
+Phase 1
+    ↓
+Phase 2
+    ↓
+Phase 3
+    ↓
+Phase 4
+    ↓
+Transform
+    ↓
+Output
+    ↓
+Audit
+```
+
+### Multi-Layer Validation
+
+Every output is validated through a three-layer critic framework:
+
+1. Deterministic business-rule validation.
+2. LLM-based rule discovery with SHA-256 response caching.
+3. Ultra-conservative per-group validation to ensure financial accuracy and consistency.
+
+### Adaptive Learning Framework (ALF)
+
+The Adaptive Learning Framework (ALF) automatically applies previously approved exception-handling rules to eligible invoices. Matching cases are corrected deterministically without re-running the complete AI pipeline, improving throughput while maintaining consistency and auditability.
+
+### Risk Prioritization
+
+Exceptions requiring human intervention are:
+
+- Assigned a normalized financial risk score.
+- Ranked according to business impact.
+- Mapped to structured resolution paths for AP teams.
+
+### Automated Communication
+
+For exceptions requiring manual review, the agent automatically generates:
+
+- Vendor communication emails.
+- Internal escalation notes.
+- Resolution summaries.
+
+### Audit and Compliance
+
+Every decision made by the system is fully traceable through comprehensive audit logs, including:
+
+- Classification decisions.
+- Validation results.
+- Rule matches.
+- Automatic corrections.
+- Agent execution history.
+
+This provides complete transparency, regulatory compliance, and audit readiness for enterprise financial operations.
+````
+
 
 ---
 
