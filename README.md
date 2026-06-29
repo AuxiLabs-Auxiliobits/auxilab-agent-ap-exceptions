@@ -11,9 +11,6 @@
 <!-- TODO: Replace this section with a clear 2-3 sentence description of what the tool does,
      what problem it solves, and who would use it. -->
 
-````markdown
-# auxilab-agent-ap-exceptions
-
 **auxilab-agent-ap-exceptions** is a production-grade, AI-powered **Accounts Payable (AP) Exception Handling** agent built using the **Google Agent Development Kit (ADK)**. It automates the complete invoice exception management lifecycle—from processing raw exception queues to generating resolution-ready outputs—through a robust multi-agent pipeline.
 
 The system combines deterministic validation, AI reasoning, and human oversight to deliver accurate, auditable, and scalable exception handling for enterprise AP operations.
@@ -53,7 +50,7 @@ For every invoice exception, the agent performs the following steps:
 
 - Reads invoice exceptions from `exception_queue.csv`.
 - Cross-references each invoice against `erp_database.json`.
-- Retrieves supporting ERP information including:
+- Retrieves supporting ERP information, including:
   - Purchase Orders (PO)
   - Goods Receipt Notes (GRN)
   - Vendor Master records
@@ -127,17 +124,11 @@ For exceptions requiring manual review, the agent automatically generates:
 
 Every decision made by the system is fully traceable through comprehensive audit logs, including:
 
-- Classification decisions.
-- Validation results.
-- Rule matches.
-- Automatic corrections.
-- Agent execution history.
-
-This provides complete transparency, regulatory compliance, and audit readiness for enterprise financial operations.
-````
-
-
----
+- Classification decisions
+- Validation results
+- Rule matches
+- Automatic corrections
+- Agent execution history
 
 ## Tools / Capabilities
 
