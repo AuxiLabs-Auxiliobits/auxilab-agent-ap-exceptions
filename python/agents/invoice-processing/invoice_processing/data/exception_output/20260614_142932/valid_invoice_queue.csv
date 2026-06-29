@@ -1,5 +1,0 @@
-invoice_id,invoice_amount,decision_trace
-TC-001,10000.0,Evaluated VALID with confidence 1.00. | Calculated Priority Score: 50.0 from 1 evaluated exceptions (Raw: 105.0). | Payment blocked by VALID. | Escalation required by VALID. | Age Weight Applied: 30 points (invoice age = 44 days). | Assigned Priority Tier: MEDIUM
-TC-019,4200.0,Evaluated VALID with confidence 1.00. | Calculated Priority Score: 42.86 from 1 evaluated exceptions (Raw: 90.0). | Payment blocked by VALID. | Escalation required by VALID. | Age Weight Applied: 15 points (invoice age = 24 days). | Assigned Priority Tier: MEDIUM
-TC-021,9999.99,Evaluated VALID with confidence 1.00. | Calculated Priority Score: 42.86 from 1 evaluated exceptions (Raw: 90.0). | Payment blocked by VALID. | Escalation required by VALID. | Age Weight Applied: 15 points (invoice age = 23 days). | Assigned Priority Tier: MEDIUM
-TC-024,15000.0,Evaluated VALID with confidence 1.00. | Calculated Priority Score: 54.76 from 1 evaluated exceptions (Raw: 115.0). | Payment blocked by VALID. | Escalation required by VALID. | Age Weight Applied: 15 points (invoice age = 20 days). | Assigned Priority Tier: MEDIUM

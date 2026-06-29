@@ -1,2 +1,0 @@
-invoice_id,invoice_amount,priority_score,payment_blocked,escalation_required,auto_resolved,sla_hours,exceptions_summary
-101,4200.0,,True,False,True,24,Exact Duplicate Invoice

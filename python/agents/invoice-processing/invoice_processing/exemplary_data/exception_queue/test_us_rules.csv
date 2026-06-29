@@ -1,2 +1,0 @@
-invoice_number,vendor_name,vendor_tax_id,invoice_total_inc_tax,invoice_total_ex_tax,tax_amount,po_number,line_items
-INV-US-001,US Supplier,123456789,1000.00,1000.00,0.00,,[{"description": "Consulting", "amount": 1000.00}]

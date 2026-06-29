@@ -1,3 +1,0 @@
-InvoiceID,Supplier_Company,Total_Due,Purch_Order,Error_Category,Error_Detail,Days_Past_Due,Assigned_To
-SAP-9001,Acme Widgets,1050.00,PO-ABC-123,Price Variance,Total amount exceeds PO by $50.00,5,John Doe
-SAP-9002,Global Tech,95000.00,,Missing PO,No PO referenced on invoice.,15,Jane Smith
