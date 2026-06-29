@@ -11,22 +11,30 @@
 <!-- TODO: Replace this section with a clear 2-3 sentence description of what the tool does,
      what problem it solves, and who would use it. -->
 
-*auxilab-agent-ap-exceptions is a production-grade, AI-powered Accounts Payable Exception Handling agent built on Google Agent Development Kit (ADK). It automates the full lifecycle of invoice exception management — from ingesting a raw exception queue to generating resolution-ready outputs — using a multi-layer agentic pipeline.
+auxilab-agent-ap-exceptions is a production-grade, AI-powered Accounts Payable Exception Handling agent built on Google Agent Development Kit (ADK). It automates the full lifecycle of invoice exception management — from ingesting a raw exception queue to generating resolution-ready outputs — using a multi-layer agentic pipeline.
 
 The agent operates in two modes:
 
 Inference Mode — Fully autonomous end-to-end processing: ingests a batch exception CSV queue, classifies each invoice anomaly by root cause, assigns a human-readable resolution path, prioritizes exceptions by financial risk, and auto-resolves cases where ALF correction rules apply.
+
 Learning Mode — A human-in-the-loop SME interface where AP managers review rejected cases, propose new exception rules (with automatic safety and impact validation), and approve them into the live rule base for future autonomous resolution.
+
 What the pipeline does for every invoice exception:
 Ingests the AP exception queue from CSV (exception_queue.csv) and cross-references against the ERP database (erp_database.json) for PO, GRN, vendor master, and payment history data.
+
 Classifies root causes across categories: vendor mismatch, PO tolerance breach, duplicate invoice, missing work authorization (WAF), tax/GST calculation error, currency discrepancy, and more.
+
 Validates through a 4-phase, 9-sub-agent acting pipeline (Classify → Extract → Phase 1–4 → Transform → Output → Audit).
+
 Investigates outputs with a 3-layer critic agent (deterministic checks → LLM rule discovery with SHA-256 caching → per-group ultra-conservative validation).
+
 Applies the Adaptive Learning Framework (ALF) to auto-correct cases that match approved exception rules — deterministically, without re-running the full pipeline.
+
 Prioritizes remaining human exceptions by normalized risk score and assigns structured resolution paths.
+
 Drafts vendor communication emails and internal escalation notes for every case requiring human intervention.
+
 Logs a full audit trail of all decisions, rule matches, and corrections for financial compliance.
-*
 
 ---
 
