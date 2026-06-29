@@ -1,0 +1,19 @@
+Invoice: INV-2026-021
+Vendor: MongoDB Inc
+Type: internal_po_request
+Severity: Medium
+============================================================
+
+Hi Sarah,
+
+Hope you're having a good week.
+
+I'm reaching out about an urgent matter regarding invoice **INV-2026-021** from **MongoDB Inc** for **$4850.00**.
+
+This payment is currently on hold because it was submitted without an associated Purchase Order, which is a required step in our procurement process.
+
+To get this payment processed and avoid delays with the vendor, could you please raise a PO for this invoice? As per our SLA, this needs to be completed within the next 3 business days. We are unable to release the funds until we receive the approved PO.
+
+Please let me know if you have any questions.
+
+Thanks for your prompt attention to this

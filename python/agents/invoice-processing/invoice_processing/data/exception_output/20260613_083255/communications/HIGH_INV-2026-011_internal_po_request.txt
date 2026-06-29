@@ -1,0 +1,18 @@
+Invoice: INV-2026-011
+Vendor: Google Cloud
+Type: internal_po_request
+Severity: High
+============================================================
+
+Hi Maria,
+
+Hope you are well. I'm flagging an urgent invoice from Google Cloud that is currently on hold.
+
+Invoice ID: INV-2026-011
+Amount: $22,100.00
+
+Payment cannot be processed as there is no matching Purchase Order in our system. The invoice is now 19 days outstanding, and we need to resolve this to avoid any potential service disruption.
+
+Could you please prioritize raising a PO for this? As per AP policy, the PO must be raised within 3 business days to ensure timely payment.
+
+Please let me know if you have any questions. Thanks for your urgent attention to this matter.

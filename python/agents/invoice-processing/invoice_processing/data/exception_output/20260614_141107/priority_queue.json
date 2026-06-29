@@ -1,0 +1,695 @@
+[
+  {
+    "invoice_id": "FINAL-009",
+    "invoice_amount": 500000.0,
+    "invoice_age_days": 30,
+    "vendor_name": "Eta Consulting",
+    "invoice_number": "INV-9907",
+    "final_exception_list": [
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "Deterministic router detected missing required fields.",
+        "recommended_action": "",
+        "evidence_used": "Fields missing: currency",
+        "evidence_checked": "",
+        "missing_data": [],
+        "business_rule_triggered": "Phase 1 Master Rules",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The PO number on the invoice is invalid, possibly due to a typo or because it refers to a PO from a different system. It might also be a non-PO invoice incorrectly coded with a PO number.",
+        "recommended_action": "Contact the vendor to obtain a valid PO number or ask the business requestor if this should be processed as a non-PO invoice.",
+        "evidence_used": "Invoice `po_number` is 'PO-GHOST-000', which does not exist as a key in the ERP `purchase_orders` database.",
+        "evidence_checked": "Invoice data for invoice_id FINAL-007. ERP `purchase_orders` database keys.",
+        "missing_data": [],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice... does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "HIGH",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 100.0,
+    "raw_priority_score": 585.0,
+    "root_cause_categories": [
+      "Vendor Submission",
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "AP Manager",
+      "Procurement"
+    ],
+    "sla_hours": 4,
+    "decision_trace": [
+      "Evaluated Missing Required Data with confidence 1.00.",
+      "Critical Priority applied: Missing Required Data on High Value Invoice (>10k). SLA reduced to 4h.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 100.0 from 2 evaluated exceptions (Raw: 585.0).",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 15 points (invoice age = 30 days).",
+      "Assigned Priority Tier: HIGH"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for FINAL-009 regarding escalations."
+  },
+  {
+    "invoice_id": "upload_308f821d",
+    "invoice_amount": 10500.0,
+    "invoice_age_days": 44,
+    "vendor_name": "Acme Supplies Ltd",
+    "invoice_number": "INV-9902",
+    "final_exception_list": [
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice is dated in the future, which is not standard practice and may violate company policy. This could be a data entry error by the vendor.",
+        "recommended_action": "Reject the invoice and request the vendor to submit a corrected invoice with a current or past date.",
+        "evidence_used": "Invoice `invoice_date` is '2027-01-01', which is after the system `processing_date` of '2026-06-14'.",
+        "evidence_checked": "Invoice data for invoice_id FINAL-008. System `processing_date`.",
+        "missing_data": [],
+        "business_rule_triggered": "Future Date: The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "Deterministic router detected missing or blank PO number.",
+        "recommended_action": "",
+        "evidence_used": "Field missing: po_number",
+        "evidence_checked": "",
+        "missing_data": [],
+        "business_rule_triggered": "Phase 1 Master Rules",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "HIGH",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 95.24,
+    "raw_priority_score": 200.0,
+    "root_cause_categories": [
+      "Data Error",
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "AP Team",
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Future Date with confidence 1.00.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 95.24 from 2 evaluated exceptions (Raw: 200.0).",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 44 days).",
+      "Assigned Priority Tier: HIGH"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for upload_308f821d regarding escalations."
+  },
+  {
+    "invoice_id": "upload_d90bb037",
+    "invoice_amount": 250000.0,
+    "invoice_age_days": 44,
+    "vendor_name": "Shadow Corp",
+    "invoice_number": "INV-9903",
+    "final_exception_list": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 3 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "HIGH",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 95.24,
+    "raw_priority_score": 200.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 95.24 from 2 evaluated exceptions (Raw: 200.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Skipped routing for 'PO Not Found' \u2014 stop_further_checks active from (Exact Duplicate Invoice).",
+      "Age Weight Applied: 30 points (invoice age = 44 days).",
+      "Assigned Priority Tier: HIGH"
+    ],
+    "skipped_exceptions_trace": [
+      {
+        "skipped_rule": "PO Not Found",
+        "reason": "Routing blocked by stop_further_checks (Exact Duplicate Invoice)",
+        "confidence_if_evaluated": 1.0
+      }
+    ],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for upload_d90bb037 regarding escalations."
+  },
+  {
+    "invoice_id": "upload_af60e130",
+    "invoice_amount": 250000.0,
+    "invoice_age_days": 44,
+    "vendor_name": "Shadow Corp",
+    "invoice_number": "INV-9903",
+    "final_exception_list": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 3 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "HIGH",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 95.24,
+    "raw_priority_score": 200.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 95.24 from 2 evaluated exceptions (Raw: 200.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Skipped routing for 'PO Not Found' \u2014 stop_further_checks active from (Exact Duplicate Invoice).",
+      "Age Weight Applied: 30 points (invoice age = 44 days).",
+      "Assigned Priority Tier: HIGH"
+    ],
+    "skipped_exceptions_trace": [
+      {
+        "skipped_rule": "PO Not Found",
+        "reason": "Routing blocked by stop_further_checks (Exact Duplicate Invoice)",
+        "confidence_if_evaluated": 1.0
+      }
+    ],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for upload_af60e130 regarding escalations."
+  },
+  {
+    "invoice_id": "upload_b3691185",
+    "invoice_amount": 250000.0,
+    "invoice_age_days": 44,
+    "vendor_name": "Shadow Corp",
+    "invoice_number": "INV-9903",
+    "final_exception_list": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 3 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "HIGH",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 95.24,
+    "raw_priority_score": 200.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 95.24 from 2 evaluated exceptions (Raw: 200.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Skipped routing for 'PO Not Found' \u2014 stop_further_checks active from (Exact Duplicate Invoice).",
+      "Age Weight Applied: 30 points (invoice age = 44 days).",
+      "Assigned Priority Tier: HIGH"
+    ],
+    "skipped_exceptions_trace": [
+      {
+        "skipped_rule": "PO Not Found",
+        "reason": "Routing blocked by stop_further_checks (Exact Duplicate Invoice)",
+        "confidence_if_evaluated": 1.0
+      }
+    ],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for upload_b3691185 regarding escalations."
+  },
+  {
+    "invoice_id": "FINAL-001",
+    "invoice_amount": 10000.0,
+    "invoice_age_days": 44,
+    "vendor_name": "Acme Supplies Ltd",
+    "invoice_number": "INV-9901",
+    "final_exception_list": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 2 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 73.81,
+    "raw_priority_score": 155.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 73.81 from 1 evaluated exceptions (Raw: 155.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 44 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for FINAL-001 regarding escalations."
+  },
+  {
+    "invoice_id": "FINAL-002",
+    "invoice_amount": 10000.0,
+    "invoice_age_days": 44,
+    "vendor_name": "Acme Supplies Ltd",
+    "invoice_number": "INV-9901",
+    "final_exception_list": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 2 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 73.81,
+    "raw_priority_score": 155.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 73.81 from 1 evaluated exceptions (Raw: 155.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 44 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for FINAL-002 regarding escalations."
+  },
+  {
+    "invoice_id": "FINAL-004",
+    "invoice_amount": 10500.0,
+    "invoice_age_days": 44,
+    "vendor_name": "Acme Supplies Ltd",
+    "invoice_number": "INV-9902",
+    "final_exception_list": [
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The vendor has invoiced for an amount different from the agreed-upon PO price, possibly due to price changes, taxes, or shipping fees not included in the original PO.",
+        "recommended_action": "Contact the business requestor or vendor to understand the discrepancy between the invoice amount and the PO amount. A PO change order may be required.",
+        "evidence_used": "Invoice `invoice_amount` is 10500, but the `expected_amount` for PO-5011 in the ERP is 10000.0.",
+        "evidence_checked": "Invoice data for invoice_id FINAL-004. ERP `purchase_orders` record for PO-5011.",
+        "missing_data": [],
+        "business_rule_triggered": "Amount Exceeds Tolerance: Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 61.9,
+    "raw_priority_score": 130.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Calculated Priority Score: 61.9 from 1 evaluated exceptions (Raw: 130.0).",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Age Weight Applied: 30 points (invoice age = 44 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for FINAL-004 regarding escalations."
+  },
+  {
+    "invoice_id": "FINAL-005",
+    "invoice_amount": 250000.0,
+    "invoice_age_days": 44,
+    "vendor_name": "Shadow Corp",
+    "invoice_number": "INV-9903",
+    "final_exception_list": [
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The invoice may be from a subcontractor, a parent/subsidiary company not in the master file, or it could be a fraudulent invoice as the vendor name does not match the PO or the master vendor list.",
+        "recommended_action": "Reject invoice. Verify the correct vendor for PO-5011. If 'Shadow Corp' is a legitimate vendor, initiate the new vendor onboarding process.",
+        "evidence_used": "Invoice `vendor_name` is 'Shadow Corp', which is not in the ERP `vendor_master` list. The `vendor_name` on PO-5011 is 'Acme Supplies Ltd'.",
+        "evidence_checked": "Invoice data for invoice_id FINAL-005. ERP `vendor_master` list. ERP `purchase_orders` record for PO-5011.",
+        "missing_data": [],
+        "business_rule_triggered": "Vendor Mismatch: The vendor_name from the invoice is not in the ERP vendor_master list, OR the invoice vendor_name does not match the vendor_name associated with the PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 61.9,
+    "raw_priority_score": 130.0,
+    "root_cause_categories": [
+      "Vendor Master Data"
+    ],
+    "resolution_owners": [
+      "Vendor Master Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Vendor Mismatch with confidence 1.00.",
+      "Calculated Priority Score: 61.9 from 1 evaluated exceptions (Raw: 130.0).",
+      "Payment blocked by Vendor Mismatch.",
+      "Escalation required by Vendor Mismatch.",
+      "Age Weight Applied: 30 points (invoice age = 44 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for FINAL-005 regarding escalations."
+  },
+  {
+    "invoice_id": "FINAL-003",
+    "invoice_amount": 10000.0,
+    "invoice_age_days": 43,
+    "vendor_name": "Acme Supplies Ltd",
+    "invoice_number": "INV-9901",
+    "final_exception_list": [
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "Historical ERP lookup detected potential duplicate.",
+        "recommended_action": "Verify if this is a duplicate submission of a recently processed invoice.",
+        "evidence_used": "Matched historical invoice INV-9901 on vendor, PO, and amount within 7 days.",
+        "evidence_checked": "ERP historical_invoices",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification historical duplicate pass",
+        "confidence": 0.85
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 59.52,
+    "raw_priority_score": 125.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Potential Duplicate Invoice with confidence 0.85.",
+      "Evaluated Potential Duplicate Invoice with confidence 0.85.",
+      "Calculated Priority Score: 59.52 from 2 evaluated exceptions (Raw: 125.0).",
+      "Payment blocked by Potential Duplicate Invoice.",
+      "Escalation required by Potential Duplicate Invoice.",
+      "Payment blocked by Potential Duplicate Invoice.",
+      "Escalation required by Potential Duplicate Invoice.",
+      "Age Weight Applied: 30 points (invoice age = 43 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for FINAL-003 regarding escalations."
+  },
+  {
+    "invoice_id": "FINAL-006",
+    "invoice_amount": 7800.0,
+    "invoice_age_days": 35,
+    "vendor_name": "Gamma Logistics",
+    "invoice_number": "INV-9904",
+    "final_exception_list": [
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoiced amount is significantly higher than the PO amount. This, combined with the vendor mismatch, suggests a high risk of error or fraud.",
+        "recommended_action": "Place invoice on hold and investigate discrepancy with the business requestor. Do not pay due to high risk from multiple exceptions.",
+        "evidence_used": "Invoice `invoice_amount` is 250000, but the `expected_amount` for PO-5011 in the ERP is 10000.0.",
+        "evidence_checked": "Invoice data for invoice_id FINAL-005. ERP `purchase_orders` record for PO-5011.",
+        "missing_data": [],
+        "business_rule_triggered": "Amount Exceeds Tolerance: Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 50.0,
+    "raw_priority_score": 105.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Calculated Priority Score: 50.0 from 1 evaluated exceptions (Raw: 105.0).",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Age Weight Applied: 30 points (invoice age = 35 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for FINAL-006 regarding escalations."
+  },
+  {
+    "invoice_id": "FINAL-007",
+    "invoice_amount": 6600.0,
+    "invoice_age_days": 33,
+    "vendor_name": "BetaTech Corp",
+    "invoice_number": "INV-9905",
+    "final_exception_list": [
+      {
+        "primary_type": "Currency Mismatch",
+        "root_cause_hypothesis": "The vendor has invoiced in a different currency (GBP) than what was specified on the purchase order (USD). This could be an error or an unapproved change in terms.",
+        "recommended_action": "Contact vendor to request a corrected invoice in the currency specified on the PO (USD) or confirm if a PO amendment is required.",
+        "evidence_used": "Invoice `currency` is 'GBP'. ERP `purchase_orders` for PO-5004 has `expected_currency`: 'USD'.",
+        "evidence_checked": "Invoice data for invoice_id FINAL-006. ERP `purchase_orders` record for PO-5004.",
+        "missing_data": [],
+        "business_rule_triggered": "Currency Mismatch: The currency on the invoice does not match the expected_currency on the PO in the ERP database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 50.0,
+    "raw_priority_score": 105.0,
+    "root_cause_categories": [
+      "Finance Controls"
+    ],
+    "resolution_owners": [
+      "Finance Controls"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Currency Mismatch with confidence 1.00.",
+      "Calculated Priority Score: 50.0 from 1 evaluated exceptions (Raw: 105.0).",
+      "Payment blocked by Currency Mismatch.",
+      "Escalation required by Currency Mismatch.",
+      "Age Weight Applied: 30 points (invoice age = 33 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for FINAL-007 regarding escalations."
+  },
+  {
+    "invoice_id": "FINAL-008",
+    "invoice_amount": 17000.0,
+    "invoice_age_days": 0,
+    "vendor_name": "Theta Wholesale",
+    "invoice_number": "INV-9906",
+    "final_exception_list": [
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The goods or services for this PO have not been marked as received in the system. The invoice may have been sent before the goods were delivered or before the receiving department processed the paperwork.",
+        "recommended_action": "Place invoice on hold and contact the receiving department or business requestor to confirm if goods/services for PO-5004 have been received.",
+        "evidence_used": "Invoice `po_number` is 'PO-5004'. The ERP `grn_records` database has no entry for 'PO-5004'.",
+        "evidence_checked": "Invoice data for invoice_id FINAL-006. ERP `grn_records` database keys.",
+        "missing_data": [],
+        "business_rule_triggered": "GRN Not Received: A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 50.0,
+    "raw_priority_score": 105.0,
+    "root_cause_categories": [
+      "Receiving"
+    ],
+    "resolution_owners": [
+      "Receiving Team"
+    ],
+    "sla_hours": 72,
+    "decision_trace": [
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Calculated Priority Score: 50.0 from 1 evaluated exceptions (Raw: 105.0).",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Age Weight Applied: 5 points (invoice age = 0 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for FINAL-008 regarding escalations."
+  },
+  {
+    "invoice_id": "FINAL-010",
+    "invoice_amount": 22000.0,
+    "invoice_age_days": 0,
+    "vendor_name": "Zeta Manufacturing",
+    "invoice_number": "INV-9908",
+    "final_exception_list": [
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The goods or services for this PO have not been marked as received in the system. Payment should be blocked until receipt is confirmed.",
+        "recommended_action": "Place invoice on hold and follow up with the business owner of PO-5015 to confirm goods/services receipt and ensure the GRN is processed.",
+        "evidence_used": "Invoice `po_number` is 'PO-5015'. The ERP `grn_records` database has no entry for 'PO-5015'.",
+        "evidence_checked": "Invoice data for invoice_id FINAL-008. ERP `grn_records` database keys.",
+        "missing_data": [],
+        "business_rule_triggered": "GRN Not Received: A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 50.0,
+    "raw_priority_score": 105.0,
+    "root_cause_categories": [
+      "Receiving"
+    ],
+    "resolution_owners": [
+      "Receiving Team"
+    ],
+    "sla_hours": 72,
+    "decision_trace": [
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Calculated Priority Score: 50.0 from 1 evaluated exceptions (Raw: 105.0).",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Age Weight Applied: 5 points (invoice age = 0 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for FINAL-010 regarding escalations."
+  }
+]

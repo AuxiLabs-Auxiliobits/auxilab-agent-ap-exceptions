@@ -1,0 +1,15 @@
+Invoice: INV-2026-015
+Vendor: HP Enterprise
+Type: unapproved_vendor
+Severity: High
+============================================================
+
+Dear Procurement Team,
+
+We are writing to you regarding invoice INV-2026-015 for $2100.00 from HP Enterprise. We are unable to process this payment as the vendor name, "HP Enterprise," does not match an approved entity in our vendor master file. It appears to be a trading name rather than the registered legal entity.
+
+To ensure compliance, we require your assistance. Could you please investigate and either confirm the correct, registered vendor entity for payment or initiate the formal vendor onboarding process if this is a new supplier?
+
+Please be advised that payment for this invoice is blocked until the vendor has been verified and correctly set up in our system. The business approver for this invoice is Maria Lopez.
+
+Thank you for your prompt assistance in resolving this matter.

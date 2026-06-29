@@ -1,0 +1,23 @@
+{
+  "Invoice Processing": {
+    "Invoice Type": "Normal",
+    "Invoice Status": "Rejected",
+    "Invoice Source": "Email"
+  },
+  "Invoice Details": {
+    "Vendor Invoice": "INV-9903",
+    "Invoice Date": "2026-05-01",
+    "Invoice Total": "250,000.00",
+    "Pretax Total": "227,272.73",
+    "Tax Amount": "22,727.27",
+    "Currency": "USD"
+  },
+  "Vendor Information": {
+    "Vendor Name": "Shadow Corp",
+    "Tax ID": null
+  },
+  "Line Items": "[{\"line_number\": 1, \"item_code\": \"LABOUR\", \"description\": \"Consulting & Advisory Services\", \"quantity\": \"1.00\", \"unit_cost\": \"227,272.73\", \"line_cost\": \"227,272.73\", \"tax\": \"0.00\", \"tax_code\": null}]",
+  "Outcome Message": {
+    "Outcome Message": "Invoice rejected on 14/06/2026 18:47:45: Invoice addressed to different company"
+  }
+}

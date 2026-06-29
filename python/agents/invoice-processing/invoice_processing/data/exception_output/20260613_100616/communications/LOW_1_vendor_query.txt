@@ -1,0 +1,21 @@
+Invoice: 1
+Vendor: ABC Office Supplies
+Type: vendor_query
+Severity: Low
+============================================================
+
+Dear ABC Office Supplies,
+
+We are writing in reference to your invoice #1 for $1250.00, related to our purchase order PO-45001.
+
+We are currently unable to process this invoice for payment, as our records indicate that the goods for this order have not yet been received in our system.
+
+Could you please investigate the status of this delivery and provide us with a proof of delivery (POD)? If the items have not yet been dispatched, please advise on the expected delivery date.
+
+We kindly request a response within 5 business days to ensure timely resolution. Once we confirm receipt of the goods, we will proceed with payment processing.
+
+Thank you for your prompt attention to this matter.
+
+Kind regards,
+
+Accounts Payable Team

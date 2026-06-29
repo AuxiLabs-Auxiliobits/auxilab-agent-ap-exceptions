@@ -1,0 +1,315 @@
+[
+  {
+    "invoice_id": "5",
+    "invoice_amount": 11250.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The Purchase Order number 'PO-45005' provided on the invoice does not exist in the company's ERP system. This could be due to a data entry error on the invoice or the PO not being created/approved correctly.",
+        "recommended_action": "Contact the vendor to confirm the PO number. If the number is correct, escalate to the procurement team to investigate the missing PO record.",
+        "evidence_used": "Invoice `po_number`: 'PO-45005'. ERP `purchase_orders` database does not contain a record for 'PO-45005'.",
+        "evidence_checked": "Checked the `po_number` from the invoice against the keys in `ERP DATABASE CONTEXT.purchase_orders`. The existing POs are 'PO-45001', 'PO-45002', and 'PO-45003'.",
+        "missing_data": [],
+        "business_rule_triggered": "Purchase Order number from invoice does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor 'Staples Business Advantage' is not a registered or approved vendor in the ERP system. This may be a new vendor that needs to be onboarded or a typo in the vendor name on the invoice.",
+        "recommended_action": "Verify the vendor name for typos. If correct, initiate the new vendor onboarding process with the procurement team.",
+        "evidence_used": "Invoice `vendor_name`: 'Staples Business Advantage'. ERP `vendor_master` list does not contain this name.",
+        "evidence_checked": "Checked the `vendor_name` from the invoice against the list of names in `ERP DATABASE CONTEXT.vendor_master`.",
+        "missing_data": [],
+        "business_rule_triggered": "Vendor name from invoice is not in the ERP vendor_master list.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 175.0,
+    "root_cause_categories": [
+      "Procurement",
+      "Vendor Master Data"
+    ],
+    "resolution_owners": [
+      "Procurement",
+      "Vendor Master Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Assigned 1.00 confidence to PO Not Found based on evidence rules.",
+      "Payment blocked by rule for PO Not Found.",
+      "Escalation required by rule for PO Not Found.",
+      "Assigned High severity to PO Not Found.",
+      "Assigned 1.00 confidence to Vendor Mismatch based on evidence rules.",
+      "Payment blocked by rule for Vendor Mismatch.",
+      "Escalation required by rule for Vendor Mismatch.",
+      "Assigned Medium severity to Vendor Mismatch.",
+      "Calculated Priority Score: 175.0 (Sev: High, Amt: 11250.0, Age: 0, Excs: 2)."
+    ],
+    "communication_draft": "Drafted communication for 5 regarding escalations."
+  },
+  {
+    "invoice_id": "6",
+    "invoice_amount": 15000.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The Purchase Order number 'PO-99999' from the invoice does not exist in the ERP system. This could be due to a data entry error or the PO not being created before the invoice was issued.",
+        "recommended_action": "Contact the vendor or internal requestor to verify the correct PO number or request a valid PO be raised.",
+        "evidence_used": "The invoice cites `po_number`: 'PO-99999', but the keys in the `ERP.purchase_orders` database are 'PO-45001', 'PO-45002', and 'PO-45003'.",
+        "evidence_checked": "RAW INVOICE DATA.po_number, ERP DATABASE CONTEXT.purchase_orders",
+        "missing_data": [
+          "invoice.invoice_number",
+          "invoice.currency"
+        ],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice does not exist in the ERP purchase_orders database.",
+        "confidence": 0.2
+      },
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor 'HP Enterprise' is not an approved supplier in the ERP's vendor master data. The vendor may be new and require setup, or a different trading name was used.",
+        "recommended_action": "Forward the invoice to procurement to initiate the new vendor onboarding process or to confirm if an alternate name exists for this vendor.",
+        "evidence_used": "The invoice `vendor_name` 'HP Enterprise' is not present in the `ERP.vendor_master` list.",
+        "evidence_checked": "RAW INVOICE DATA.vendor_name, ERP DATABASE CONTEXT.vendor_master",
+        "missing_data": [
+          "invoice.invoice_number",
+          "invoice.currency"
+        ],
+        "business_rule_triggered": "Vendor Mismatch: Vendor name from invoice is not in the ERP vendor_master list.",
+        "confidence": 0.2
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 175.0,
+    "root_cause_categories": [
+      "Procurement",
+      "Vendor Master Data"
+    ],
+    "resolution_owners": [
+      "Procurement",
+      "Vendor Master Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Assigned 0.20 confidence to PO Not Found based on evidence rules.",
+      "Payment blocked by rule for PO Not Found.",
+      "Escalation required by rule for PO Not Found.",
+      "Assigned High severity to PO Not Found.",
+      "Assigned 0.20 confidence to Vendor Mismatch based on evidence rules.",
+      "Payment blocked by rule for Vendor Mismatch.",
+      "Escalation required by rule for Vendor Mismatch.",
+      "Assigned Medium severity to Vendor Mismatch.",
+      "Calculated Priority Score: 175.0 (Sev: High, Amt: 15000.0, Age: 0, Excs: 2)."
+    ],
+    "communication_draft": "Drafted communication for 6 regarding escalations."
+  },
+  {
+    "invoice_id": "2",
+    "invoice_amount": 4200.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The Purchase Order number 'PO-99999' from the invoice does not exist in the ERP system's purchase order database. This could be a data entry error on the invoice or the PO was never created.",
+        "recommended_action": "Contact the business requestor to validate the PO number or to have a PO created if one is required.",
+        "evidence_used": "The invoice lists 'po_number': 'PO-99999'. The ERP 'purchase_orders' database keys are ['PO-45001', 'PO-45002', 'PO-45003'], none of which match.",
+        "evidence_checked": "RAW INVOICE DATA.po_number, ERP DATABASE CONTEXT.purchase_orders",
+        "missing_data": [],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor name 'Dell Technologies' on the invoice is not an exact match to any vendor in the vendor master list. This may be a new vendor or a naming variation of an existing one like 'Dell Computers'.",
+        "recommended_action": "Verify if 'Dell Technologies' should be mapped to the existing 'Dell Computers' vendor or if a new vendor setup process is required.",
+        "evidence_used": "The invoice lists 'vendor_name': 'Dell Technologies'. The ERP 'vendor_master' list does not contain this name. The closest match is 'Dell Computers'.",
+        "evidence_checked": "RAW INVOICE DATA.vendor_name, ERP DATABASE CONTEXT.vendor_master",
+        "missing_data": [],
+        "business_rule_triggered": "Vendor Mismatch: Vendor name from invoice is not in the ERP vendor_master list.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 150.0,
+    "root_cause_categories": [
+      "Procurement",
+      "Vendor Master Data"
+    ],
+    "resolution_owners": [
+      "Procurement",
+      "Vendor Master Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Assigned 1.00 confidence to PO Not Found based on evidence rules.",
+      "Payment blocked by rule for PO Not Found.",
+      "Escalation required by rule for PO Not Found.",
+      "Assigned High severity to PO Not Found.",
+      "Assigned 1.00 confidence to Vendor Mismatch based on evidence rules.",
+      "Payment blocked by rule for Vendor Mismatch.",
+      "Escalation required by rule for Vendor Mismatch.",
+      "Assigned Medium severity to Vendor Mismatch.",
+      "Calculated Priority Score: 150.0 (Sev: High, Amt: 4200.0, Age: 0, Excs: 2)."
+    ],
+    "communication_draft": "Drafted communication for 2 regarding escalations."
+  },
+  {
+    "invoice_id": "4",
+    "invoice_amount": 3000.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The Purchase Order number provided on the invoice does not exist in the ERP system. This may be a data entry error on the invoice or the PO was never formally raised in the ERP.",
+        "recommended_action": "Contact the vendor or internal requester to confirm the correct PO number. If no PO exists, one may need to be created retrospectively per company policy.",
+        "evidence_used": "The invoice `po_number` is 'PO-45004'. The available keys in the `ERP.purchase_orders` database are ['PO-45001', 'PO-45002', 'PO-45003'], which does not include the number from the invoice.",
+        "evidence_checked": "RAW INVOICE DATA.po_number, ERP DATABASE CONTEXT.purchase_orders",
+        "missing_data": [],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor listed on the invoice is not a registered or approved vendor in the ERP's master data. The vendor may be new and has not completed the onboarding process.",
+        "recommended_action": "Forward the invoice to the vendor management or procurement team to initiate the new vendor setup process.",
+        "evidence_used": "The invoice `vendor_name` is 'Amazon Business LLC'. This name is not present in the `ERP.vendor_master` list which contains ['ABC Office Supplies', 'Tech Solutions Inc', 'Global Logistics Corp', 'Office Max', 'Dell Computers'].",
+        "evidence_checked": "RAW INVOICE DATA.vendor_name, ERP DATABASE CONTEXT.vendor_master",
+        "missing_data": [],
+        "business_rule_triggered": "Vendor Mismatch: Vendor name from invoice is not in the ERP vendor_master list.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 150.0,
+    "root_cause_categories": [
+      "Procurement",
+      "Vendor Master Data"
+    ],
+    "resolution_owners": [
+      "Procurement",
+      "Vendor Master Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Assigned 1.00 confidence to PO Not Found based on evidence rules.",
+      "Payment blocked by rule for PO Not Found.",
+      "Escalation required by rule for PO Not Found.",
+      "Assigned High severity to PO Not Found.",
+      "Assigned 1.00 confidence to Vendor Mismatch based on evidence rules.",
+      "Payment blocked by rule for Vendor Mismatch.",
+      "Escalation required by rule for Vendor Mismatch.",
+      "Assigned Medium severity to Vendor Mismatch.",
+      "Calculated Priority Score: 150.0 (Sev: High, Amt: 3000.0, Age: 0, Excs: 2)."
+    ],
+    "communication_draft": "Drafted communication for 4 regarding escalations."
+  },
+  {
+    "invoice_id": "1",
+    "invoice_amount": 1250.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The invoice was submitted for payment before the goods were physically received or before the receipt was logged in the ERP system. This is a timing mismatch between the vendor's billing cycle and the internal receiving process.",
+        "recommended_action": "Place invoice on hold and contact the receiving department to verify the delivery status of PO-45001. Do not process for payment until GRN is posted.",
+        "evidence_used": "The ERP `grn_records` for PO 'PO-45001' contains the value `\"received\": false`.",
+        "evidence_checked": "Cross-referenced `RAW INVOICE DATA.po_number` ('PO-45001') with the corresponding entry in `ERP DATABASE CONTEXT.grn_records`.",
+        "missing_data": [],
+        "business_rule_triggered": "An invoice associated with a Purchase Order cannot be paid until there is a corresponding Goods Received Note (GRN) confirming that the goods/services have been received.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Other",
+        "root_cause_hypothesis": "The submitted invoice data is incomplete, lacking a mandatory 'invoice_number' field. This prevents essential validation steps, such as checking for duplicate invoices.",
+        "recommended_action": "Return the invoice to the processing queue or sender to obtain the complete invoice document with a visible invoice number.",
+        "evidence_used": "The `RAW INVOICE DATA` object is missing the `invoice_number` field, which is defined as `\"required\": true` in the `PHASE 1 MASTER RULES.extraction_schemas.invoice.fields`.",
+        "evidence_checked": "The schema definition in `PHASE 1 MASTER RULES` was compared against the fields present in the `RAW INVOICE DATA`.",
+        "missing_data": [
+          "invoice_number"
+        ],
+        "business_rule_triggered": "Data integrity failure: a required field (`invoice_number`) for invoice processing is missing.",
+        "confidence": 0.2
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 85.0,
+    "root_cause_categories": [
+      "Receiving",
+      "Unknown"
+    ],
+    "resolution_owners": [
+      "Receiving Team",
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Assigned 1.00 confidence to GRN Not Received based on evidence rules.",
+      "Payment blocked by rule for GRN Not Received.",
+      "Escalation required by rule for GRN Not Received.",
+      "Assigned Medium severity to GRN Not Received.",
+      "Assigned 0.20 confidence to Other based on evidence rules.",
+      "Escalation required by rule for Other.",
+      "Assigned Medium severity to Other.",
+      "Calculated Priority Score: 85.0 (Sev: Medium, Amt: 1250.0, Age: 0, Excs: 2)."
+    ],
+    "communication_draft": "Drafted communication for 1 regarding escalations."
+  },
+  {
+    "invoice_id": "3",
+    "invoice_amount": 2500.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoiced amount is significantly higher than the approved purchase order amount. This may be due to a billing error or unapproved changes to the scope of supply.",
+        "recommended_action": "Contact the PO originator to validate the discrepancy or request a revised invoice from the vendor.",
+        "evidence_used": "The invoice `invoice_amount` is '2500.00', while the ERP `purchase_orders` database shows an `expected_amount` of '800.0' for PO-45003.",
+        "evidence_checked": "RAW INVOICE DATA.invoice_amount, ERP DATABASE CONTEXT.purchase_orders['PO-45003'].expected_amount",
+        "missing_data": [],
+        "business_rule_triggered": "Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor on the invoice does not match the vendor on the purchase order, and is also not an approved vendor in the master list. This suggests either an incorrect PO was quoted or a new, un-vetted vendor is submitting invoices.",
+        "recommended_action": "Route to the vendor master data team to verify and potentially onboard the new vendor, and confirm with the PO originator why the invoicing vendor differs from the PO.",
+        "evidence_used": "Invoice `vendor_name` is 'Amazon Business LLC', but the `vendor_name` on PO-45003 is 'Global Logistics Corp'. Furthermore, 'Amazon Business LLC' is not found in the ERP `vendor_master` list.",
+        "evidence_checked": "RAW INVOICE DATA.vendor_name, ERP DATABASE CONTEXT.purchase_orders['PO-45003'].vendor_name, ERP DATABASE CONTEXT.vendor_master",
+        "missing_data": [],
+        "business_rule_triggered": "Vendor name from invoice is not in the ERP vendor_master list.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 85.0,
+    "root_cause_categories": [
+      "Accounts Payable",
+      "Vendor Master Data"
+    ],
+    "resolution_owners": [
+      "AP Manager",
+      "Vendor Master Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Assigned 1.00 confidence to Amount Exceeds Tolerance based on evidence rules.",
+      "Payment blocked by rule for Amount Exceeds Tolerance.",
+      "Escalation required by rule for Amount Exceeds Tolerance.",
+      "Assigned Medium severity to Amount Exceeds Tolerance.",
+      "Assigned 1.00 confidence to Vendor Mismatch based on evidence rules.",
+      "Payment blocked by rule for Vendor Mismatch.",
+      "Escalation required by rule for Vendor Mismatch.",
+      "Assigned Medium severity to Vendor Mismatch.",
+      "Calculated Priority Score: 85.0 (Sev: Medium, Amt: 2500.0, Age: 0, Excs: 2)."
+    ],
+    "communication_draft": "Drafted communication for 3 regarding escalations."
+  }
+]

@@ -1,0 +1,256 @@
+# AP Exception Resolution Rules
+# Governs the deterministic Resolution Router — no LLM involved.
+# All thresholds, SLAs, confidence rules, and routing paths are configured here.
+#
+# Version: 3.0.0
+# Domain: ap_exception_handling
+
+version: "3.0.0"
+domain: "ap_exception_handling"
+display_name: "AP Exception Handling"
+
+# ============================================================================
+# Priority Scoring Weights
+# Formula: severity_weight + amount_weight + age_weight + ((exception_count - 1) * additional_exception)
+# ============================================================================
+priority_scoring_weights:
+  severity:
+    Critical: 500
+    High: 100
+    Medium: 50
+    Low: 10
+  amount:
+    high_value: 50       # > $10,000
+    medium_value: 25     # $2,500 – $10,000
+    low_value: 10        # < $2,500
+  age:
+    over_30_days: 30     # 31+ days
+    over_7_days: 15      # 8–30 days
+    recent: 5            # 0–7 days
+  exception_count:
+    additional_exception: 20   # Per each exception beyond the first
+
+# ============================================================================
+# Confidence Scoring Rules
+# Assigned by Router based on evidence quality
+# ============================================================================
+confidence_scoring_rules:
+  exact_erp_match: 1.00
+  exact_duplicate_invoice_match: 1.00
+  exact_currency_mismatch: 1.00
+  fuzzy_vendor_match: 0.75
+  missing_reference_data: 0.20
+  unknown: 0.20
+
+# ============================================================================
+# Rule Dependencies
+# Declares which invoice fields must be non-blank before an exception
+# type may be evaluated. If any required field is missing, the exception
+# is skipped and a trace entry is recorded.
+# ============================================================================
+rule_dependencies:
+  "Currency Mismatch":
+    required_fields:
+      - currency
+      - po_number
+  "Amount Exceeds Tolerance":
+    required_fields:
+      - invoice_amount
+      - po_number
+  "GRN Not Received":
+    required_fields:
+      - po_number
+  "PO Not Found":
+    required_fields: []
+    blocks:
+      - "Potential Duplicate Invoice"
+      - "Currency Mismatch"
+      - "Amount Exceeds Tolerance"
+      - "GRN Not Received"
+  "Exact Duplicate Invoice":
+    required_fields:
+      - vendor_name
+      - invoice_number
+      - invoice_amount
+  "Potential Duplicate Invoice":
+    required_fields:
+      - vendor_name
+      - invoice_number
+      - invoice_amount
+  "Vendor Mismatch":
+    required_fields:
+      - vendor_name
+
+# ============================================================================
+# Exception Type Blocks
+# Maps directly to primary_type output by ExceptionClassifier
+#
+# Each rule includes:
+#   stop_further_checks: bool  — stops evaluation of remaining exceptions on invoice
+#   auto_resolvable: bool      — invoice can be resolved without human intervention
+# ============================================================================
+exception_rules:
+  "Exact Duplicate Invoice":
+    severity: "High"
+    block_payment: true
+    escalation_required: true
+    stop_further_checks: true
+    auto_resolvable: false
+    resolution_path: "hold_pending_investigation"
+    communication_required: true
+    communication_type: "duplicate_hold"
+    action_label: "Place on Hold — Investigate Exact Duplicate"
+    notify_role: "AP Manager"
+    root_cause_category: "Accounts Payable"
+    resolution_owner: "AP Manager"
+    sla_hours: 24
+
+  "Potential Duplicate Invoice":
+    severity: "Medium"
+    block_payment: true
+    escalation_required: true
+    stop_further_checks: false
+    auto_resolvable: false
+    resolution_path: "manual_review_required"
+    communication_required: true
+    communication_type: "duplicate_hold"
+    action_label: "Manual Review — Potential Duplicate or Revision"
+    notify_role: "AP Team"
+    root_cause_category: "Accounts Payable"
+    resolution_owner: "AP Team"
+    sla_hours: 48
+
+  "PO Not Found":
+    severity: "High"
+    block_payment: true
+    escalation_required: true
+    stop_further_checks: false
+    auto_resolvable: false
+    resolution_path: "request_po_from_requestor"
+    communication_required: true
+    communication_type: "internal_po_request"
+    action_label: "Request PO from Requestor"
+    notify_role: "Procurement"
+    root_cause_category: "Procurement"
+    resolution_owner: "Procurement"
+    sla_hours: 48
+
+  "GRN Not Received":
+    severity: "Medium"
+    block_payment: true
+    escalation_required: true
+    stop_further_checks: false
+    auto_resolvable: false
+    resolution_path: "hold_pending_grn"
+    communication_required: true
+    communication_type: "vendor_query"
+    action_label: "Hold — Awaiting Goods Receipt Note"
+    notify_role: "Receiving / Warehouse"
+    root_cause_category: "Receiving"
+    resolution_owner: "Receiving Team"
+    sla_hours: 72
+
+  "Vendor Mismatch":
+    severity: "Medium"
+    block_payment: true
+    escalation_required: true
+    stop_further_checks: false
+    auto_resolvable: false
+    resolution_path: "escalate_procurement"
+    communication_required: true
+    communication_type: "unapproved_vendor"
+    action_label: "Escalate to Procurement / Vendor Master"
+    notify_role: "Vendor Master Team"
+    root_cause_category: "Vendor Master Data"
+    resolution_owner: "Vendor Master Team"
+    sla_hours: 48
+
+  "Currency Mismatch":
+    severity: "Medium"
+    block_payment: true
+    escalation_required: true
+    stop_further_checks: false
+    auto_resolvable: false
+    resolution_path: "escalate_finance_controller"
+    communication_required: true
+    communication_type: "vendor_query"
+    action_label: "Escalate to Finance Controller for Currency Review"
+    notify_role: "Finance Controls"
+    root_cause_category: "Finance Controls"
+    resolution_owner: "Finance Controls"
+    sla_hours: 48
+
+  "Amount Exceeds Tolerance":
+    severity: "Medium"
+    block_payment: true
+    escalation_required: true
+    stop_further_checks: false
+    auto_resolvable: false
+    resolution_path: "escalate_finance_controller"
+    communication_required: true
+    communication_type: "vendor_query"
+    action_label: "Escalate to AP Manager"
+    notify_role: "AP Manager"
+    root_cause_category: "Accounts Payable"
+    resolution_owner: "AP Manager"
+    sla_hours: 48
+
+  "Future Date":
+    severity: "Medium"
+    block_payment: true
+    escalation_required: true
+    stop_further_checks: false
+    auto_resolvable: false
+    resolution_path: "escalate_future_date"
+    communication_required: false
+    communication_type: ""
+    action_label: "Hold — Future Dated Invoice"
+    notify_role: "AP Team"
+    root_cause_category: "Data Error"
+    resolution_owner: "AP Team"
+    sla_hours: 48
+
+  "Missing Required Data":
+    severity: "Medium"
+    block_payment: true
+    escalation_required: true
+    stop_further_checks: false
+    auto_resolvable: false
+    resolution_path: "escalate_ap_manager_missing_info"
+    communication_required: true
+    communication_type: "vendor_query"
+    action_label: "Escalate to AP Manager — Missing Data"
+    notify_role: "AP Manager"
+    root_cause_category: "Vendor Submission"
+    resolution_owner: "AP Manager"
+    sla_hours: 48
+
+  "Unknown":
+    severity: "Low"
+    block_payment: true
+    escalation_required: true
+    stop_further_checks: false
+    auto_resolvable: false
+    resolution_path: "auto_route_manual_review"
+    communication_required: false
+    communication_type: ""
+    action_label: "Auto-Route to Manual AP Review"
+    notify_role: "AP Team"
+    root_cause_category: "Data Quality"
+    resolution_owner: "AP Team"
+    sla_hours: 48
+
+  "Other":
+    severity: "Medium"
+    block_payment: true
+    escalation_required: true
+    stop_further_checks: false
+    auto_resolvable: false
+    resolution_path: "auto_route_manual_review"
+    communication_required: false
+    communication_type: ""
+    action_label: "Auto-Route to Manual AP Review"
+    notify_role: "AP Team"
+    root_cause_category: "Unknown"
+    resolution_owner: "AP Team"
+    sla_hours: 48

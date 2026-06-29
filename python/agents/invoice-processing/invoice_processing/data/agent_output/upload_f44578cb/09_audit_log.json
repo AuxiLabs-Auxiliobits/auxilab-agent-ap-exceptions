@@ -1,0 +1,28 @@
+{
+  "agent": "audit_logger",
+  "version": "1.0",
+  "timestamp": "2026-06-14T15:56:05.809220",
+  "input_refs": [],
+  "case_id": "upload_f44578cb",
+  "source_folder": "C:\\Users\\rohan.walia\\Desktop\\APInvoiceExceptionHandling\\python\\agents\\invoice-processing\\invoice_processing\\exemplary_data\\upload_f44578cb",
+  "output_folder": "C:\\Users\\rohan.walia\\Desktop\\APInvoiceExceptionHandling\\python\\agents\\invoice-processing\\invoice_processing\\data\\agent_output\\upload_f44578cb",
+  "processing_summary": {
+    "decision": "REJECT",
+    "processing_time_seconds": 41.64,
+    "total_llm_calls": 3,
+    "total_tokens": 2681,
+    "total_cost_usd": 0.00484
+  },
+  "artifacts": [
+    "01_classification.json",
+    "02_extraction.json",
+    "03_phase1_validation.json",
+    "04_phase2_validation.json",
+    "05_phase3_validation.json",
+    "06_phase4_validation.json",
+    "07_transformation.json",
+    "08_decision.json",
+    "09_audit_log.json",
+    "Postprocessing_Data.json"
+  ]
+}

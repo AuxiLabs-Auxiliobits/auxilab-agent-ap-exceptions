@@ -1,0 +1,16 @@
+{
+  "total_invoices": 6,
+  "escalations_required": 6,
+  "payments_blocked": 6,
+  "total_value_blocked": 37200.0,
+  "multi_exception_invoice_count": 6,
+  "average_priority_score": 136.67,
+  "exception_count_by_type": {
+    "Vendor Mismatch": 5,
+    "PO Not Found": 4,
+    "GRN Not Received": 1,
+    "Other": 1,
+    "Amount Exceeds Tolerance": 1
+  },
+  "communication_drafts_produced": 6
+}

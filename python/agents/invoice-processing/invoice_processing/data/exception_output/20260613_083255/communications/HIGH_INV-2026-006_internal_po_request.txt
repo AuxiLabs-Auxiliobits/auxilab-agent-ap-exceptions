@@ -1,0 +1,19 @@
+Invoice: INV-2026-006
+Vendor: Workday Inc
+Type: internal_po_request
+Severity: High
+============================================================
+
+Hi David,
+
+Hope you're well. This is a quick heads-up from the AP team.
+
+We are holding an invoice from Workday Inc (ID: INV-2026-006) for your $28,000 annual HR platform renewal. This invoice is now 31 days outstanding.
+
+Payment is on hold as there is no corresponding Purchase Order in the system. Could you please urgently raise a PO for this contract renewal?
+
+To avoid further payment delays to the vendor, we need the PO raised within the next 3 business days.
+
+Please let me know if you have any questions.
+
+Thanks for your prompt action on this

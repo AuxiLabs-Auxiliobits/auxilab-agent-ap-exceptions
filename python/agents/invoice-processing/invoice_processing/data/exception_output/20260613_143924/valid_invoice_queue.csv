@@ -1,0 +1,2 @@
+invoice_id,invoice_amount,decision_trace
+T2-002,7000.0,"Skipped Potential Duplicate Invoice due to PO Not Found dependency lock | Assigned 1.00 confidence to PO Not Found based on evidence rules. | Payment blocked by rule for PO Not Found. | Escalation required by rule for PO Not Found. | Assigned High severity to PO Not Found. | Calculated Priority Score: 73.81 (Raw: 155.0, Sev: High, Amt: 7000.0, Age: 497, Excs: 1). | Age Weight Applied: 30 points (invoice age = 497 days)."

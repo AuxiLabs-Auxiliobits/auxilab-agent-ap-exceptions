@@ -1,0 +1,21 @@
+Invoice: 1
+Vendor: ABC Office Supplies
+Type: vendor_query
+Severity: Medium
+============================================================
+
+Dear ABC Office Supplies,
+
+We are writing in reference to your invoice #1 for $1250.00, associated with our purchase order PO-45001.
+
+Our records indicate a discrepancy, as we have not yet registered a Goods Received Note (GRN) for this order. As per our internal process, payment cannot be released until we have confirmation that the goods have been received by our business.
+
+To resolve this, please provide us with a signed Proof of Delivery (POD) confirming the delivery of these items. If the goods have not yet been delivered, please issue a credit note for this invoice.
+
+We kindly request a response within 5 business days to avoid any further payment delays.
+
+Thank you for your prompt attention to this matter.
+
+Kind regards,
+
+Accounts Payable Team

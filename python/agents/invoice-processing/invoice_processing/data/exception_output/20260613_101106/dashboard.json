@@ -1,0 +1,17 @@
+{
+  "total_exceptions": 1,
+  "auto_resolvable_count": 0,
+  "escalations_required": 0,
+  "payments_blocked": 0,
+  "total_value_in_exception": 1250.0,
+  "total_value_blocked": 0.0,
+  "by_severity": {
+    "High": 0,
+    "Medium": 0,
+    "Low": 1
+  },
+  "by_type": {
+    "Other": 1
+  },
+  "communication_drafts_produced": 0
+}

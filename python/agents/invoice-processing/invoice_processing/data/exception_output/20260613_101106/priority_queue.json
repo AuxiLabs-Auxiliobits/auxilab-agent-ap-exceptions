@@ -1,0 +1,27 @@
+[
+  {
+    "invoice_id": "1",
+    "vendor_name": "ABC Office Supplies",
+    "invoice_amount": 1250.0,
+    "po_number": "PO-45001",
+    "raw_exception_type": "",
+    "exception_description": "",
+    "days_outstanding": 0,
+    "approver_assigned": "",
+    "primary_type": "Other",
+    "root_cause_hypothesis": "The system could not automatically classify the exception, likely due to a data ingestion or processing error where the specific reason for the flag was not captured. Manual review is required to determine the actual issue.",
+    "severity": "Low",
+    "confidence": 0.95,
+    "recommended_action": "Manually review the invoice against PO-45001 to identify the specific discrepancy and re-classify the exception.",
+    "classification_success": true,
+    "resolution_path": "manual_review_required",
+    "action_label": "Route to Manual AP Review",
+    "communication_required": false,
+    "communication_type": "",
+    "block_payment": false,
+    "notify_role": "",
+    "communication_draft": "",
+    "communication_success": true,
+    "auto_resolvable": false
+  }
+]

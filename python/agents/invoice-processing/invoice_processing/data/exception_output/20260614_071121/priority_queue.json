@@ -1,0 +1,43 @@
+[
+  {
+    "invoice_id": "T-001",
+    "invoice_amount": 10500.0,
+    "invoice_age_days": 590,
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The vendor has invoiced for an amount greater than what was agreed upon in the purchase order, possibly due to unapproved additional charges, taxes, or a price increase.",
+        "recommended_action": "Contact the business requestor or vendor to understand the $500 discrepancy and obtain approval or a revised invoice.",
+        "evidence_used": "Invoice 'invoice_amount' is '10500' USD. ERP purchase_orders database for 'PO-5001' shows an 'expected_amount' of 10000.0 USD.",
+        "evidence_checked": "RAW INVOICE DATA: { invoice_amount: '10500', po_number: 'PO-5001' }. ERP DATABASE CONTEXT: purchase_orders['PO-5001'].expected_amount: 10000.0.",
+        "missing_data": [],
+        "business_rule_triggered": "Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 61.9,
+    "raw_priority_score": 130.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Calculated Priority Score: 61.9 from 1 evaluated exceptions (Raw: 130.0).",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Age Weight Applied: 30 points (invoice age = 590 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for T-001 regarding escalations."
+  }
+]

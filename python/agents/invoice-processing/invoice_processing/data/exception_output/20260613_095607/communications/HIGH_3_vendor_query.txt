@@ -1,0 +1,21 @@
+Invoice: 3
+Vendor: Staples Business Advantage
+Type: vendor_query
+Severity: High
+============================================================
+
+Dear Staples Business Advantage,
+
+We are writing in reference to invoice 3 for the amount of $11250.00, associated with PO-45002.
+
+We are currently unable to process this invoice for payment as we have no internal record of the goods having been received.
+
+Could you please provide a signed Proof of Delivery (POD) for this order so that we can proceed with payment? If the goods have not yet been delivered, we request that you issue a credit note for the full invoice amount and re-invoice once the delivery is complete.
+
+Please provide the requested documentation or an update within the next 5 business days to avoid further delays.
+
+Thank you for your assistance.
+
+Kind regards,
+
+Accounts Payable Team

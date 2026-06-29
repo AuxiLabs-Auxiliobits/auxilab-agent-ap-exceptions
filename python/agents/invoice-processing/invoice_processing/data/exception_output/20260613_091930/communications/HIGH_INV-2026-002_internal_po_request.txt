@@ -1,0 +1,19 @@
+Invoice: INV-2026-002
+Vendor: Oracle Corporation
+Type: internal_po_request
+Severity: High
+============================================================
+
+Hi James,
+
+Hope you're having a good week.
+
+Heads-up from Accounts Payable: we've received an invoice from **Oracle Corporation (INV-2026-002)** for **$15,750.00** that requires your urgent attention.
+
+The payment is currently on hold as there is no Purchase Order number associated with it. To get this processed and paid, could you please raise a PO for this expense?
+
+As per internal policy, the PO must be raised within 3 business days to avoid further payment delays to the vendor. The invoice is already 7 days outstanding.
+
+Please send over the PO number once it's created. Let me know if you have any questions.
+
+Thanks for your help

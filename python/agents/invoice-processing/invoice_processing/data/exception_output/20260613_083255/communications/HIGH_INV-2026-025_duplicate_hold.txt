@@ -1,0 +1,11 @@
+Invoice: INV-2026-025
+Vendor: HashiCorp
+Type: duplicate_hold
+Severity: High
+============================================================
+
+Please be advised that invoice INV-2026-025 from HashiCorp for $3300.00 has been placed on hold.
+
+This action is due to a suspected duplicate submission. The invoice references the same services and billing period as invoice INV-2026-019, which is already in the payment queue.
+
+To prevent a duplicate payment, payment for INV-2026-025 is blocked. We will now investigate and contact the vendor for clarification. The AP Manager has been notified of this hold.

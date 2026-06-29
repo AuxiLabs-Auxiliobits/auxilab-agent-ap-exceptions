@@ -1,0 +1,17 @@
+{
+  "agent": "transformer",
+  "version": "1.0",
+  "timestamp": "2026-06-14T17:46:52.962826",
+  "input_refs": [
+    "02_extraction.json",
+    "06_phase4_validation.json"
+  ],
+  "currency": "AUD",
+  "tax_rate": 0.1,
+  "line_items_mapped": [],
+  "totals": {
+    "line_cost_total": 0,
+    "tax_total": 0,
+    "grand_total": 0
+  }
+}

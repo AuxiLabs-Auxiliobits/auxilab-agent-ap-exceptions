@@ -1,0 +1,13 @@
+Invoice: INV-2026-005
+Vendor: Adobe Systems
+Type: duplicate_hold
+Severity: High
+============================================================
+
+Payment for invoice INV-2026-005 from Adobe Systems ($980.00) has been placed on hold due to a suspected duplicate.
+
+The invoice details match a previously processed invoice, INV-2026-003, for the same vendor and amount within the last 30 days. This indicates a potential double-billing for the same service.
+
+AP will investigate and contact the vendor to verify the charge's validity. Payment is blocked until this issue is resolved.
+
+The AP Manager has been notified of this hold.
