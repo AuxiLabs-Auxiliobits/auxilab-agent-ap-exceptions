@@ -1,0 +1,1355 @@
+[
+  {
+    "invoice_id": "TST-006",
+    "invoice_amount": 15000.0,
+    "invoice_age_days": 479,
+    "vendor_name": "HP Enterprise",
+    "invoice_number": "INV-2002",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice date is set to a date in the future relative to the processing date, which is not permitted. This suggests a data entry error on the invoice.",
+        "recommended_action": "Reject the invoice and request the vendor to issue a corrected invoice with the proper date.",
+        "evidence_used": "Raw Invoice Data: {\"invoice_date\": \"2025-02-20\"}; Processing Date: \"2024-12-01\". The invoice_date is later than the processing_date.",
+        "evidence_checked": "The 'invoice_date' from the invoice was compared against the provided 'processing_date'.",
+        "missing_data": [],
+        "business_rule_triggered": "Future Date: The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The invoice was submitted without a Purchase Order number. This could be an error by the vendor or it may be a non-PO invoice that was incorrectly submitted.",
+        "recommended_action": "Contact the business requestor or vendor to obtain the correct PO number, or confirm if it is a non-PO invoice.",
+        "evidence_used": "Raw Invoice Data: {\"po_number\": \"\"}",
+        "evidence_checked": "The 'po_number' field in the Raw Invoice Data was checked and found to be blank.",
+        "missing_data": [],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice is blank, empty, or does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 95.24,
+    "raw_priority_score": 200.0,
+    "root_cause_categories": [
+      "Data Error",
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "AP Team",
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Future Date with confidence 1.00.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 95.24 from 2 evaluated exceptions (Raw: 200.0).",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 479 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-006 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-007",
+    "invoice_amount": 15000.0,
+    "invoice_age_days": 479,
+    "vendor_name": "HP Enterprise",
+    "invoice_number": "INV-2002",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice is dated in the future relative to the current processing date, which is against company policy. This could be a clerical error on the invoice or an attempt to pre-bill.",
+        "recommended_action": "Hold the invoice and process it on or after the invoice date. Alternatively, contact the vendor to confirm if the date is a mistake.",
+        "evidence_used": "The invoice_date '2025-02-20' is after the provided processing_date of '2024-12-01'.",
+        "evidence_checked": "Compared invoice `invoice_date` ('2025-02-20') against the `processing_date` ('2024-12-01').",
+        "missing_data": [],
+        "business_rule_triggered": "Future Date: The invoice_date is in the future compared to the provided processing_date. (Corresponds to Master Rule 3.3)",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The Purchase Order number provided on the invoice does not exist in the company's ERP system. This may be a data entry error on the invoice or an unapproved purchase.",
+        "recommended_action": "Contact the vendor or internal business unit to obtain a valid Purchase Order number for this invoice.",
+        "evidence_used": "Invoice po_number 'PO-77777' was cross-referenced with the ERP purchase_orders database, and no matching PO was found.",
+        "evidence_checked": "Checked invoice `po_number` ('PO-77777') against the keys of the ERP `purchase_orders` object. The PO was not present.",
+        "missing_data": [],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice is blank, empty, or does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 95.24,
+    "raw_priority_score": 200.0,
+    "root_cause_categories": [
+      "Data Error",
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "AP Team",
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Future Date with confidence 1.00.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 95.24 from 2 evaluated exceptions (Raw: 200.0).",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 479 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-007 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-004",
+    "invoice_amount": 4200.0,
+    "invoice_age_days": 484,
+    "vendor_name": "Dell Technologies",
+    "invoice_number": "DL-56789",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "An invoice with the same vendor, invoice number, and amount has already been processed or is in the system. This is likely a duplicate submission by the vendor.",
+        "recommended_action": "Reject the invoice as a duplicate and notify the vendor that it has already been processed.",
+        "evidence_used": "Incoming invoice has vendor_name 'Dell Technologies', invoice_number 'DL-56789', and invoice_amount '4200'. The ERP `historical_invoices` database contains a record with the same vendor_name, invoice_number, and an invoice_amount of 4200.0.",
+        "evidence_checked": "RAW INVOICE DATA: vendor_name, invoice_number, invoice_amount; ERP DATABASE CONTEXT: historical_invoices",
+        "missing_data": [],
+        "business_rule_triggered": "The exact same vendor_name AND invoice_number AND invoice_amount exist in the ERP historical_invoices.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor name on the invoice does not match the vendor associated with the purchase order in the ERP system. This may indicate the invoice was incorrectly assigned to this PO, or the PO was created for the wrong vendor.",
+        "recommended_action": "Verify the correct PO for this vendor and invoice, or investigate why PO-88888 has a different vendor listed.",
+        "evidence_used": "The invoice `vendor_name` is 'Dell Technologies', but the ERP `purchase_orders` database entry for `PO-88888` lists the vendor as 'Wrong Vendor Inc'.",
+        "evidence_checked": "RAW INVOICE DATA: vendor_name; ERP DATABASE CONTEXT: purchase_orders['PO-88888'].vendor_name",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice vendor_name does not match the vendor_name associated with the PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoiced amount is significantly different from the amount approved on the purchase order. This could be due to a partial shipment, a pricing error, or the invoice referencing the wrong PO.",
+        "recommended_action": "Contact the vendor and/or the internal requestor to clarify the discrepancy between the invoice amount and the PO amount.",
+        "evidence_used": "Invoice `invoice_amount` is '4200' while the ERP `purchase_orders` database for `PO-88888` shows `expected_amount` of '7000.0'.",
+        "evidence_checked": "RAW INVOICE DATA: invoice_amount; ERP DATABASE CONTEXT: purchase_orders['PO-88888'].expected_amount",
+        "missing_data": [],
+        "business_rule_triggered": "Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The goods or services for this PO may not have been received or the goods receipt note has not been created in the ERP system. This prevents verification that the invoiced items have been delivered.",
+        "recommended_action": "Check with the receiving department to confirm if goods/services for PO-88888 have been received and, if so, to process the GRN.",
+        "evidence_used": "The invoice references `po_number` 'PO-88888', but there is no corresponding record for this PO in the ERP `grn_records` database.",
+        "evidence_checked": "RAW INVOICE DATA: po_number; ERP DATABASE CONTEXT: grn_records keys",
+        "missing_data": [],
+        "business_rule_triggered": "A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice date is set to a date after the current processing date, which is not allowed. This is likely a data entry error on the invoice itself.",
+        "recommended_action": "Reject the invoice and request the vendor to provide a corrected invoice with a valid, non-future date.",
+        "evidence_used": "The `invoice_date` is '2025-02-15' which is after the system `processing_date` of '2024-12-01'.",
+        "evidence_checked": "RAW INVOICE DATA: invoice_date; PROCESSING DATE",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice_date is in the future compared to the provided processing_date. (Master Rule 3.3)",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 88.1,
+    "raw_priority_score": 185.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Evaluated Vendor Mismatch with confidence 1.00.",
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Evaluated Future Date with confidence 1.00.",
+      "Calculated Priority Score: 88.1 from 5 evaluated exceptions (Raw: 185.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Skipped routing for 'Vendor Mismatch' \u2014 stop_further_checks active from (Exact Duplicate Invoice).",
+      "Skipped routing for 'Amount Exceeds Tolerance' \u2014 stop_further_checks active from (Exact Duplicate Invoice).",
+      "Skipped routing for 'GRN Not Received' \u2014 stop_further_checks active from (Exact Duplicate Invoice).",
+      "Skipped routing for 'Future Date' \u2014 stop_further_checks active from (Exact Duplicate Invoice).",
+      "Age Weight Applied: 30 points (invoice age = 484 days)."
+    ],
+    "skipped_exceptions_trace": [
+      {
+        "skipped_rule": "Vendor Mismatch",
+        "reason": "Routing blocked by stop_further_checks (Exact Duplicate Invoice)",
+        "confidence_if_evaluated": 1.0
+      },
+      {
+        "skipped_rule": "Amount Exceeds Tolerance",
+        "reason": "Routing blocked by stop_further_checks (Exact Duplicate Invoice)",
+        "confidence_if_evaluated": 1.0
+      },
+      {
+        "skipped_rule": "GRN Not Received",
+        "reason": "Routing blocked by stop_further_checks (Exact Duplicate Invoice)",
+        "confidence_if_evaluated": 1.0
+      },
+      {
+        "skipped_rule": "Future Date",
+        "reason": "Routing blocked by stop_further_checks (Exact Duplicate Invoice)",
+        "confidence_if_evaluated": 1.0
+      }
+    ],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-004 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-013",
+    "invoice_amount": 99999.0,
+    "invoice_age_days": 1260,
+    "vendor_name": "Tech Solutions Inc",
+    "invoice_number": "INV-9999",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 2 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 85.71,
+    "raw_priority_score": 180.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 85.71 from 1 evaluated exceptions (Raw: 180.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 1260 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-013 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-014",
+    "invoice_amount": 99999.0,
+    "invoice_age_days": 1260,
+    "vendor_name": "Tech Solutions Inc",
+    "invoice_number": "INV-9999",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 2 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 85.71,
+    "raw_priority_score": 180.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 85.71 from 1 evaluated exceptions (Raw: 180.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 1260 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-014 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-003",
+    "invoice_amount": 8000.0,
+    "invoice_age_days": 520,
+    "vendor_name": "Tech Solutions Inc",
+    "invoice_number": "INV-1001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice is dated for a future period, which violates the business rule against processing invoices dated after the current processing date.",
+        "recommended_action": "Hold the invoice for processing until the invoice date is reached, or contact the vendor to issue a corrected, back-dated invoice.",
+        "evidence_used": "The invoice_date is '2025-01-10', which is after the provided processing_date of '2024-12-01'.",
+        "evidence_checked": "RAW INVOICE DATA -> invoice_date, PROCESSING DATE",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The Purchase Order number provided on the invoice does not exist in the company's ERP system, suggesting a data entry error by the vendor or an un-issued PO.",
+        "recommended_action": "Contact the vendor or internal business unit to obtain the correct PO number or to have a valid PO created.",
+        "evidence_used": "Invoice po_number is 'PO-90001', which does not exist as a key in the ERP purchase_orders database object.",
+        "evidence_checked": "RAW INVOICE DATA -> po_number, ERP DATABASE CONTEXT -> purchase_orders",
+        "missing_data": [],
+        "business_rule_triggered": "Purchase Order number from invoice is blank, empty, or does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 83.33,
+    "raw_priority_score": 175.0,
+    "root_cause_categories": [
+      "Data Error",
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "AP Team",
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Future Date with confidence 1.00.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 83.33 from 2 evaluated exceptions (Raw: 175.0).",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 520 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-003 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-020",
+    "invoice_amount": 7000.0,
+    "invoice_age_days": 470,
+    "vendor_name": "Tech Solutions Inc",
+    "invoice_number": "INV-7777",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice date is set in the future relative to the current processing date, which is not allowed and suggests a data entry error.",
+        "recommended_action": "Reject the invoice and request the vendor to resubmit with the correct date, or hold for processing until the invoice date is reached.",
+        "evidence_used": "The invoice `invoice_date` '2025-03-01' is later than the system's `processing_date` of '2024-12-01'.",
+        "evidence_checked": "Invoice invoice_date, processing_date",
+        "missing_data": [],
+        "business_rule_triggered": "Future Date: The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The purchase order number provided on the invoice is invalid or has been keyed incorrectly, as it does not exist in the ERP system's list of purchase orders.",
+        "recommended_action": "Contact the vendor or internal requisitioner to obtain a valid PO number or a PO exemption.",
+        "evidence_used": "The invoice provided PO number 'PO-77777', which was cross-referenced with the ERP `purchase_orders` database. No entry for 'PO-77777' was found.",
+        "evidence_checked": "Invoice po_number, ERP purchase_orders database keys",
+        "missing_data": [],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice is blank, empty, or does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 83.33,
+    "raw_priority_score": 175.0,
+    "root_cause_categories": [
+      "Data Error",
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "AP Team",
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Future Date with confidence 1.00.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 83.33 from 2 evaluated exceptions (Raw: 175.0).",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 470 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-020 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-010",
+    "invoice_amount": 1200.0,
+    "invoice_age_days": 466,
+    "vendor_name": "Unknown Vendor",
+    "invoice_number": "",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "Key information required for processing is absent from the invoice data, such as the invoice number and a valid vendor name. This is often due to poor quality source documents or data extraction failure.",
+        "recommended_action": "Review the original invoice document to manually extract the missing invoice number and vendor name. If not present on the document, contact the vendor for a complete invoice.",
+        "evidence_used": "The `invoice_number` field is empty (''), and the `vendor_name` field has a default 'Unknown Vendor' value. Both are designated as required fields in the master rules.",
+        "evidence_checked": "Invoice `invoice_number`, Invoice `vendor_name`, and `PHASE 1 MASTER RULES` (`extraction_schemas.invoice.fields`).",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice is missing a required non-PO field (e.g. invoice_number, vendor_name) or the field has a default 'UNKNOWN' value indicating missing data.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor name on the invoice is not a registered or approved vendor in the master data. The value 'Unknown Vendor' suggests data extraction may have failed to identify the correct vendor.",
+        "recommended_action": "Verify the correct vendor name from the invoice document. If the vendor is new, initiate the new vendor onboarding process. If an existing vendor, correct the invoice data.",
+        "evidence_used": "The invoice `vendor_name` 'Unknown Vendor' is not present in the ERP `vendor_master` list.",
+        "evidence_checked": "Invoice `vendor_name`, ERP `vendor_master` list.",
+        "missing_data": [],
+        "business_rule_triggered": "The vendor_name from the invoice is not in the ERP vendor_master list.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice date is later than the date it is being processed. This is not permissible as it suggests the invoice was issued for a future period or contains a data entry error.",
+        "recommended_action": "Return the invoice to the vendor and request a corrected invoice with the appropriate date. Investigate why a future-dated invoice was submitted.",
+        "evidence_used": "The invoice_date '2025-03-05' is after the system's processing_date '2024-12-01'.",
+        "evidence_checked": "Invoice `invoice_date`, ERP `processing_date`.",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The Purchase Order number provided on the invoice does not correspond to any existing PO in the ERP system. This could be a data entry error on the invoice or an invoice for work that was not properly authorized with a PO.",
+        "recommended_action": "Contact the vendor or internal business unit to obtain the correct PO number or have a PO created if one is required.",
+        "evidence_used": "Invoice `po_number` 'PO-11111' was searched for in the ERP `purchase_orders` database and no match was found.",
+        "evidence_checked": "ERP `purchase_orders` database keys.",
+        "missing_data": [],
+        "business_rule_triggered": "Purchase Order number from invoice is blank, empty, or does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 80.95,
+    "raw_priority_score": 170.0,
+    "root_cause_categories": [
+      "Vendor Submission",
+      "Vendor Master Data",
+      "Data Error",
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "AP Manager",
+      "Vendor Master Team",
+      "AP Team",
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Missing Required Data with confidence 1.00.",
+      "Evaluated Vendor Mismatch with confidence 1.00.",
+      "Evaluated Future Date with confidence 1.00.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 80.95 from 4 evaluated exceptions (Raw: 170.0).",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Payment blocked by Vendor Mismatch.",
+      "Escalation required by Vendor Mismatch.",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 466 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-010 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-001",
+    "invoice_amount": 5000.0,
+    "invoice_age_days": 520,
+    "vendor_name": "Tech Solutions Inc",
+    "invoice_number": "INV-1001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 2 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 73.81,
+    "raw_priority_score": 155.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 73.81 from 1 evaluated exceptions (Raw: 155.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 520 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-001 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-002",
+    "invoice_amount": 5000.0,
+    "invoice_age_days": 520,
+    "vendor_name": "Tech Solutions Inc",
+    "invoice_number": "INV-1001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 2 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 73.81,
+    "raw_priority_score": 155.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 73.81 from 1 evaluated exceptions (Raw: 155.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 520 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-002 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-008",
+    "invoice_amount": 800.0,
+    "invoice_age_days": 470,
+    "vendor_name": "Amazon Business LLC",
+    "invoice_number": "AMZ-7788",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 2 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 66.67,
+    "raw_priority_score": 140.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 66.67 from 1 evaluated exceptions (Raw: 140.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 470 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-008 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-009",
+    "invoice_amount": 800.0,
+    "invoice_age_days": 470,
+    "vendor_name": "Amazon Business LLC",
+    "invoice_number": "AMZ-7788",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 2 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 66.67,
+    "raw_priority_score": 140.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 66.67 from 1 evaluated exceptions (Raw: 140.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 470 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-009 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-016",
+    "invoice_amount": 0.0,
+    "invoice_age_days": 439,
+    "vendor_name": "HP Enterprise",
+    "invoice_number": "INV-3003",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 2 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 66.67,
+    "raw_priority_score": 140.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 66.67 from 1 evaluated exceptions (Raw: 140.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 439 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-016 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-017",
+    "invoice_amount": 0.0,
+    "invoice_age_days": 439,
+    "vendor_name": "HP Enterprise",
+    "invoice_number": "INV-3003",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 2 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 66.67,
+    "raw_priority_score": 140.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 66.67 from 1 evaluated exceptions (Raw: 140.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 439 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-017 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-019",
+    "invoice_amount": 7000.0,
+    "invoice_age_days": 470,
+    "vendor_name": "",
+    "invoice_number": "INV-5555",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "The invoice data is incomplete as the vendor name was not provided or failed to be extracted during OCR.",
+        "recommended_action": "Return invoice to sender or resubmit to OCR to capture the vendor name. The invoice cannot be processed without a valid vendor.",
+        "evidence_used": "The `vendor_name` field in the Raw Invoice Data is an empty string (''). The Phase 1 Master Rules `extraction_schemas.invoice.fields` defines `vendor_name` as a required field (`required: true`).",
+        "evidence_checked": "Raw Invoice Data, Phase 1 Master Rules",
+        "missing_data": [],
+        "business_rule_triggered": "Missing Required Data: The invoice is missing a required non-PO field (e.g. invoice_number, vendor_name, invoice_amount, currency).",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoiced amount is significantly higher than the amount approved on the Purchase Order, suggesting a potential billing error, unapproved charges, or incorrect PO reference.",
+        "recommended_action": "Contact the vendor and the business requester to clarify the large discrepancy between the invoice amount and the PO amount.",
+        "evidence_used": "The invoice `invoice_amount` is '7000', while the `expected_amount` for `PO-45003` in the ERP `purchase_orders` database is 800.0.",
+        "evidence_checked": "Raw Invoice Data, ERP purchase_orders database",
+        "missing_data": [],
+        "business_rule_triggered": "Amount Exceeds Tolerance: Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The goods or services for this Purchase Order have not been marked as received in the ERP system, which is a prerequisite for invoice payment.",
+        "recommended_action": "Follow up with the business requester to confirm receipt of goods/services and ensure a GRN is created in the ERP system.",
+        "evidence_used": "The invoice references `PO-45003`, but no corresponding Goods Receipt Note (GRN) entry for this PO exists in the `ERP.grn_records` database.",
+        "evidence_checked": "Raw Invoice Data, ERP grn_records database",
+        "missing_data": [],
+        "business_rule_triggered": "GRN Not Received: A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice has been dated for a future time, which is not permissible for current processing as per standard accounting practices.",
+        "recommended_action": "Hold the invoice and process on or after the invoice date, or contact the vendor for a corrected invoice with the proper issuance date.",
+        "evidence_used": "The invoice `invoice_date` is '2025-03-01', which is after the system `processing_date` of '2024-12-01'.",
+        "evidence_checked": "Raw Invoice Data, Processing Date",
+        "missing_data": [],
+        "business_rule_triggered": "Future Date: The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 64.29,
+    "raw_priority_score": 135.0,
+    "root_cause_categories": [
+      "Vendor Submission",
+      "Accounts Payable",
+      "Receiving",
+      "Data Error"
+    ],
+    "resolution_owners": [
+      "AP Manager",
+      "Receiving Team",
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Skipped Vendor Mismatch evaluation because required field 'vendor_name' is missing.",
+      "Evaluated Missing Required Data with confidence 1.00.",
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Evaluated Future Date with confidence 1.00.",
+      "Calculated Priority Score: 64.29 from 4 evaluated exceptions (Raw: 135.0).",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Age Weight Applied: 30 points (invoice age = 470 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-019 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-005",
+    "invoice_amount": 0.0,
+    "invoice_age_days": 484,
+    "vendor_name": "Dell Technologies",
+    "invoice_number": "DL-56789",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "Deterministic router fallback for missing data.",
+        "recommended_action": "",
+        "evidence_used": "Dependency check failed: Skipped Potential Duplicate Invoice evaluation because required field 'invoice_amount' is missing.",
+        "evidence_checked": "",
+        "missing_data": [],
+        "business_rule_triggered": "Phase 1 Master Rules",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "The invoice data is incomplete as the invoice amount field is empty. This could be an extraction error or a problem with the original document.",
+        "recommended_action": "Review the original invoice document to find the correct amount and manually update the record.",
+        "evidence_used": "Raw Invoice Data: 'invoice_amount' is ''. The Phase 1 Master Rules define invoice_total_inc_tax (invoice_amount) as a required field.",
+        "evidence_checked": "Checked RAW INVOICE DATA for 'invoice_amount' and PHASE 1 MASTER RULES for required fields.",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice is missing a required non-PO field (e.g. invoice_number, vendor_name, invoice_amount, currency).",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor listed on the invoice does not match the vendor associated with the Purchase Order in the ERP system. The PO may have been incorrectly assigned to this invoice or the PO data is wrong.",
+        "recommended_action": "Contact the business requestor to confirm the correct PO for this invoice or if the PO needs to be amended.",
+        "evidence_used": "Invoice vendor_name is 'Dell Technologies', but the vendor_name for PO 'PO-88888' in the ERP purchase_orders database is 'Wrong Vendor Inc'.",
+        "evidence_checked": "RAW INVOICE DATA.vendor_name vs ERP DATABASE CONTEXT.purchase_orders['PO-88888'].vendor_name",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice vendor_name does not match the vendor_name associated with the PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The goods or services for the associated Purchase Order have not been marked as received in the ERP system. Payment cannot be made until receipt is confirmed.",
+        "recommended_action": "Liaise with the procurement or receiving department to confirm if the goods/services have been received and to create the GRN.",
+        "evidence_used": "The po_number 'PO-88888' from the invoice does not have a corresponding entry in the ERP grn_records database.",
+        "evidence_checked": "Searched for po_number 'PO-88888' in the keys of the ERP DATABASE CONTEXT.grn_records object.",
+        "missing_data": [],
+        "business_rule_triggered": "A valid PO exists but there is no GRN record.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice date is in the future relative to the processing date, which is not allowed. This could be a data entry error or the invoice was submitted prematurely.",
+        "recommended_action": "Verify the invoice date on the document. If correct, hold for processing until the invoice date has passed.",
+        "evidence_used": "Invoice invoice_date is '2025-02-15', which is after the processing_date of '2024-12-01'.",
+        "evidence_checked": "Compared RAW INVOICE DATA.invoice_date against PROCESSING DATE.",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 57.14,
+    "raw_priority_score": 120.0,
+    "root_cause_categories": [
+      "Vendor Submission",
+      "Vendor Master Data",
+      "Receiving",
+      "Data Error"
+    ],
+    "resolution_owners": [
+      "AP Manager",
+      "Vendor Master Team",
+      "Receiving Team",
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Skipped Potential Duplicate Invoice evaluation because required field 'invoice_amount' is missing.",
+      "Evaluated Missing Required Data with confidence 1.00.",
+      "Evaluated Missing Required Data with confidence 1.00.",
+      "Evaluated Vendor Mismatch with confidence 1.00.",
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Evaluated Future Date with confidence 1.00.",
+      "Calculated Priority Score: 57.14 from 5 evaluated exceptions (Raw: 120.0).",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Payment blocked by Vendor Mismatch.",
+      "Escalation required by Vendor Mismatch.",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Age Weight Applied: 30 points (invoice age = 484 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-005 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-011",
+    "invoice_amount": 2500.0,
+    "invoice_age_days": 461,
+    "vendor_name": "Global Logistics Corp",
+    "invoice_number": "GL-9090",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Currency Mismatch",
+        "root_cause_hypothesis": "The vendor has invoiced in a different currency than what was agreed upon in the purchase order. This could be a vendor error or a change in terms not reflected in the PO.",
+        "recommended_action": "Contact the vendor to clarify the currency discrepancy. The PO may need to be revised if the new currency is correct.",
+        "evidence_used": "The invoice currency is 'EUR', but the expected currency on PO-45003 is 'USD'.",
+        "evidence_checked": "RAW INVOICE DATA: currency, ERP DATABASE CONTEXT: purchase_orders['PO-45003'].expected_currency",
+        "missing_data": [],
+        "business_rule_triggered": "The currency on the invoice does not match the expected_currency on the PO in the ERP database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoiced amount is substantially different from the amount specified on the purchase order. This could be due to additional unapproved charges, incorrect pricing, or a clerical error.",
+        "recommended_action": "Contact the procurement team or budget holder to investigate the significant variance between the invoice and PO amount.",
+        "evidence_used": "Invoice amount is 2500, while the expected amount for PO-45003 in the ERP is 800.0.",
+        "evidence_checked": "RAW INVOICE DATA: invoice_amount, ERP DATABASE CONTEXT: purchase_orders['PO-45003'].expected_amount",
+        "missing_data": [],
+        "business_rule_triggered": "Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The invoice has been submitted, but the goods or services have not been marked as received in the ERP system. This may be a timing issue or a failure to complete the receiving process.",
+        "recommended_action": "Forward to the receiving department or original requestor to confirm receipt of goods/services for PO-45003 and create the GRN.",
+        "evidence_used": "The invoice references PO-45003, but there is no corresponding entry for this PO in the ERP's grn_records database.",
+        "evidence_checked": "RAW INVOICE DATA: po_number, ERP DATABASE CONTEXT: grn_records",
+        "missing_data": [],
+        "business_rule_triggered": "A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice is dated in the future relative to the processing date, which is not permissible. This is typically a data entry error by the vendor.",
+        "recommended_action": "Reject the invoice and request a corrected version from the vendor with a valid date. Do not process until the date is on or before the processing date.",
+        "evidence_used": "The invoice_date is '2025-03-10', which is after the system's processing_date of '2024-12-01'.",
+        "evidence_checked": "RAW INVOICE DATA: invoice_date, PROCESSING DATE",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 57.14,
+    "raw_priority_score": 120.0,
+    "root_cause_categories": [
+      "Finance Controls",
+      "Accounts Payable",
+      "Receiving",
+      "Data Error"
+    ],
+    "resolution_owners": [
+      "Finance Controls",
+      "AP Manager",
+      "Receiving Team",
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Currency Mismatch with confidence 1.00.",
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Evaluated Future Date with confidence 1.00.",
+      "Calculated Priority Score: 57.14 from 4 evaluated exceptions (Raw: 120.0).",
+      "Payment blocked by Currency Mismatch.",
+      "Escalation required by Currency Mismatch.",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Age Weight Applied: 30 points (invoice age = 461 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-011 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-012",
+    "invoice_amount": 2500.0,
+    "invoice_age_days": 461,
+    "vendor_name": "Global Logistics Corp",
+    "invoice_number": "GL-9090",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "Deterministic router fallback for missing data.",
+        "recommended_action": "",
+        "evidence_used": "Dependency check failed: Skipped Currency Mismatch evaluation because required field 'currency' is missing.",
+        "evidence_checked": "",
+        "missing_data": [],
+        "business_rule_triggered": "Phase 1 Master Rules",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "The invoice data is incomplete as the currency field is empty. This prevents proper financial processing and validation against the purchase order.",
+        "recommended_action": "Contact the vendor to provide a complete invoice including the currency, or seek clarification from the business requestor if the currency is known.",
+        "evidence_used": "The `currency` field in the raw invoice data is an empty string: `\"\"`.",
+        "evidence_checked": "I checked the raw invoice data for completeness of key fields, and found the `currency` field to be empty.",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice is missing a required non-PO field (e.g. invoice_number, vendor_name, invoice_amount, currency) or the field has a default 'UNKNOWN' value indicating missing data.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoiced amount is significantly higher than the amount approved on the purchase order. This could be due to additional unapproved services, price changes not reflected in the PO, or a data entry error.",
+        "recommended_action": "Contact the business requestor to understand the discrepancy and obtain approval for the higher amount, or dispute the charge with the vendor.",
+        "evidence_used": "Invoice `invoice_amount` is '2500', while the ERP `purchase_orders` record for `po_number` 'PO-45003' shows an `expected_amount` of 800.0.",
+        "evidence_checked": "I cross-referenced the invoice `invoice_amount` and `po_number` with the `purchase_orders` table in the ERP database.",
+        "missing_data": [],
+        "business_rule_triggered": "Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The goods or services for this purchase order have not been marked as received in the ERP system. The invoice may have been sent before the service was completed or before the goods were delivered and booked in.",
+        "recommended_action": "Follow up with the business requestor or receiving department to confirm if goods/services have been received and to have them create the GRN in the system.",
+        "evidence_used": "The invoice references `po_number` 'PO-45003', but there is no corresponding entry for this PO in the ERP `grn_records` database.",
+        "evidence_checked": "I checked the `grn_records` table in the ERP database for an entry matching the invoice `po_number` 'PO-45003'.",
+        "missing_data": [],
+        "business_rule_triggered": "A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice date is set to a date in the future, which is not permissible for processing. This is likely a data entry error by the vendor.",
+        "recommended_action": "Reject the invoice and request the vendor to issue a corrected invoice with the proper date.",
+        "evidence_used": "The invoice `invoice_date` is '2025-03-10', which is after the `processing_date` of '2024-12-01'.",
+        "evidence_checked": "I compared the `invoice_date` from the raw invoice data against the provided `processing_date`.",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 57.14,
+    "raw_priority_score": 120.0,
+    "root_cause_categories": [
+      "Vendor Submission",
+      "Accounts Payable",
+      "Receiving",
+      "Data Error"
+    ],
+    "resolution_owners": [
+      "AP Manager",
+      "Receiving Team",
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Skipped Currency Mismatch evaluation because required field 'currency' is missing.",
+      "Evaluated Missing Required Data with confidence 1.00.",
+      "Evaluated Missing Required Data with confidence 1.00.",
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Evaluated Future Date with confidence 1.00.",
+      "Calculated Priority Score: 57.14 from 5 evaluated exceptions (Raw: 120.0).",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Age Weight Applied: 30 points (invoice age = 461 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-012 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-018",
+    "invoice_amount": 1200.0,
+    "invoice_age_days": 470,
+    "vendor_name": "Amazon Business LLC",
+    "invoice_number": "AMZ-0001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The PO number on the invoice was either entered incorrectly by the vendor, or the PO was incorrectly assigned to the wrong vendor in the ERP system.",
+        "recommended_action": "Verify with the business user or procurement if PO-45003 was intended for Amazon Business LLC. If not, the invoice may need to be rejected.",
+        "evidence_used": "The invoice vendor_name 'Amazon Business LLC' does not match the vendor_name 'Global Logistics Corp' associated with PO 'PO-45003' in the ERP database.",
+        "evidence_checked": "Compared invoice.vendor_name ('Amazon Business LLC') with ERP.purchase_orders['PO-45003'].vendor_name ('Global Logistics Corp').",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice vendor_name does not match the vendor_name associated with the PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoice amount is significantly higher than the expected purchase order amount, possibly due to price changes, additional unapproved items, or a data entry error.",
+        "recommended_action": "Contact the procurement department to either update the PO with the correct amount or dispute the charge with the vendor.",
+        "evidence_used": "The invoice amount of '1200' USD does not match the expected PO amount of 800.0 USD for PO 'PO-45003'.",
+        "evidence_checked": "Compared invoice.invoice_amount (1200) with ERP.purchase_orders['PO-45003'].expected_amount (800.0).",
+        "missing_data": [],
+        "business_rule_triggered": "Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The invoice was submitted before the goods or services were marked as received in the ERP system, or the receiving process has not yet been completed.",
+        "recommended_action": "Contact the receiving department or PO owner to confirm receipt of goods/services and ensure a GRN is created in the ERP system.",
+        "evidence_used": "A search for PO number 'PO-45003' in the ERP grn_records database yielded no results.",
+        "evidence_checked": "Checked the ERP.grn_records database for an entry corresponding to 'PO-45003'.",
+        "missing_data": [],
+        "business_rule_triggered": "A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice was submitted prematurely or the date was entered incorrectly, as the invoice date is after the current processing date.",
+        "recommended_action": "Set the invoice aside and hold for processing until on or after the invoice date, or reject and ask the vendor to resubmit at the appropriate time.",
+        "evidence_used": "The invoice_date '2025-03-01' is after the provided processing_date of '2024-12-01'.",
+        "evidence_checked": "Compared invoice.invoice_date with the ERP.processing_date.",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 57.14,
+    "raw_priority_score": 120.0,
+    "root_cause_categories": [
+      "Vendor Master Data",
+      "Accounts Payable",
+      "Receiving",
+      "Data Error"
+    ],
+    "resolution_owners": [
+      "Vendor Master Team",
+      "AP Manager",
+      "Receiving Team",
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Vendor Mismatch with confidence 1.00.",
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Evaluated Future Date with confidence 1.00.",
+      "Calculated Priority Score: 57.14 from 4 evaluated exceptions (Raw: 120.0).",
+      "Payment blocked by Vendor Mismatch.",
+      "Escalation required by Vendor Mismatch.",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Age Weight Applied: 30 points (invoice age = 470 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-018 regarding escalations."
+  },
+  {
+    "invoice_id": "TST-015",
+    "invoice_amount": 100.0,
+    "invoice_age_days": 0,
+    "vendor_name": "Dell Technologies",
+    "invoice_number": "DL-77777",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "An invoice with the same vendor and invoice number already exists in the system but with a different amount, suggesting this might be a corrected invoice or an erroneous resubmission.",
+        "recommended_action": "Investigate the payment status of the previous invoice (DL-77777 for 4200.0) and contact the vendor to confirm if this new invoice is a correction or a new charge.",
+        "evidence_used": "The incoming invoice has vendor 'Dell Technologies' and invoice number 'DL-77777' with amount '100'. The ERP historical_invoices has an entry with the same vendor and invoice number but with an amount of 4200.0.",
+        "evidence_checked": "RAW INVOICE DATA (vendor_name, invoice_number, invoice_amount), ERP DATABASE CONTEXT (historical_invoices)",
+        "missing_data": [],
+        "business_rule_triggered": "The exact same vendor_name AND invoice_number exist in the ERP historical_invoices, BUT the invoice_amount is DIFFERENT. This could be a corrected invoice or revision.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor listed on the invoice does not match the vendor associated with the purchase order in the ERP. This could be due to an incorrect PO number being quoted on the invoice or an error in the PO data.",
+        "recommended_action": "Verify the correct PO number with the vendor or business user. The PO may need to be corrected or a new one issued.",
+        "evidence_used": "Invoice vendor_name is 'Dell Technologies', but the vendor_name associated with PO-88888 in the ERP is 'Wrong Vendor Inc'.",
+        "evidence_checked": "RAW INVOICE DATA (vendor_name, po_number), ERP DATABASE CONTEXT (purchase_orders['PO-88888'].vendor_name)",
+        "missing_data": [],
+        "business_rule_triggered": "...the invoice vendor_name does not match the vendor_name associated with the PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The billed amount on the invoice is significantly different from the amount approved on the purchase order. This could be due to a data entry error, a partial shipment, or an incorrect price being applied.",
+        "recommended_action": "Contact the vendor and business user to clarify the discrepancy between the invoiced amount and the PO amount.",
+        "evidence_used": "Incoming invoice amount is '100', while the expected amount for PO-88888 in the ERP is 7000.0.",
+        "evidence_checked": "RAW INVOICE DATA (invoice_amount), ERP DATABASE CONTEXT (purchase_orders['PO-88888'].expected_amount)",
+        "missing_data": [],
+        "business_rule_triggered": "Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The invoice has been submitted for goods/services that have not yet been marked as received in the ERP system. This could be a timing issue or the goods/services may not have been delivered.",
+        "recommended_action": "Confirm with the business user or receiving department if the goods/services have been received and request they post the GRN.",
+        "evidence_used": "The invoice references PO-88888, but there is no corresponding Goods Receipt Note (GRN) record in the ERP's grn_records database.",
+        "evidence_checked": "RAW INVOICE DATA (po_number), ERP DATABASE CONTEXT (grn_records)",
+        "missing_data": [],
+        "business_rule_triggered": "A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice date is set to a date in the future relative to the current processing date. This is typically invalid as invoices should be dated on or before the day they are issued.",
+        "recommended_action": "Reject the invoice and request the vendor to resubmit with a corrected, non-future invoice date.",
+        "evidence_used": "The invoice_date is '2026-12-01', which is after the processing_date of '2024-12-01'.",
+        "evidence_checked": "RAW INVOICE DATA (invoice_date), PROCESSING DATE",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 45.24,
+    "raw_priority_score": 95.0,
+    "root_cause_categories": [
+      "Accounts Payable",
+      "Vendor Master Data",
+      "Receiving",
+      "Data Error"
+    ],
+    "resolution_owners": [
+      "AP Team",
+      "Vendor Master Team",
+      "AP Manager",
+      "Receiving Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Potential Duplicate Invoice with confidence 1.00.",
+      "Evaluated Vendor Mismatch with confidence 1.00.",
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Evaluated Future Date with confidence 1.00.",
+      "Calculated Priority Score: 45.24 from 5 evaluated exceptions (Raw: 95.0).",
+      "Payment blocked by Potential Duplicate Invoice.",
+      "Escalation required by Potential Duplicate Invoice.",
+      "Payment blocked by Vendor Mismatch.",
+      "Escalation required by Vendor Mismatch.",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Age Weight Applied: 5 points (invoice age = 0 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-015 regarding escalations."
+  }
+]

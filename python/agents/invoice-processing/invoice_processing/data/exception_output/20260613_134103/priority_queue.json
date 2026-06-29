@@ -1,0 +1,43 @@
+[
+  {
+    "invoice_id": "101",
+    "invoice_amount": 4200.0,
+    "invoice_age_days": 394,
+    "exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "An invoice with the identical vendor, invoice number, and amount has already been recorded in the system. This is a duplicate submission and should not be paid.",
+        "recommended_action": "Reject this invoice as a duplicate. Check payment status of the original invoice in the historical system.",
+        "evidence_used": "Incoming invoice: vendor_name='Dell Technologies', invoice_number='DL-56789', invoice_amount='4200.00'. Historical invoice: vendor_name='Dell Technologies', invoice_number='DL-56789', invoice_amount=4200.0.",
+        "evidence_checked": "RAW INVOICE DATA.{vendor_name, invoice_number, invoice_amount}, ERP DATABASE CONTEXT.historical_invoices",
+        "missing_data": [],
+        "business_rule_triggered": "The exact same vendor_name AND invoice_number AND invoice_amount exist in the ERP historical_invoices.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 155.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Assigned 1.00 confidence to Exact Duplicate Invoice based on evidence rules.",
+      "Payment blocked by rule for Exact Duplicate Invoice.",
+      "Escalation required by rule for Exact Duplicate Invoice.",
+      "Assigned High severity to Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice detected. Rule configured as stop_further_checks=true. Stop condition triggered after deterministic ordering. Remaining validations skipped.",
+      "Skipped 'Vendor Mismatch' \u2014 stop_further_checks active from a higher-priority exception.",
+      "Skipped 'Amount Exceeds Tolerance' \u2014 stop_further_checks active from a higher-priority exception.",
+      "Calculated Priority Score: 155.0 (Sev: High, Amt: 4200.0, Age: 394, Excs: 1).",
+      "Age Weight Applied: 30 points (invoice age = 394 days)."
+    ],
+    "auto_resolved": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for 101 regarding escalations."
+  }
+]

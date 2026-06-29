@@ -1,0 +1,37 @@
+[
+  {
+    "invoice_id": "1",
+    "invoice_amount": 1250.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The invoice was submitted for payment before the goods were physically received and recorded in the ERP, or the goods were delivered but the receiving department has not yet processed the Goods Receipt Note (GRN).",
+        "recommended_action": "Place invoice on hold. Contact the receiving department or original PO requestor to confirm if goods for PO-45001 have been delivered and ask them to post the GRN in the ERP system.",
+        "evidence_used": "The invoice references 'po_number': 'PO-45001'. The corresponding record in the ERP 'grn_records' database for 'PO-45001' has a status of 'received': false.",
+        "evidence_checked": "RAW INVOICE DATA.po_number ('PO-45001'); ERP DATABASE CONTEXT.grn_records.PO-45001.received (false)",
+        "missing_data": [],
+        "business_rule_triggered": "A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 65.0,
+    "root_cause_categories": [
+      "Receiving"
+    ],
+    "resolution_owners": [
+      "Receiving Team"
+    ],
+    "sla_hours": 72,
+    "decision_trace": [
+      "Assigned 1.00 confidence to GRN Not Received based on evidence rules.",
+      "Payment blocked by rule for GRN Not Received.",
+      "Escalation required by rule for GRN Not Received.",
+      "Assigned Medium severity to GRN Not Received.",
+      "Calculated Priority Score: 65.0 (Sev: Medium, Amt: 1250.0, Age: 0, Excs: 1)."
+    ],
+    "communication_draft": "Drafted communication for 1 regarding escalations."
+  }
+]

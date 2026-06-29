@@ -1,0 +1,310 @@
+[
+  {
+    "invoice_id": "INV-TEST-007",
+    "invoice_amount": 4500.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice date is in the future relative to the processing date. This is typically a data entry error by the vendor or an agreement to bill for a future service.",
+        "recommended_action": "Hold invoice and process on or after the invoice date, or contact vendor to request a corrected invoice.",
+        "evidence_used": "The invoice_date is '2028-06-01', which is after the processing_date '2026-06-13'.",
+        "evidence_checked": "Invoice `invoice_date` vs `processing_date`.",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor on the invoice is different from the vendor on the cited purchase order. This suggests the wrong PO was referenced on the invoice.",
+        "recommended_action": "Contact the vendor or internal requester to confirm the correct PO number for this invoice and vendor.",
+        "evidence_used": "The invoice `vendor_name` is 'Dell Technologies', but the `vendor_name` for PO-45003 in the ERP is 'Global Logistics Corp'.",
+        "evidence_checked": "Invoice `vendor_name` vs ERP `purchase_orders.PO-45003.vendor_name`.",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice vendor_name does not match the vendor_name associated with the PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoice amount is significantly greater than the expected amount on the PO. This could be due to unapproved price changes, quantity differences, or referencing the wrong PO.",
+        "recommended_action": "Request clarification from the business unit that raised the PO to approve the variance or dispute the charge with the vendor.",
+        "evidence_used": "The invoice `invoice_amount` is '4500.00', which far exceeds the PO's `expected_amount` of 800.0.",
+        "evidence_checked": "Invoice `invoice_amount` vs ERP `purchase_orders.PO-45003.expected_amount`.",
+        "missing_data": [],
+        "business_rule_triggered": "Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Currency Mismatch",
+        "root_cause_hypothesis": "The currency on the invoice does not match the currency of the purchase order. This will cause payment failure and accounting discrepancies.",
+        "recommended_action": "Confirm the correct transaction currency with the vendor and amend the purchase order to match the invoice.",
+        "evidence_used": "The invoice `currency` is 'EUR', but the PO `expected_currency` is 'USD'.",
+        "evidence_checked": "Invoice `currency` vs ERP `purchase_orders.PO-45003.expected_currency`.",
+        "missing_data": [],
+        "business_rule_triggered": "The currency on the invoice does not match the expected_currency on the PO in the ERP database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "An invoice with the same vendor and invoice number already exists in the system but with a different amount. This could be a corrected invoice, a revision, or an erroneous submission.",
+        "recommended_action": "Investigate payment history for the previous invoice to determine if this is a correction or a true duplicate. Contact vendor if necessary.",
+        "evidence_used": "Incoming invoice 'DL-56789' for 'Dell Technologies' has amount 4500.00. A historical invoice with the same number and vendor exists with amount 4200.0.",
+        "evidence_checked": "Invoice `vendor_name`, `invoice_number`, and `invoice_amount` vs ERP `historical_invoices`. Incoming amount: 4500.00, historical amount: 4200.0.",
+        "missing_data": [],
+        "business_rule_triggered": "The exact same vendor_name AND invoice_number exist in the ERP historical_invoices, BUT the invoice_amount is DIFFERENT.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 160.0,
+    "root_cause_categories": [
+      "Data Error",
+      "Vendor Master Data",
+      "Accounts Payable",
+      "Finance Controls"
+    ],
+    "resolution_owners": [
+      "AP Team",
+      "Vendor Master Team",
+      "AP Manager",
+      "Finance Controls"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Assigned 1.00 confidence to Future Date based on evidence rules.",
+      "Escalation required by rule for Future Date.",
+      "Assigned Medium severity to Future Date.",
+      "Assigned 1.00 confidence to Vendor Mismatch based on evidence rules.",
+      "Payment blocked by rule for Vendor Mismatch.",
+      "Escalation required by rule for Vendor Mismatch.",
+      "Assigned Medium severity to Vendor Mismatch.",
+      "Assigned 1.00 confidence to Amount Exceeds Tolerance based on evidence rules.",
+      "Payment blocked by rule for Amount Exceeds Tolerance.",
+      "Escalation required by rule for Amount Exceeds Tolerance.",
+      "Assigned Medium severity to Amount Exceeds Tolerance.",
+      "Assigned 1.00 confidence to Currency Mismatch based on evidence rules.",
+      "Payment blocked by rule for Currency Mismatch.",
+      "Escalation required by rule for Currency Mismatch.",
+      "Assigned Medium severity to Currency Mismatch.",
+      "Assigned 1.00 confidence to Potential Duplicate Invoice based on evidence rules.",
+      "Payment blocked by rule for Potential Duplicate Invoice.",
+      "Escalation required by rule for Potential Duplicate Invoice.",
+      "Assigned Medium severity to Potential Duplicate Invoice.",
+      "Calculated Priority Score: 160.0 (Sev: Medium, Amt: 4500.0, Age: 0, Excs: 5)."
+    ],
+    "communication_draft": "Drafted communication for INV-TEST-007 regarding escalations."
+  },
+  {
+    "invoice_id": "INV-TEST-005",
+    "invoice_amount": 5000.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "An invoice with the same vendor, number, and amount has already been processed and exists in the historical invoice database. This is likely a resubmission of a previously paid invoice.",
+        "recommended_action": "Reject the invoice and notify the vendor that it has already been processed. Reference the previous payment details.",
+        "evidence_used": "The incoming invoice has vendor_name 'Tech Solutions Inc', invoice_number 'INV-5542', and invoice_amount '5000.00'. A record in ERP historical_invoices exists with vendor_name 'Tech Solutions Inc', invoice_number 'INV-5542', and invoice_amount 5000.0.",
+        "evidence_checked": [
+          "RAW INVOICE DATA: vendor_name, invoice_number, invoice_amount",
+          "ERP DATABASE CONTEXT: historical_invoices"
+        ],
+        "missing_data": [],
+        "business_rule_triggered": "Exact Duplicate Invoice: The exact same vendor_name AND invoice_number AND invoice_amount exist in the ERP historical_invoices.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 130.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Assigned 1.00 confidence to Exact Duplicate Invoice based on evidence rules.",
+      "Payment blocked by rule for Exact Duplicate Invoice.",
+      "Escalation required by rule for Exact Duplicate Invoice.",
+      "Assigned High severity to Exact Duplicate Invoice.",
+      "Calculated Priority Score: 130.0 (Sev: High, Amt: 5000.0, Age: 0, Excs: 1)."
+    ],
+    "communication_draft": "Drafted communication for INV-TEST-005 regarding escalations."
+  },
+  {
+    "invoice_id": "INV-TEST-002",
+    "invoice_amount": 11250.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice date is set for a date approximately two years in the future, which is invalid. This is likely a data entry error by the vendor when creating the invoice.",
+        "recommended_action": "Reject the invoice and request the vendor to issue a corrected invoice with the proper date.",
+        "evidence_used": "The invoice_date '2028-06-01' is in the future relative to the processing_date of '2026-06-13'.",
+        "evidence_checked": "RAW INVOICE DATA: invoice_date; PROCESSING DATE",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": false,
+    "escalation_required": true,
+    "priority_score": 105.0,
+    "root_cause_categories": [
+      "Data Error"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Assigned 1.00 confidence to Future Date based on evidence rules.",
+      "Escalation required by rule for Future Date.",
+      "Assigned Medium severity to Future Date.",
+      "Calculated Priority Score: 105.0 (Sev: Medium, Amt: 11250.0, Age: 0, Excs: 1)."
+    ],
+    "communication_draft": "Drafted communication for INV-TEST-002 regarding escalations."
+  },
+  {
+    "invoice_id": "INV-TEST-004",
+    "invoice_amount": 15000.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "Currency Mismatch",
+        "root_cause_hypothesis": "The vendor has invoiced in EUR, but the purchase order was raised in USD. This could be a vendor error or a miscommunication during the procurement process.",
+        "recommended_action": "Verify with the procurement team and vendor if the invoice should be in EUR or USD. If incorrect, request a revised invoice from the vendor.",
+        "evidence_used": "Invoice currency is 'EUR' while the ERP database for PO 'PO-99999' shows an 'expected_currency' of 'USD'.",
+        "evidence_checked": "RAW INVOICE DATA.currency, ERP DATABASE CONTEXT.purchase_orders.PO-99999.expected_currency",
+        "missing_data": [],
+        "business_rule_triggered": "Currency Mismatch: The currency on the invoice does not match the expected_currency on the PO in the ERP database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 105.0,
+    "root_cause_categories": [
+      "Finance Controls"
+    ],
+    "resolution_owners": [
+      "Finance Controls"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Assigned 1.00 confidence to Currency Mismatch based on evidence rules.",
+      "Payment blocked by rule for Currency Mismatch.",
+      "Escalation required by rule for Currency Mismatch.",
+      "Assigned Medium severity to Currency Mismatch.",
+      "Calculated Priority Score: 105.0 (Sev: Medium, Amt: 15000.0, Age: 0, Excs: 1)."
+    ],
+    "communication_draft": "Drafted communication for INV-TEST-004 regarding escalations."
+  },
+  {
+    "invoice_id": "INV-TEST-001",
+    "invoice_amount": 3000.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor on the invoice does not match the vendor associated with the purchase order in the ERP. This could indicate the vendor cited the wrong PO number on their invoice, or an internal user assigned the wrong PO.",
+        "recommended_action": "Contact vendor to confirm correct PO number, or contact the internal requestor to get a valid PO for 'Global Logistics Corp'.",
+        "evidence_used": "The invoice `vendor_name` is 'Global Logistics Corp', but the vendor associated with `po_number` 'PO-45004' in the ERP `purchase_orders` database is 'Amazon Business LLC'.",
+        "evidence_checked": "RAW INVOICE DATA.vendor_name, RAW INVOICE DATA.po_number, ERP DATABASE CONTEXT.purchase_orders['PO-45004'].vendor_name",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice vendor_name does not match the vendor_name associated with the PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 80.0,
+    "root_cause_categories": [
+      "Vendor Master Data"
+    ],
+    "resolution_owners": [
+      "Vendor Master Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Assigned 1.00 confidence to Vendor Mismatch based on evidence rules.",
+      "Payment blocked by rule for Vendor Mismatch.",
+      "Escalation required by rule for Vendor Mismatch.",
+      "Assigned Medium severity to Vendor Mismatch.",
+      "Calculated Priority Score: 80.0 (Sev: Medium, Amt: 3000.0, Age: 0, Excs: 1)."
+    ],
+    "communication_draft": "Drafted communication for INV-TEST-001 regarding escalations."
+  },
+  {
+    "invoice_id": "INV-TEST-003",
+    "invoice_amount": 5000.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "The invoice is missing a mandatory invoice number, which is a critical field for processing, duplicate checks, and financial auditing. This could be an OCR error or the vendor may have failed to include it on the document.",
+        "recommended_action": "Reject the invoice and request the vendor to resubmit a complete invoice with a valid invoice number.",
+        "evidence_used": "The 'invoice_number' field in the RAW INVOICE DATA is an empty string (''). The 'Phase 1 Master Rules' (extraction_schemas.invoice.fields) define 'invoice_number' as a required field.",
+        "evidence_checked": "RAW INVOICE DATA['invoice_number'], PHASE 1 MASTER RULES['extraction_schemas']['invoice']['fields']",
+        "missing_data": [],
+        "business_rule_triggered": "Missing Required Data: The invoice is missing a required field (invoice_number).",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 80.0,
+    "root_cause_categories": [
+      "Vendor Submission"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Assigned 1.00 confidence to Missing Required Data based on evidence rules.",
+      "Payment blocked by rule for Missing Required Data.",
+      "Escalation required by rule for Missing Required Data.",
+      "Assigned Medium severity to Missing Required Data.",
+      "Calculated Priority Score: 80.0 (Sev: Medium, Amt: 5000.0, Age: 0, Excs: 1)."
+    ],
+    "communication_draft": "Drafted communication for INV-TEST-003 regarding escalations."
+  },
+  {
+    "invoice_id": "INV-TEST-006",
+    "invoice_amount": 1500.0,
+    "invoice_age_days": 0,
+    "exceptions": [
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "An invoice with the same number from the same vendor has been processed previously, but for a different amount. This could be a corrected invoice, a revision, or an erroneous submission.",
+        "recommended_action": "Verify with the vendor if this is a corrected invoice or a new submission. Check if the previous invoice (amount 1200.0) was paid or rejected.",
+        "evidence_used": "Incoming invoice has vendor_name 'HP Enterprise' and invoice_number 'INV-1001' with an amount of 1500.00. The historical_invoices database contains a record for vendor 'HP Enterprise' with invoice_number 'INV-1001' but for a different amount of 1200.0.",
+        "evidence_checked": "ERP.historical_invoices, Raw Invoice Data (vendor_name, invoice_number, invoice_amount)",
+        "missing_data": [],
+        "business_rule_triggered": "Potential Duplicate Invoice: The exact same vendor_name AND invoice_number exist in the ERP historical_invoices, BUT the invoice_amount is DIFFERENT.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 65.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Assigned 1.00 confidence to Potential Duplicate Invoice based on evidence rules.",
+      "Payment blocked by rule for Potential Duplicate Invoice.",
+      "Escalation required by rule for Potential Duplicate Invoice.",
+      "Assigned Medium severity to Potential Duplicate Invoice.",
+      "Calculated Priority Score: 65.0 (Sev: Medium, Amt: 1500.0, Age: 0, Excs: 1)."
+    ],
+    "communication_draft": "Drafted communication for INV-TEST-006 regarding escalations."
+  }
+]

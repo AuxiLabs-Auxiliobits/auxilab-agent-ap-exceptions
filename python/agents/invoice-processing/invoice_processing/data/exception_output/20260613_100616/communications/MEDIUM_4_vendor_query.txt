@@ -1,0 +1,25 @@
+Invoice: 4
+Vendor: Amazon Business LLC
+Type: vendor_query
+Severity: Medium
+============================================================
+
+Dear Amazon Business LLC Accounts Team,
+
+We are writing regarding a discrepancy found on a recent invoice.
+
+Invoice ID: 4
+PO Number: PO-45003
+Invoice Amount: $2500.00
+
+Our records indicate that the goods or services for this purchase order have not yet been received, and therefore, no Goods Received Note (GRN) has been created in our system. As we cannot process payment without a corresponding GRN, we have placed this invoice on hold.
+
+Could you please investigate this on your end? We kindly request that you either provide a valid proof of delivery so our team can confirm receipt, or issue a full credit note against this invoice.
+
+Please provide a response or resolution within 5 business days.
+
+Thank you for your prompt attention to this matter.
+
+Best regards,
+
+Accounts Payable Team

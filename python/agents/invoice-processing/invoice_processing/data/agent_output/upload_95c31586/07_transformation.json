@@ -1,0 +1,28 @@
+{
+  "agent": "transformer",
+  "version": "1.0",
+  "timestamp": "2026-06-14T16:53:38.197768",
+  "input_refs": [
+    "02_extraction.json",
+    "06_phase4_validation.json"
+  ],
+  "currency": "AUD",
+  "tax_rate": 0.1,
+  "line_items_mapped": [
+    {
+      "line_number": 1,
+      "item_code": "LABOUR",
+      "description": "Web Design",
+      "quantity": "1.00",
+      "unit_cost": "85.00",
+      "line_cost": "85.00",
+      "tax": "8.50",
+      "tax_code": "TAX"
+    }
+  ],
+  "totals": {
+    "line_cost_total": 85.0,
+    "tax_total": 8.5,
+    "grand_total": 93.5
+  }
+}

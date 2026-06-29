@@ -1,0 +1,19 @@
+Invoice: INV-2026-016
+Vendor: Atlassian
+Type: internal_po_request
+Severity: Medium
+============================================================
+
+Hi James,
+
+Hope you are well.
+
+This is a friendly but urgent request regarding the outstanding invoice from Atlassian for your Jira and Confluence subscription renewal (Invoice ID: INV-2026-016).
+
+The payment of $5500.00 is currently on hold. Our finance policy requires an approved Purchase Order before we can release funds, and one has not yet been raised for this invoice.
+
+To settle this payment, which is now 16 days outstanding, and avoid any potential service disruption, could you please raise the required PO within the next 3 business days?
+
+Please let me know if you have any questions.
+
+Thanks for your prompt attention to this matter.

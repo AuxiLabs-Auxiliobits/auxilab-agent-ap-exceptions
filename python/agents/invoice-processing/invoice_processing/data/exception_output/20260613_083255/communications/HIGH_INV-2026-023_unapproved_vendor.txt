@@ -1,0 +1,19 @@
+Invoice: INV-2026-023
+Vendor: PagerDuty
+Type: unapproved_vendor
+Severity: High
+============================================================
+
+Hi Procurement Team,
+
+We require your assistance with invoice INV-2026-023 from PagerDuty for $1600.00. The invoice is currently 13 days outstanding and is blocked for payment.
+
+The payment is on hold because the vendor entity on the invoice, ‘PagerDuty APAC Pty Ltd’, is not a registered vendor in our system. Our approved vendor master record is for ‘PagerDuty Inc.’.
+
+As per AP controls, we cannot pay this invoice until the vendor entity is verified.
+
+Could you please work with the approver, Maria Lopez, to confirm the correct entity? We need your team to either initiate the onboarding process for PagerDuty APAC Pty Ltd or advise if a corrected invoice from the approved entity is required.
+
+Payment will remain blocked until we receive your direction.
+
+Thank you for your support.

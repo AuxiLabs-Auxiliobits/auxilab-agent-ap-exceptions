@@ -1,0 +1,17 @@
+Invoice: INV-2026-009
+Vendor: Slack Technologies
+Type: unapproved_vendor
+Severity: High
+============================================================
+
+Hi Procurement Team,
+
+I am writing to request your assistance regarding an invoice that is currently on hold.
+
+We have received invoice INV-2026-009 for $4600.00 from Slack Technologies. While this was approved by Sarah Chen, we are unable to proceed with payment. Our review indicates that 'Slack Technologies' is not set up in our approved vendor master list, and we have no record of a completed or pending onboarding for this entity.
+
+As per our policy, payment is blocked until the vendor is properly registered in the system.
+
+Could you please investigate this? We ask that you either initiate the formal vendor onboarding process for Slack Technologies or confirm if there is an alternate, approved entity we should use for this invoice.
+
+The invoice will remain on hold pending your guidance. Thank you for your support in resolving this matter.

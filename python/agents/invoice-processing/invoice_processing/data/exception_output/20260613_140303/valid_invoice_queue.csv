@@ -1,0 +1,2 @@
+invoice_id,invoice_amount,decision_trace
+101,4200.0,"Calculated Priority Score: 30.95 (Raw: 65.0, Sev: Low, Amt: 4200.0, Age: 394, Excs: 0). | Age Weight Applied: 30 points (invoice age = 394 days)."

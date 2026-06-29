@@ -1,0 +1,21 @@
+Invoice: INV-2026-022
+Vendor: Datadog Inc
+Type: vendor_query
+Severity: Medium
+============================================================
+
+Dear Datadog Accounts Receivable Team,
+
+We are writing to query a discrepancy on invoice INV-2026-022 for $8100.00, which references our purchase order PO-9946.
+
+Our review has identified a quantity mismatch. The invoice bills for 270 monitoring hosts, whereas our purchase order authorises a quantity of 240 hosts. Payment for the invoice is currently on hold as this excess of 30 hosts requires internal approval.
+
+To resolve this, please issue a revised invoice for the correct quantity of 240 hosts. If the additional quantity is correct, please provide the relevant documentation authorising the increase for our review.
+
+We kindly request a response within 5 business days to ensure we can process this payment promptly.
+
+Thank you for your prompt attention to this matter.
+
+Best regards,
+
+Accounts Payable Team

@@ -1,0 +1,2 @@
+invoice_id,invoice_amount,decision_trace
+T-014,10000.0,Evaluated VALID with confidence 1.00. | Calculated Priority Score: 50.0 from 1 evaluated exceptions (Raw: 105.0). | Invoice automatically resolved. Payment and escalation blocks removed. Scores retained. | Age Weight Applied: 30 points (invoice age = 569 days).

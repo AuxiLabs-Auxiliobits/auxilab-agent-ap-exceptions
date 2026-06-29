@@ -1,0 +1,15 @@
+Invoice: INV-2026-001
+Vendor: SAP SE
+Type: escalation_note
+Severity: High
+============================================================
+
+This is a formal escalation for a high-priority invoice exception requiring your immediate attention.
+
+Invoice INV-2026-001 from SAP SE for $42,500.00 has a price variance of $3,250.00 (8.3%) above its approved purchase order, PO-9821. This invoice is critically aged at 250 days outstanding, posing a risk to vendor relations and financial reporting.
+
+The root cause appears to be a price increase not reflected in the PO, additional unapproved services, or a vendor billing error. Standard approval workflows are insufficient due to the age and value of the variance, necessitating your review.
+
+Our recommended action is to route the invoice to the PO approver to validate the price difference and determine whether to approve the variance or dispute the charge.
+
+We request your decision on this recommendation within two business days to resolve this long-outstanding issue.

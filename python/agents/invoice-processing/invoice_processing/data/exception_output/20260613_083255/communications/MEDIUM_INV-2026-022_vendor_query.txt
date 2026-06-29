@@ -1,0 +1,23 @@
+Invoice: INV-2026-022
+Vendor: Datadog Inc
+Type: vendor_query
+Severity: Medium
+============================================================
+
+Dear Datadog Accounts Team,
+
+We are writing in reference to invoice INV-2026-022 for $8100.00, associated with our Purchase Order PO-9946.
+
+Our review has identified a quantity discrepancy. The invoice lists a charge for 270 monitoring platform hosts, whereas our purchase order and contract authorize a quantity of 240 hosts.
+
+This variance of 30 hosts is currently preventing us from processing the payment.
+
+To resolve this, please issue a revised invoice reflecting the correct quantity of 240 hosts, or provide a credit note for the excess charge. If the additional quantity is correct, please provide supporting documentation for our review and approval.
+
+We kindly request a response or the corrected documentation within 5 business days to avoid further payment delays.
+
+Thank you for your prompt attention to this matter.
+
+Sincerely,
+
+Accounts Payable Team

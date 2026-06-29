@@ -1,0 +1,29 @@
+{
+  "total_invoices": 25,
+  "valid_invoices_count": 4,
+  "escalations_required": 21,
+  "auto_resolved_count": 0,
+  "payments_blocked": 21,
+  "multi_exception_invoice_count": 2,
+  "average_raw_priority_score": 141.4,
+  "average_normalized_priority_score": 52.57,
+  "exception_count_by_type": {
+    "PO Not Found": 5,
+    "Potential Duplicate Invoice": 4,
+    "Amount Exceeds Tolerance": 3,
+    "Exact Duplicate Invoice": 3,
+    "Missing Required Data": 3,
+    "Currency Mismatch": 2,
+    "GRN Not Received": 2,
+    "Future Date": 1,
+    "Vendor Mismatch": 1
+  },
+  "percentage_other": 0.0,
+  "communication_drafts_produced": 21,
+  "business_value_metrics": {
+    "valid_invoice_value": 39199.99,
+    "blocked_payment_value": 427550.0,
+    "potential_duplicate_payment_value": 82500.0,
+    "auto_resolved_value": 0.0
+  }
+}

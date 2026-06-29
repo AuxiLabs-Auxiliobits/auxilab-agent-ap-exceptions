@@ -1,0 +1,15 @@
+Invoice: INV-2026-019
+Vendor: Stripe Inc
+Type: unapproved_vendor
+Severity: High
+============================================================
+
+Hi Procurement Team,
+
+We are escalating an issue regarding invoice INV-2026-019 from Stripe Inc for $12,400.00, now 21 days outstanding.
+
+This invoice, approved by Maria Lopez, cannot be processed for payment. The vendor, Stripe Inc, is not registered in our approved vendor master. Our records indicate we may have previously worked with a parent entity, but this specific subsidiary is not set up for payment processing.
+
+To resolve this, could you please either initiate the vendor onboarding process for Stripe Inc or confirm the correct, registered entity that should be used for this invoice?
+
+Please be advised that payment is on hold and the invoice will remain unpaid until the vendor status is rectified. Your prompt assistance is appreciated.

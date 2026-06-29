@@ -1,0 +1,17 @@
+Invoice: INV-2026-011
+Vendor: Google Cloud
+Type: internal_po_request
+Severity: High
+============================================================
+
+Hi Maria,
+
+Hope you're having a good week.
+
+I'm reaching out about an urgent invoice from **Google Cloud (ID: INV-2026-011)** for $22,100.00.
+
+This payment is currently on hold as it was submitted without a matching Purchase Order. The invoice is for Q2 infrastructure and is now 19 days outstanding.
+
+Could you please prioritize raising a PO for this amount? As per our SLA, the PO needs to be raised within the next **3 business days** to ensure timely payment and prevent any potential service disruption with Google.
+
+Please let me know if you have any questions. Thanks for your prompt help

@@ -1,0 +1,51 @@
+[
+  {
+    "invoice_id": "T2-002",
+    "invoice_amount": 7000.0,
+    "invoice_age_days": 497,
+    "exceptions": [
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The purchase order number referenced on the invoice does not exist in the company's ERP system. This could be a data entry error by the vendor or the PO was never created in the system.",
+        "recommended_action": "Contact the vendor or internal business unit to obtain a valid PO number or confirm if this is a non-PO invoice.",
+        "evidence_used": "The invoice lists PO number 'PO-77777', but this PO is not found in the list of keys within the ERP 'purchase_orders' database.",
+        "evidence_checked": "Invoice 'po_number'; ERP 'purchase_orders' database.",
+        "missing_data": [],
+        "business_rule_triggered": "Purchase Order number from invoice does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 73.81,
+    "raw_priority_score": 155.0,
+    "root_cause_categories": [
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Skipped Potential Duplicate Invoice due to PO Not Found dependency lock",
+      "Assigned 1.00 confidence to PO Not Found based on evidence rules.",
+      "Payment blocked by rule for PO Not Found.",
+      "Escalation required by rule for PO Not Found.",
+      "Assigned High severity to PO Not Found.",
+      "Calculated Priority Score: 73.81 (Raw: 155.0, Sev: High, Amt: 7000.0, Age: 497, Excs: 1).",
+      "Age Weight Applied: 30 points (invoice age = 497 days)."
+    ],
+    "skipped_exceptions_trace": [
+      {
+        "skipped_rule": "Potential Duplicate Invoice",
+        "reason": "Dependency lock by PO Not Found",
+        "confidence_if_evaluated": "not_evaluated"
+      }
+    ],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for T2-002 regarding escalations."
+  }
+]

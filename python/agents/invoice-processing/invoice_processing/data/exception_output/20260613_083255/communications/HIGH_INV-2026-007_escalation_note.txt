@@ -1,0 +1,15 @@
+Invoice: INV-2026-007
+Vendor: ServiceNow
+Type: escalation_note
+Severity: High
+============================================================
+
+This note is to request your direction on a high-priority invoice exception for a significant price variance.
+
+Invoice INV-2026-007 from ServiceNow for $19,400.00 is blocked against PO-4401. The invoice exceeds the PO value by $3,400.00 and has been outstanding for 400 days, posing a risk to vendor relations.
+
+The root cause is that the vendor billed for professional services exceeding the approved PO, and the business owner failed to submit a change order to cover the out-of-scope work. This represents a breakdown in our procurement controls.
+
+Due to the exceptional age of this item and the clear process failure, your sign-off is required to proceed. The standard Accounts Payable process has been exhausted. We recommend compelling the PO approver to validate the charges and submit an immediate PO amendment.
+
+Please provide your decision on how to resolve this matter within the next two business days.

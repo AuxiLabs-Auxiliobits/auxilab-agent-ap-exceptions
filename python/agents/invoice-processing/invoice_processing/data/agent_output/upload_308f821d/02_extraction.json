@@ -1,0 +1,35 @@
+{
+  "agent": "extractor",
+  "version": "1.0",
+  "timestamp": "2026-06-14T18:31:07.546718",
+  "input_refs": [
+    "01_classification.json"
+  ],
+  "invoice": {
+    "invoice_number": "INV-9902",
+    "invoice_date": "2026-05-01",
+    "invoice_total_inc_tax": 10500.0,
+    "invoice_total_ex_tax": 9545.0,
+    "tax_amount": 955.0,
+    "vendor_tax_id": null,
+    "vendor_name": "Acme Supplies Ltd",
+    "customer_name": "AP Department Your Company Inc",
+    "currency": "USD",
+    "line_items": [
+      {
+        "description": "Office Widgets x100 (price adjustment)",
+        "quantity": 100.0,
+        "unit_price": 95.45,
+        "amount_ex_tax": 9545.0,
+        "tax_code": "TAX",
+        "tax_amount": null,
+        "amount_inc_tax": null
+      }
+    ]
+  },
+  "work_authorization": null,
+  "extraction_failed": false,
+  "extraction_error": null,
+  "invoice_count": 1,
+  "waf_count": 0
+}

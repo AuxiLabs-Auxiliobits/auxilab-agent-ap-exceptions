@@ -1,0 +1,21 @@
+Invoice: INV-2026-023
+Vendor: PagerDuty
+Type: unapproved_vendor
+Severity: High
+============================================================
+
+Dear Procurement Team,
+
+We have received an invoice that is currently blocked for payment due to a vendor discrepancy.
+
+Invoice ID: INV-2026-023
+Vendor on Invoice: PagerDuty APAC Pty Ltd
+Amount: $1600.00
+
+The entity PagerDuty APAC Pty Ltd is not an approved vendor in our system. Our approved vendor record is for PagerDuty Inc.
+
+To proceed, could you please investigate this matter? Please either initiate the new vendor onboarding process for PagerDuty APAC Pty Ltd or confirm if we should request a corrected invoice from the approved entity.
+
+The payment is on hold until this vendor record is rectified. The business approver for this invoice is Maria Lopez.
+
+Thank you for your assistance.

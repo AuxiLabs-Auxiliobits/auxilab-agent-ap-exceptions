@@ -1,0 +1,15 @@
+Invoice: INV-2026-010
+Vendor: Amazon Web Services
+Type: escalation_note
+Severity: High
+============================================================
+
+This is a formal escalation for a high-priority price variance exception on Invoice INV-2026-010 from Amazon Web Services. The invoice for $33,800.00 has been outstanding for 3 days.
+
+The invoice amount exceeds the associated PO-1166 by 1.4%. The root cause is a slight overage in cloud service consumption, which is a common and expected fluctuation for this type of utility-based service.
+
+Although this variance is minimal and within standard tolerance, the system has flagged it, requiring your sign-off to proceed. We are escalating for your awareness and to clear the exception queue for this high-value supplier.
+
+Our recommendation is to approve the variance, which will allow the invoice to be routed to the assigned approver, David Kim, for final business review. This action presents minimal risk and will prevent payment delays.
+
+Please provide your decision within two business days to ensure timely payment to this critical vendor.

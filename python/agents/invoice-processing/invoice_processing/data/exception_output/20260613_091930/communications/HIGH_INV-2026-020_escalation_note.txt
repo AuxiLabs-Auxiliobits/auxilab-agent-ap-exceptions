@@ -1,0 +1,17 @@
+Invoice: INV-2026-020
+Vendor: Snowflake Inc
+Type: escalation_note
+Severity: High
+============================================================
+
+This note is to request your urgent attention for a high-priority, aged invoice exception.
+
+Invoice INV-2026-020 from Snowflake Inc. for $37,200.00 has now been outstanding for 200 days. Payment is blocked due to a significant price variance against the corresponding Purchase Order, PO-1157.
+
+The root cause is that actual consumption for usage-based cloud services exceeded the initial estimate on the PO. This scenario is common for variable spend categories like data warehousing and requires budget owner confirmation.
+
+Given the value and significant age of this payable, this exception requires senior financial approval to proceed.
+
+We recommend routing the invoice to the business owner to confirm usage and approve the required budget increase. A PO change order would then be processed.
+
+To resolve this matter and mitigate vendor relationship risk, we request your decision on this action within two business days.

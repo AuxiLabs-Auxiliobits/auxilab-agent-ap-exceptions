@@ -1,0 +1,21 @@
+Invoice: INV-2026-021
+Vendor: MongoDB Inc
+Type: internal_po_request
+Severity: Medium
+============================================================
+
+Hi Sarah,
+
+Quick heads-up from the AP team. We've received an invoice from MongoDB Inc that requires your urgent attention.
+
+Invoice ID: INV-2026-021
+Vendor: MongoDB Inc
+Amount: $4850.00
+
+This payment is on hold as it was submitted without a corresponding Purchase Order. It looks like this is a new vendor, so we need to ensure the standard procurement process is followed.
+
+To avoid payment delays, could you please raise a PO for this invoice as soon as possible? Per our SLA, this needs to be completed within 3 business days.
+
+Please let me know if you have any questions.
+
+Thanks

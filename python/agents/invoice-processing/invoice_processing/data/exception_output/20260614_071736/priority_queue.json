@@ -1,0 +1,223 @@
+[
+  {
+    "invoice_id": "INV-TEST-004",
+    "invoice_amount": 15000.0,
+    "invoice_age_days": 427,
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Currency Mismatch",
+        "root_cause_hypothesis": "The vendor has invoiced in a different currency than what was specified on the purchase order. This could be a vendor error or an uncommunicated change in the terms of the order.",
+        "recommended_action": "Contact the vendor or procurement to confirm the correct currency. A revised invoice may be required.",
+        "evidence_used": "Invoice currency is 'EUR', but the ERP database entry for PO-99999 specifies an 'expected_currency' of 'USD'.",
+        "evidence_checked": "RAW INVOICE DATA `currency` field ('EUR'), ERP DATABASE CONTEXT `purchase_orders.PO-99999.expected_currency` ('USD').",
+        "missing_data": [],
+        "business_rule_triggered": "The currency on the invoice does not match the expected_currency on the PO in the ERP database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 61.9,
+    "raw_priority_score": 130.0,
+    "root_cause_categories": [
+      "Finance Controls"
+    ],
+    "resolution_owners": [
+      "Finance Controls"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Currency Mismatch with confidence 1.00.",
+      "Calculated Priority Score: 61.9 from 1 evaluated exceptions (Raw: 130.0).",
+      "Payment blocked by Currency Mismatch.",
+      "Escalation required by Currency Mismatch.",
+      "Age Weight Applied: 30 points (invoice age = 427 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for INV-TEST-004 regarding escalations."
+  },
+  {
+    "invoice_id": "INV-TEST-007",
+    "invoice_amount": 4500.0,
+    "invoice_age_days": 0,
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "An invoice with the same vendor and invoice number but a different amount already exists in the system. This could be a corrected or revised invoice.",
+        "recommended_action": "Investigate if this is a corrected invoice or an erroneous duplicate. Check payment status of the previous invoice.",
+        "evidence_used": "Incoming invoice 'DL-56789' from 'Dell Technologies' has an amount of 4500.00. A historical invoice with the same number and vendor exists with an amount of 4200.0.",
+        "evidence_checked": "RAW INVOICE DATA: vendor_name='Dell Technologies', invoice_number='DL-56789', invoice_amount='4500.00'. ERP DATABASE CONTEXT: historical_invoices contains {vendor_name: 'Dell Technologies', invoice_number: 'DL-56789', invoice_amount: 4200.0}.",
+        "missing_data": [],
+        "business_rule_triggered": "Potential Duplicate Invoice: The exact same vendor_name AND invoice_number exist in the ERP historical_invoices, BUT the invoice_amount is DIFFERENT.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor name on the invoice does not match the vendor associated with the provided purchase order in the ERP system. This could be an incorrect PO number on the invoice or an internal data entry error.",
+        "recommended_action": "Verify the correct PO number with the vendor and/or the internal business unit that raised the PO.",
+        "evidence_used": "Invoice vendor is 'Dell Technologies', but the vendor for PO-45003 in the ERP is 'Global Logistics Corp'.",
+        "evidence_checked": "RAW INVOICE DATA: vendor_name='Dell Technologies'. ERP DATABASE CONTEXT: purchase_orders['PO-45003'].vendor_name='Global Logistics Corp'.",
+        "missing_data": [],
+        "business_rule_triggered": "Vendor Mismatch: The invoice vendor_name does not match the vendor_name associated with the PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Currency Mismatch",
+        "root_cause_hypothesis": "The currency on the invoice does not match the currency specified on the corresponding purchase order.",
+        "recommended_action": "Confirm the correct currency with the vendor and update the purchase order if necessary.",
+        "evidence_used": "Invoice currency is 'EUR', but the expected currency for PO-45003 in the ERP is 'USD'.",
+        "evidence_checked": "RAW INVOICE DATA: currency='EUR'. ERP DATABASE CONTEXT: purchase_orders['PO-45003'].expected_currency='USD'.",
+        "missing_data": [],
+        "business_rule_triggered": "Currency Mismatch: The currency on the invoice does not match the expected_currency on the PO in the ERP database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoiced amount is significantly higher than the expected amount on the purchase order, suggesting a potential billing error or a change in scope not reflected in the PO.",
+        "recommended_action": "Contact the vendor and the internal requestor to clarify the discrepancy between the invoiced amount and the PO amount.",
+        "evidence_used": "Invoice amount is '4500.00', but the expected amount for PO-45003 in the ERP is 800.0.",
+        "evidence_checked": "RAW INVOICE DATA: invoice_amount='4500.00'. ERP DATABASE CONTEXT: purchase_orders['PO-45003'].expected_amount=800.0.",
+        "missing_data": [],
+        "business_rule_triggered": "Amount Exceeds Tolerance: Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice date is later than the current processing date, which is not permissible.",
+        "recommended_action": "Reject the invoice and request the vendor to submit a corrected invoice with a valid, non-future date.",
+        "evidence_used": "Invoice date is '2028-06-01' which is after the processing date of '2024-12-01'.",
+        "evidence_checked": "RAW INVOICE DATA: invoice_date='2028-06-01'. PROCESSING DATE: '2024-12-01'.",
+        "missing_data": [],
+        "business_rule_triggered": "Future Date: The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 52.38,
+    "raw_priority_score": 110.0,
+    "root_cause_categories": [
+      "Accounts Payable",
+      "Vendor Master Data",
+      "Finance Controls",
+      "Data Error"
+    ],
+    "resolution_owners": [
+      "AP Team",
+      "Vendor Master Team",
+      "Finance Controls",
+      "AP Manager"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Potential Duplicate Invoice with confidence 1.00.",
+      "Evaluated Vendor Mismatch with confidence 1.00.",
+      "Evaluated Currency Mismatch with confidence 1.00.",
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Evaluated Future Date with confidence 1.00.",
+      "Calculated Priority Score: 52.38 from 5 evaluated exceptions (Raw: 110.0).",
+      "Payment blocked by Potential Duplicate Invoice.",
+      "Escalation required by Potential Duplicate Invoice.",
+      "Payment blocked by Vendor Mismatch.",
+      "Escalation required by Vendor Mismatch.",
+      "Payment blocked by Currency Mismatch.",
+      "Escalation required by Currency Mismatch.",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Escalation required by Future Date.",
+      "Age Weight Applied: 5 points (invoice age = 0 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for INV-TEST-007 regarding escalations."
+  },
+  {
+    "invoice_id": "INV-TEST-001",
+    "invoice_amount": 3000.0,
+    "invoice_age_days": 427,
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The invoice was submitted by a vendor that is different from the vendor specified on the corresponding purchase order in the ERP system. This may be due to a data entry error on the invoice or an incorrect PO being referenced.",
+        "recommended_action": "Contact the procurement department or the PO creator to confirm the correct vendor for PO-45004 and determine if the PO needs to be amended or a new PO is required for this vendor.",
+        "evidence_used": "The invoice vendor_name is 'Global Logistics Corp', but the vendor_name associated with PO 'PO-45004' in the ERP purchase_orders database is 'Amazon Business LLC'.",
+        "evidence_checked": "Raw Invoice Data (vendor_name, po_number), ERP Database (purchase_orders['PO-45004'].vendor_name)",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice vendor_name does not match the vendor_name associated with the PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 50.0,
+    "raw_priority_score": 105.0,
+    "root_cause_categories": [
+      "Vendor Master Data"
+    ],
+    "resolution_owners": [
+      "Vendor Master Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Vendor Mismatch with confidence 1.00.",
+      "Calculated Priority Score: 50.0 from 1 evaluated exceptions (Raw: 105.0).",
+      "Payment blocked by Vendor Mismatch.",
+      "Escalation required by Vendor Mismatch.",
+      "Age Weight Applied: 30 points (invoice age = 427 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for INV-TEST-001 regarding escalations."
+  },
+  {
+    "invoice_id": "INV-TEST-006",
+    "invoice_amount": 1500.0,
+    "invoice_age_days": 427,
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "An invoice with the same vendor and invoice number already exists in the system but with a different amount, suggesting this might be a corrected version or a genuine duplicate.",
+        "recommended_action": "Verify with the vendor or business unit if this is a corrected invoice replacing the previous one or a separate, valid charge.",
+        "evidence_used": "Incoming invoice has vendor_name 'HP Enterprise', invoice_number 'INV-1001', and invoice_amount '1500.00'. The ERP historical_invoices database contains an entry with vendor_name 'HP Enterprise', invoice_number 'INV-1001', and invoice_amount '1200.0'.",
+        "evidence_checked": "RAW INVOICE DATA: vendor_name, invoice_number, invoice_amount. ERP DATABASE CONTEXT: historical_invoices.",
+        "missing_data": [],
+        "business_rule_triggered": "Potential Duplicate Invoice: The exact same vendor_name AND invoice_number exist in the ERP historical_invoices, BUT the invoice_amount is DIFFERENT.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 42.86,
+    "raw_priority_score": 90.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Potential Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 42.86 from 1 evaluated exceptions (Raw: 90.0).",
+      "Payment blocked by Potential Duplicate Invoice.",
+      "Escalation required by Potential Duplicate Invoice.",
+      "Age Weight Applied: 30 points (invoice age = 427 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for INV-TEST-006 regarding escalations."
+  }
+]
