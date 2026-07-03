@@ -1,6 +1,7 @@
 """Application configuration."""
 from __future__ import annotations
 
+import os
 from functools import lru_cache
 from pathlib import Path
 from typing import ClassVar
@@ -9,9 +10,15 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+# Point APP_ENV_FILE at an out-of-repo secrets file (e.g. .env.prod) to load
+# it instead of the default local .env. Unset => fall back to ".env" in the
+# current working directory.
+_ENV_FILE = os.environ.get("APP_ENV_FILE", ".test")
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=_ENV_FILE,
         env_file_encoding="utf-8",
         case_sensitive=False,
         extra="ignore",
