@@ -1,22 +1,21 @@
-# ── Core dependencies ─────────────────────────────────────────────────────────
-# Add your dependencies here.
-# Example: anthropic>=0.25.0
-
-# ── MCP SDK (all MCP server briefs) ──────────────────────────────────────────
-# mcp>=1.0.0  # Uncomment if using MCP
-
-# ── Agent frameworks ──────────────────────────────────────────────────────────
-langgraph>=0.1.0
-langchain>=0.2.0
-anthropic>=0.25.0
-
-# ── Data handling ─────────────────────────────────────────────────────────────
-pandas>=2.0.0
+langchain>=0.3.0
+langchain-anthropic>=0.3.0
+langchain-google-genai>=2.0.0
+langchain-core>=0.3.0
+langgraph>=0.2.0
 pydantic>=2.0.0
-
-# ── Demo UI ───────────────────────────────────────────────────────────────────
+pydantic-settings>=2.0.0
+pandas>=2.0.0
+fastapi>=0.115.0
+uvicorn>=0.32.0
 gradio>=4.0.0
-
-# ── Testing ───────────────────────────────────────────────────────────────────
-pytest>=8.0.0
-pytest-asyncio>=0.23.0
+anthropic>=0.40.0
+google-generativeai>=0.8.0
+python-dotenv>=1.0.0
+matplotlib>=3.8.0
+httpx>=0.27.0
+python-multipart>=0.0.9
+openpyxl>=3.1.0
+pypdfium2>=4.0.0
+requests>=2.31.0
+nest_asyncio>=1.5.0
