@@ -4,8 +4,12 @@
 # Claude Code local settings
 .claude/
 
-# Frontend build output
-Frontend/dist/
+# React reviewer console — excluded from this repo. The submission is the
+# Python backend + the standalone Gradio tool (Backend/ui.py). The folder is
+# kept on disk but untracked (git rm -r --cached Frontend).
+# NOTE: `docker compose up` builds a `web` service from Frontend/, so a fresh
+# clone of this repo cannot run that service — use `python ui.py` instead.
+Frontend/
 
 # Internal project docs (not for submission)
 AUDIT_GAP_ANALYSIS.md
@@ -14,3 +18,4 @@ PRODUCTION_READINESS_REVIEW.md
 PROJECT_OVERVIEW.md
 DEMO_GUIDE.md
 mkdocs.yml
+DEPLOYMENT_AZURE.md

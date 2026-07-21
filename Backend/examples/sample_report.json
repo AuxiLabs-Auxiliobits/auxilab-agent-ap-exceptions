@@ -1,0 +1,456 @@
+{
+  "run_id": "run_8c57e0e80c5c",
+  "status": "RunStatus.AWAITING_REVIEW",
+  "ai_mode": "mock",
+  "summary": {
+    "total_exceptions": 10,
+    "auto_resolvable_count": 0,
+    "escalations_required": 3,
+    "total_exception_value": "688740.50",
+    "breakdown_by_type": {
+      "Price Variance": 3,
+      "Missing PO": 1,
+      "Duplicate": 2,
+      "Quantity Mismatch": 2,
+      "Unapproved Vendor": 1,
+      "Other": 1
+    },
+    "breakdown_by_severity": {
+      "HIGH": 5,
+      "MEDIUM": 2,
+      "LOW": 3
+    },
+    "breakdown_by_resolution_path": {
+      "ESCALATE_CONTROLLER": 1,
+      "REQUEST_PO": 1,
+      "HOLD_INVESTIGATION": 2,
+      "REQUEST_GRN": 2,
+      "MANUAL_REVIEW": 3,
+      "VENDOR_VALIDATION_REVIEW": 1
+    },
+    "top_5_actionable": [
+      {
+        "invoice_id": "INV-2001",
+        "priority_score": 0.959,
+        "bucket": "HIGH",
+        "drivers": [
+          "high_amount=182400.0",
+          "aged=61d",
+          "severity=HIGH",
+          "path=ESCALATE_CONTROLLER"
+        ]
+      },
+      {
+        "invoice_id": "INV-2004",
+        "priority_score": 0.899,
+        "bucket": "HIGH",
+        "drivers": [
+          "high_amount=275300.0",
+          "aged=74d",
+          "severity=HIGH"
+        ]
+      },
+      {
+        "invoice_id": "INV-2008",
+        "priority_score": 0.8952,
+        "bucket": "HIGH",
+        "drivers": [
+          "high_amount=98750.0",
+          "aged=67d",
+          "severity=HIGH"
+        ]
+      },
+      {
+        "invoice_id": "INV-2006",
+        "priority_score": 0.678,
+        "bucket": "HIGH",
+        "drivers": [
+          "high_amount=63000.0",
+          "severity=HIGH"
+        ]
+      },
+      {
+        "invoice_id": "INV-2002",
+        "priority_score": 0.6213,
+        "bucket": "HIGH",
+        "drivers": [
+          "aged=33d",
+          "severity=HIGH"
+        ]
+      }
+    ],
+    "sla_at_risk_count": 10,
+    "average_confidence": 0.783
+  },
+  "exceptions": [
+    {
+      "invoice_id": "INV-2001",
+      "vendor_name": "Halford Logistics",
+      "invoice_amount": "182400.00",
+      "exception_type": "Price Variance",
+      "classification": {
+        "primary_type": "Price Variance",
+        "severity": "HIGH",
+        "root_cause": "Mock classification based on declared type 'Price Variance'.",
+        "confidence": 0.82
+      },
+      "resolution": {
+        "path": "ESCALATE_CONTROLLER",
+        "recommended_approach": "Escalate to Controller",
+        "requires_communication": true,
+        "sla_hours": 8,
+        "rule_id": "pv_escalate_controller_high"
+      },
+      "priority": {
+        "bucket": "high",
+        "score": 0.959
+      },
+      "has_draft": true
+    },
+    {
+      "invoice_id": "INV-2002",
+      "vendor_name": "Cedar Tooling Co.",
+      "invoice_amount": "44950.00",
+      "exception_type": "Missing PO",
+      "classification": {
+        "primary_type": "Missing PO",
+        "severity": "HIGH",
+        "root_cause": "Mock classification based on declared type 'Missing PO'.",
+        "confidence": 0.82
+      },
+      "resolution": {
+        "path": "REQUEST_PO",
+        "recommended_approach": "Request PO",
+        "requires_communication": true,
+        "sla_hours": 48,
+        "rule_id": "missing_po_request"
+      },
+      "priority": {
+        "bucket": "high",
+        "score": 0.6213
+      },
+      "has_draft": true
+    },
+    {
+      "invoice_id": "INV-2003",
+      "vendor_name": "Brightpath Media",
+      "invoice_amount": "9120.00",
+      "exception_type": "Duplicate",
+      "classification": {
+        "primary_type": "Duplicate",
+        "severity": "MEDIUM",
+        "root_cause": "Mock classification based on declared type 'Duplicate'.",
+        "confidence": 0.82
+      },
+      "resolution": {
+        "path": "HOLD_INVESTIGATION",
+        "recommended_approach": "Hold for Investigation",
+        "requires_communication": false,
+        "sla_hours": 24,
+        "rule_id": "duplicate_hold"
+      },
+      "priority": {
+        "bucket": "low",
+        "score": 0.3464
+      },
+      "has_draft": false
+    },
+    {
+      "invoice_id": "INV-2004",
+      "vendor_name": "Nordwind Freight",
+      "invoice_amount": "275300.00",
+      "exception_type": "Quantity Mismatch",
+      "classification": {
+        "primary_type": "Quantity Mismatch",
+        "severity": "HIGH",
+        "root_cause": "Mock classification based on declared type 'Quantity Mismatch'.",
+        "confidence": 0.82
+      },
+      "resolution": {
+        "path": "REQUEST_GRN",
+        "recommended_approach": "Request GRN",
+        "requires_communication": true,
+        "sla_hours": 48,
+        "rule_id": "qty_mismatch_grn"
+      },
+      "priority": {
+        "bucket": "high",
+        "score": 0.899
+      },
+      "has_draft": true
+    },
+    {
+      "invoice_id": "INV-2005",
+      "vendor_name": "Peak Office Supplies",
+      "invoice_amount": "1280.50",
+      "exception_type": "Price Variance",
+      "classification": {
+        "primary_type": "Price Variance",
+        "severity": "LOW",
+        "root_cause": "Mock classification based on declared type 'Price Variance'.",
+        "confidence": 0.82
+      },
+      "resolution": {
+        "path": "MANUAL_REVIEW",
+        "recommended_approach": "Manual Review",
+        "requires_communication": true,
+        "sla_hours": 24,
+        "rule_id": "pv_manual_default"
+      },
+      "priority": {
+        "bucket": "low",
+        "score": 0.1462
+      },
+      "has_draft": true
+    },
+    {
+      "invoice_id": "INV-2006",
+      "vendor_name": "Orion Consulting",
+      "invoice_amount": "63000.00",
+      "exception_type": "Unapproved Vendor",
+      "classification": {
+        "primary_type": "Unapproved Vendor",
+        "severity": "HIGH",
+        "root_cause": "Mock classification based on declared type 'Unapproved Vendor'.",
+        "confidence": 0.82
+      },
+      "resolution": {
+        "path": "VENDOR_VALIDATION_REVIEW",
+        "recommended_approach": "Vendor Validation Review",
+        "requires_communication": true,
+        "sla_hours": 24,
+        "rule_id": "unapproved_vendor_validation"
+      },
+      "priority": {
+        "bucket": "high",
+        "score": 0.678
+      },
+      "has_draft": true
+    },
+    {
+      "invoice_id": "INV-2007",
+      "vendor_name": "Halford Logistics",
+      "invoice_amount": "4500.00",
+      "exception_type": "GRN Missing",
+      "classification": {
+        "primary_type": "Other",
+        "severity": "LOW",
+        "root_cause": "Mock classification based on declared type 'GRN Missing'.",
+        "confidence": 0.45
+      },
+      "resolution": {
+        "path": "MANUAL_REVIEW",
+        "recommended_approach": "Manual Review",
+        "requires_communication": false,
+        "sla_hours": 24,
+        "rule_id": "low_confidence_manual"
+      },
+      "priority": {
+        "bucket": "low",
+        "score": 0.1702
+      },
+      "has_draft": false
+    },
+    {
+      "invoice_id": "INV-2008",
+      "vendor_name": "Cedar Tooling Co.",
+      "invoice_amount": "98750.00",
+      "exception_type": "Quantity Mismatch",
+      "classification": {
+        "primary_type": "Quantity Mismatch",
+        "severity": "HIGH",
+        "root_cause": "Mock classification based on declared type 'Quantity Mismatch'.",
+        "confidence": 0.82
+      },
+      "resolution": {
+        "path": "REQUEST_GRN",
+        "recommended_approach": "Request GRN",
+        "requires_communication": true,
+        "sla_hours": 48,
+        "rule_id": "qty_mismatch_grn"
+      },
+      "priority": {
+        "bucket": "high",
+        "score": 0.8952
+      },
+      "has_draft": true
+    },
+    {
+      "invoice_id": "INV-2009",
+      "vendor_name": "Brightpath Media",
+      "invoice_amount": "9120.00",
+      "exception_type": "Duplicate",
+      "classification": {
+        "primary_type": "Duplicate",
+        "severity": "MEDIUM",
+        "root_cause": "Mock classification based on declared type 'Duplicate'.",
+        "confidence": 0.82
+      },
+      "resolution": {
+        "path": "HOLD_INVESTIGATION",
+        "recommended_approach": "Hold for Investigation",
+        "requires_communication": false,
+        "sla_hours": 24,
+        "rule_id": "duplicate_hold"
+      },
+      "priority": {
+        "bucket": "low",
+        "score": 0.3464
+      },
+      "has_draft": false
+    },
+    {
+      "invoice_id": "INV-2010",
+      "vendor_name": "Summit Facilities",
+      "invoice_amount": "320.00",
+      "exception_type": "Price Variance",
+      "classification": {
+        "primary_type": "Price Variance",
+        "severity": "LOW",
+        "root_cause": "Mock classification based on declared type 'Price Variance'.",
+        "confidence": 0.82
+      },
+      "resolution": {
+        "path": "MANUAL_REVIEW",
+        "recommended_approach": "Manual Review",
+        "requires_communication": true,
+        "sla_hours": 24,
+        "rule_id": "pv_manual_default"
+      },
+      "priority": {
+        "bucket": "low",
+        "score": 0.1225
+      },
+      "has_draft": true
+    }
+  ],
+  "drafts": [
+    {
+      "invoice_id": "INV-2001",
+      "channel": "finance_note",
+      "recipient_hint": "Finance Controller",
+      "subject": "Action required: INV-2001",
+      "body": "Hello Halford Logistics team,\n\nWe are following up on invoice INV-2001. Please review the attached exception and respond within 8 hours so we can continue processing.\n\nRegards,\nAccounts Payable Operations",
+      "tone": "professional",
+      "template_id": "escalation_controller",
+      "model_id": "mock-draft",
+      "is_edited_by_human": false,
+      "recipient": null,
+      "send_status": "draft",
+      "send_provider": null,
+      "send_message_id": null,
+      "sent_at": null,
+      "send_claimed_at": null,
+      "send_error": null
+    },
+    {
+      "invoice_id": "INV-2002",
+      "channel": "vendor_email",
+      "recipient_hint": "Vendor AR contact",
+      "subject": "Action required: INV-2002",
+      "body": "Hello Cedar Tooling Co. team,\n\nWe are following up on invoice INV-2002. Please review the attached exception and respond within 48 hours so we can continue processing.\n\nRegards,\nAccounts Payable Operations",
+      "tone": "professional",
+      "template_id": "vendor_missing_po",
+      "model_id": "mock-draft",
+      "is_edited_by_human": false,
+      "recipient": null,
+      "send_status": "draft",
+      "send_provider": null,
+      "send_message_id": null,
+      "sent_at": null,
+      "send_claimed_at": null,
+      "send_error": null
+    },
+    {
+      "invoice_id": "INV-2004",
+      "channel": "vendor_email",
+      "recipient_hint": "Vendor AR contact",
+      "subject": "Action required: INV-2004",
+      "body": "Hello Nordwind Freight team,\n\nWe are following up on invoice INV-2004. Please review the attached exception and respond within 48 hours so we can continue processing.\n\nRegards,\nAccounts Payable Operations",
+      "tone": "professional",
+      "template_id": "vendor_quantity_mismatch",
+      "model_id": "mock-draft",
+      "is_edited_by_human": false,
+      "recipient": null,
+      "send_status": "draft",
+      "send_provider": null,
+      "send_message_id": null,
+      "sent_at": null,
+      "send_claimed_at": null,
+      "send_error": null
+    },
+    {
+      "invoice_id": "INV-2005",
+      "channel": "vendor_email",
+      "recipient_hint": "Vendor AR contact",
+      "subject": "Action required: INV-2005",
+      "body": "Hello Peak Office Supplies team,\n\nWe are following up on invoice INV-2005. Please review the attached exception and respond within 24 hours so we can continue processing.\n\nRegards,\nAccounts Payable Operations",
+      "tone": "professional",
+      "template_id": "vendor_price_variance",
+      "model_id": "mock-draft",
+      "is_edited_by_human": false,
+      "recipient": null,
+      "send_status": "draft",
+      "send_provider": null,
+      "send_message_id": null,
+      "sent_at": null,
+      "send_claimed_at": null,
+      "send_error": null
+    },
+    {
+      "invoice_id": "INV-2006",
+      "channel": "internal_email",
+      "recipient_hint": "Vendor Master Team",
+      "subject": "Action required: INV-2006",
+      "body": "Hello Orion Consulting team,\n\nWe are following up on invoice INV-2006. Please review the attached exception and respond within 24 hours so we can continue processing.\n\nRegards,\nAccounts Payable Operations",
+      "tone": "professional",
+      "template_id": "internal_unapproved_vendor",
+      "model_id": "mock-draft",
+      "is_edited_by_human": false,
+      "recipient": null,
+      "send_status": "draft",
+      "send_provider": null,
+      "send_message_id": null,
+      "sent_at": null,
+      "send_claimed_at": null,
+      "send_error": null
+    },
+    {
+      "invoice_id": "INV-2008",
+      "channel": "vendor_email",
+      "recipient_hint": "Vendor AR contact",
+      "subject": "Action required: INV-2008",
+      "body": "Hello Cedar Tooling Co. team,\n\nWe are following up on invoice INV-2008. Please review the attached exception and respond within 48 hours so we can continue processing.\n\nRegards,\nAccounts Payable Operations",
+      "tone": "professional",
+      "template_id": "vendor_quantity_mismatch",
+      "model_id": "mock-draft",
+      "is_edited_by_human": false,
+      "recipient": null,
+      "send_status": "draft",
+      "send_provider": null,
+      "send_message_id": null,
+      "sent_at": null,
+      "send_claimed_at": null,
+      "send_error": null
+    },
+    {
+      "invoice_id": "INV-2010",
+      "channel": "vendor_email",
+      "recipient_hint": "Vendor AR contact",
+      "subject": "Action required: INV-2010",
+      "body": "Hello Summit Facilities team,\n\nWe are following up on invoice INV-2010. Please review the attached exception and respond within 24 hours so we can continue processing.\n\nRegards,\nAccounts Payable Operations",
+      "tone": "professional",
+      "template_id": "vendor_price_variance",
+      "model_id": "mock-draft",
+      "is_edited_by_human": false,
+      "recipient": null,
+      "send_status": "draft",
+      "send_provider": null,
+      "send_message_id": null,
+      "sent_at": null,
+      "send_claimed_at": null,
+      "send_error": null
+    }
+  ],
+  "quarantined": []
+}

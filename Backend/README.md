@@ -1,8 +1,8 @@
 # AP Exception Handling Agent
 
 LangGraph-orchestrated workflow with **selective Claude AI nodes** for AP
-exception triage, classification, routing, communication drafting, and
-priority queue generation.
+exception triage, classification, routing, communication drafting, and priority
+queue generation.
 
 > **Brief reference:** This is a realisation of **Auxiliobits Build Brief #5 — AP
 > Exception Handling Agent** (Difficulty ⭐⭐⭐⭐). Intended publication identifier:
@@ -13,6 +13,34 @@ priority queue generation.
 
 > **Architectural principle:** Use AI for ambiguity. Use deterministic code
 > for certainty.
+
+## Quickstart
+
+Requires Python 3.11+. **No API key needed** — with no key configured the whole
+pipeline runs offline in deterministic mock mode.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+
+pip install -e .
+
+python ui.py                       # → http://localhost:7860
+```
+
+Click **Load sample**, then **Run agent**. The UI returns KPIs, a per-invoice
+table, the drafted communications, the rejected rows, and a downloadable JSON
+report.
+
+Other entry points:
+
+```bash
+gradio ui.py                                   # same UI, with hot reload
+python cli.py examples/sample_exceptions.csv   # text summary to stdout
+```
+
+Both call into [app/standalone.py](app/standalone.py), which runs the same
+LangGraph pipeline with an in-memory store — exactly as the test suite does.
 
 ## Pipeline
 
@@ -36,66 +64,7 @@ ingest ─► classify (AI) ─► severity_validator ─► route (rules)
 | `route_node` | Deterministic | YAML rules engine |
 | `draft_node` | **AI** | Claude (tool-use) |
 | `prioritize_node` | Deterministic | Weighted scoring |
-| `persist_node` | Deterministic | Filesystem (swap for Postgres+S3) |
-
-## Quickstart (local Python)
-
-```bash
-pip install -e .
-
-# Optional — set your Anthropic key. If unset, the pipeline runs in
-# deterministic mock mode (no API calls) so you can verify wiring offline.
-cp .env.example .env
-
-# Start the API (use `python -m uvicorn` to avoid PATH issues on Windows)
-python -m uvicorn app.api.main:app --reload
-# API → http://localhost:8000  (interactive docs at /docs)
-```
-
-> On Windows / PowerShell, the bare `uvicorn` command may fail with
-> `CommandNotFoundException` if your Python Scripts directory isn't on PATH.
-> `python -m uvicorn …` always works.
-
-The UI is the **React console** in `../Frontend` (run `npm run dev`, or use the
-Docker quickstart below). The API is headless — drive it with the console, the
-REST API, or `curl`.
-
-## Quickstart (Docker)
-
-```bash
-# The React console bakes its Clerk publishable key at build time:
-export VITE_CLERK_PUBLISHABLE_KEY=pk_test_...   # (Windows PowerShell: $env:VITE_CLERK_PUBLISHABLE_KEY="pk_test_...")
-docker compose up --build
-# API → http://localhost:8000
-# Web (React reviewer console) → http://localhost:8080
-```
-
-The React console (`web` service) is served by nginx, which reverse-proxies
-`/v1`, `/healthz`, and `/readyz` to the `api` service — so the browser talks to
-a single origin. It is the only UI; the backend is otherwise headless.
-
-## API
-
-| Method | Path | Purpose |
-|---|---|---|
-| POST | `/v1/runs` | Upload CSV/JSON, run the workflow |
-| GET | `/v1/runs/{id}` | Run summary |
-| GET | `/v1/runs/{id}/results` | Per-invoice classification, resolution, draft |
-| GET | `/v1/runs/{id}/metrics` | Dashboard metrics + queues |
-| GET | `/v1/runs/{id}/drafts/{invoice_id}` | Fetch a draft |
-| PATCH | `/v1/runs/{id}/drafts/{invoice_id}` | Edit a draft |
-| POST | `/v1/runs/{id}/approve` | Approve the run |
-| GET | `/v1/runs/{id}/audit` | Append-only audit log |
-| GET | `/healthz` | Liveness (process up) |
-| GET | `/readyz` | Readiness — probes the run store (+ DB when persistence is on); 503 if a dependency is down |
-| GET | `/metrics` | Prometheus metrics: runs, AI tokens + estimated cost, comms sends |
-
-Example:
-
-```bash
-curl -F "file=@sample_data/exception_queue.csv" -F "tenant_id=acme" \
-     http://localhost:8000/v1/runs
-```
+| `persist_node` | Deterministic | Filesystem |
 
 ## Where AI is — and isn't
 
@@ -106,27 +75,31 @@ curl -F "file=@sample_data/exception_queue.csv" -F "tenant_id=acme" \
   prioritization, persistence. These are all reproducible, replayable, and
   auditable.
 
-The AI's severity suggestion is preserved as `severity_ai_suggested` for
-drift monitoring, but the canonical `severity` field is **always** set by
-the deterministic threshold validator.
+The AI's severity suggestion is preserved as `severity_ai_suggested` for drift
+monitoring, but the canonical `severity` field is **always** set by the
+deterministic threshold validator.
 
-## Rules engine
-
-Resolution policy lives in [app/rules/policies/default.yaml](app/rules/policies/default.yaml).
-First match wins; a catch-all rule (`when: {}`) is enforced at load time.
-Each decision carries the matched rule ID, policy version, and a per-key
-firing trace — sufficient for SOX walkthroughs.
+Tool-use is **forced on every provider** — no model can reply with free text.
+The same JSON-Schema tool spec ([app/ai/schemas.py](app/ai/schemas.py)) is
+translated to each provider's native shape at call time, so downstream nodes
+never see provider-specific output.
 
 ## AI providers
 
-The AI client picks a backend at startup using this precedence:
+With `AI_PROVIDER` unset (the default), the client auto-detects a backend by
+precedence:
 
 1. `ANTHROPIC_API_KEY` set → **Claude** (preferred).
-2. else `GEMINI_API_KEY` set → **Google Gemini** (fallback #1).
-3. else `AZURE_OPENAI_API_KEY` + `AZURE_CHAT_OPENAI_ENDPOINT` set → **Azure OpenAI** (fallback #2).
+2. else `GEMINI_API_KEY` set → **Google Gemini**.
+3. else `AZURE_OPENAI_API_KEY` + `AZURE_CHAT_OPENAI_ENDPOINT` set → **Azure OpenAI**.
 4. else → **deterministic mock mode**.
 
-Models are independently configurable per provider:
+Set `AI_PROVIDER` to `anthropic` | `gemini` | `azure` | `mock` to **pin** one
+instead. Pin it whenever more than one key is configured — otherwise the
+higher-precedence provider silently wins and a lower-precedence key you meant to
+test is ignored. A pinned provider missing its credentials falls back to **mock,
+never to a different live provider**: silently billing a provider the operator
+didn't choose is worse than running offline.
 
 | Env var | Default | Purpose |
 |---|---|---|
@@ -134,45 +107,56 @@ Models are independently configurable per provider:
 | `DRAFT_MODEL` | `claude-sonnet-4-6` | Anthropic drafter |
 | `GEMINI_CLASSIFY_MODEL` | `gemini-2.5-flash` | Gemini classifier |
 | `GEMINI_DRAFT_MODEL` | `gemini-2.5-flash` | Gemini drafter |
-| `AZURE_OPENAI_DEPLOYMENT` | `gpt-4o-mini` | Azure deployment (used for both classify and draft) |
+| `AZURE_OPENAI_DEPLOYMENT` | `gpt-4o-mini` | Azure deployment (both classify and draft) |
 | `AZURE_OPENAI_VERSION` | `2024-10-21` | Azure API version |
-| `AZURE_CHAT_OPENAI_ENDPOINT` | — | e.g. `https://<resource>.openai.azure.com/` |
 
-Tool-use is **forced on both providers** — neither model can reply with
-free text. The same JSON-Schema tool spec ([app/ai/schemas.py](app/ai/schemas.py))
-is translated to each provider's native shape at call time, so downstream
-nodes never see provider-specific output.
+Current Anthropic ids: `claude-opus-4-8` (most capable), `claude-opus-4-7`,
+`claude-sonnet-5`, `claude-sonnet-4-6`, `claude-haiku-4-5` (fastest/cheapest).
+Both Gemini defaults are Flash on purpose — `gemini-2.5-pro` has a 0 RPM free
+tier, so every request 429s unless you have a paid key.
+
+### Switching provider without a restart
+
+The UI's **⚙️ Advanced Settings** panel picks the provider, takes its API key,
+and offers a model dropdown — applied immediately, no restart.
+
+Values entered there live in the **server process only**. They are never written
+to `.env`, are shared by every browser tab hitting that instance, and are lost on
+restart. Use `.env` for anything persistent, then hit **Reload .env** — which
+also discards anything typed in the panel, so the file wins. Because it is
+process-global, the panel is meant for a local single-user demo; don't expose
+that instance beyond localhost.
+
+Leaving the model box blank keeps whatever `.env` already configured.
 
 ### Mock mode
 
-When neither API key is set, the client returns deterministic mock
-classifications (echoing the ERP-declared type with confidence 0.82 when
-in-taxonomy, 0.45 for "Other") and a stock draft. The entire pipeline
-runs offline end-to-end — useful for dev, CI, and demos.
+With no provider key set, the client returns deterministic mock classifications
+(echoing the ERP-declared type with confidence 0.82 when in-taxonomy, 0.45 for
+"Other") and a stock draft. The entire pipeline runs offline end to end.
 
-## Folder structure
+### Vendor history is stateful across runs
 
-```
-app/
-├── api/           FastAPI routes + run executor + store
-├── audit/         Append-only audit event helpers
-├── ai/            Claude client, tool-use schemas, prompts
-│   └── prompts/   System & per-template Markdown
-├── graph/         LangGraph builder + RunState + nodes
-│   └── nodes/     ingest, classify, severity, route, draft,
-│                  prioritize, persist, error_handler
-├── rules/         Rules engine + YAML policies
-├── scoring/       Priority scoring engine
-├── schemas/       Pydantic models
-├── comms/         Email/Slack dispatch + providers
-├── db/            Normalized SQLAlchemy models + repositories
-├── vendor/        Vendor reliability profiles
-├── observability/ Metrics + AI cost tracking
-└── config.py
-sample_data/
-Dockerfile
-docker-compose.yml
-```
+With `VENDOR_HISTORY_ENABLED=true` (the default), every run appends to per-vendor
+reliability profiles in `VENDOR_PROFILES_PATH`, and those profiles **enrich the
+classifier prompt on subsequent runs**. Two runs over the same CSV can therefore
+produce different classifications — by design, but surprising if you're diffing
+output or scripting a demo. Set `VENDOR_HISTORY_ENABLED=false` (or delete the
+profiles file) when you need strict run-to-run reproducibility.
+
+This applies in mock mode too: "deterministic" describes the AI client, not
+independence from prior runs.
+
+## Rules engine
+
+Resolution policy lives in [app/rules/policies/default.yaml](app/rules/policies/default.yaml).
+First match wins; a catch-all rule (`when: {}`) is enforced at load time. Each
+decision carries the matched rule ID, policy version, and a per-key firing trace
+— sufficient for SOX walkthroughs.
+
+`AUTO_APPROVE_MAX_AMOUNT` (default 10,000) is a hard materiality backstop: an
+invoice at or above it can never auto-approve regardless of what the policy says
+— it is routed to MANUAL_REVIEW and the override is recorded in the trace.
 
 ## Severity policy (deterministic)
 
@@ -181,6 +165,9 @@ docker-compose.yml
 | HIGH | `amount > 25,000` OR `days_outstanding > 30` |
 | MEDIUM | `5,000 ≤ amount ≤ 25,000` |
 | LOW | `amount < 5,000` |
+
+Tunable via `SEVERITY_HIGH_AMOUNT`, `SEVERITY_HIGH_DAYS`,
+`SEVERITY_MEDIUM_AMOUNT_MIN`.
 
 ## Priority scoring
 
@@ -193,92 +180,71 @@ priority_score =
   + w_conf     * (1 - confidence_score)
 ```
 
-Defaults: `(0.30, 0.25, 0.25, 0.15, 0.05)`. Tunable per tenant via env vars.
+Defaults: `(0.30, 0.25, 0.25, 0.15, 0.05)`. Bucketization:
 
-Bucketization:
 - HIGH: `score ≥ 0.70` **or** `severity == HIGH`
 - MEDIUM: `0.40 ≤ score < 0.70`
 - LOW: `score < 0.40`
 
 Tie-break order: `(-score, -days_outstanding, -amount, invoice_id)`.
 
-## Database & migrations
+## Configuration
 
-The normalized persistence layer is managed with **Alembic**. `DATABASE_URL`
-drives the target (SQLite by default; `postgresql+psycopg://…` for
-Supabase/Postgres).
+Everything is optional — with no `.env` at all the pipeline runs in offline mock
+mode. These are the **only** variables the CLI / Gradio path reads; all of them
+are in [.env.example](.env.example) with their defaults.
 
-```bash
-# apply all migrations (creates/updates the 9 normalized tables)
-python -m alembic upgrade head
+| Group | Variables |
+|---|---|
+| Provider | `AI_PROVIDER`, `ANTHROPIC_API_KEY`, `GEMINI_API_KEY`, `AZURE_OPENAI_API_KEY`, `AZURE_CHAT_OPENAI_ENDPOINT` |
+| Models | `CLASSIFY_MODEL`, `DRAFT_MODEL`, `GEMINI_CLASSIFY_MODEL`, `GEMINI_DRAFT_MODEL`, `AZURE_OPENAI_DEPLOYMENT`, `AZURE_OPENAI_VERSION` |
+| AI calls | `AI_MAX_CONCURRENCY`, `AI_MAX_RETRIES`, `AI_TIMEOUT_SECONDS`, `AI_TASK_TIMEOUT_SECONDS` |
+| Routing | `RULES_POLICY_PATH`, `AUTO_APPROVE_MAX_AMOUNT` |
+| Severity | `SEVERITY_HIGH_AMOUNT`, `SEVERITY_HIGH_DAYS`, `SEVERITY_MEDIUM_AMOUNT_MIN` |
+| Scoring | `W_AMOUNT`, `W_AGE`, `W_SEVERITY`, `W_PATH`, `W_CONF`, `HIGH_THRESHOLD`, `MEDIUM_THRESHOLD` |
+| Vendor history | `VENDOR_HISTORY_ENABLED`, `VENDOR_PROFILES_PATH` |
+| Output | `ARTIFACT_DIR` |
 
-# after changing app/db/models.py — autogenerate the next migration
-python -m alembic revision --autogenerate -m "describe change"
-
-# roll back one step
-python -m alembic downgrade -1
-```
-
-`init_db()`/`python -m scripts.init_db` (a bare `create_all`) remains for quick
-local/dev use, but **production should use Alembic migrations** so schema
-changes are versioned and reviewable. CI applies `upgrade head` + `downgrade
-base` on every push.
-
-## Durable run execution
-
-By default a run executes as a fire-and-forget background task — fast, but a
-restart mid-run loses it. Set `RUN_QUEUE_ENABLED=true` (requires a DB) to switch
-to the **durable queue**: the uploaded input is persisted to the `run_jobs`
-table and an in-process worker leases and executes it.
-
-- **Durable** — a queued run survives a process restart.
-- **Recoverable** — a run whose worker died mid-flight is re-leased after the
-  lease TTL (`RUN_QUEUE_LEASE_SECONDS`) and re-executed; orphans are reclaimed
-  on startup.
-- **Retryable** — a failed execution is retried up to `RUN_QUEUE_MAX_ATTEMPTS`.
-- **Scalable** — run multiple instances; the DB lease (atomic claim) keeps
-  job pickup safe across processes. No Redis/Celery required.
-
-`POST /v1/runs` returns immediately with `status=PENDING` (queued); poll
-`GET /v1/runs/{id}` as usual. The worker is started/stopped by the app lifespan
-and drains in-flight jobs on shutdown.
+Anything else in [app/config.py](app/config.py) — auth, database, run queue,
+Supabase, outbound email/Slack, CORS, rate limiting — belongs to the optional
+FastAPI service in `app/api/` and has **no effect** on `cli.py` / `ui.py`. Two
+specifics worth knowing: `LOG_LEVEL` is applied by that service's startup only,
+so it does nothing here, and the standalone runner always uses the in-memory run
+store regardless of `RUN_STORE_BACKEND` / `DB_PERSISTENCE_ENABLED`.
 
 ## Security notes
 
-- API auth: set `AUTH_ENABLED=true` + `CLERK_ISSUER` to require a verified
-  Clerk JWT on every `/v1/*` route, with per-tenant run scoping (a tenant only
-  sees its own runs). The app refuses to boot in a protected environment
-  (`ENVIRONMENT` starting `prod`/`stag`) if auth is off, CORS is unrestricted,
-  live comms have no allowlist, or the run store is the non-durable in-memory
-  backend.
 - User-supplied free text is wrapped in `<exception>` / `<context>` delimiters
-  with the system prompt instructing the model to treat them as data, not
+  with the system prompt instructing the model to treat it as data, not
   instructions.
-- Draft outputs run through a PII redaction pass (SSN-style, long card
-  numbers, bank account references) before persisting.
-- Tool-use is forced — the model cannot reply with free text in classification
-  or drafting nodes.
-- Outbound comms are throttled by a per-domain daily cap and gated by a
-  live-send domain allowlist; vendor emails resolve through a vendor master CSV
-  (`VENDOR_MASTER_PATH`) and an unknown vendor is refused, not mis-delivered.
+- Draft outputs run through a PII redaction pass (SSN-style, long card numbers,
+  bank account references) before persisting.
+- Tool-use is forced — the model cannot reply with free text in the
+  classification or drafting nodes.
+- Nothing is sent. Every drafted communication is agent output staged for human
+  review.
 
-## Production hardening
+## Folder structure
 
-- **CI**: GitHub Actions at the repo root (`.github/workflows/ci.yml`) runs
-  backend (ruff, mypy [advisory], pytest, Alembic up/down) **and** frontend
-  (eslint, vitest, `tsc` + `vite build`) jobs, plus a `pip-audit` gate.
-- **Health**: `/readyz` actually probes the run store (and DB when persistence
-  is on) and returns 503 when a dependency is unreachable — wire it to your
-  orchestrator's readiness probe.
-- **Observability**: `/metrics` exposes Prometheus counters for runs, per-call
-  AI token usage + estimated USD cost, and comms sends.
-- **Durability**: a durable run store that fails to initialize is fatal in a
-  protected environment (no silent in-memory fallback). On shutdown, in-flight
-  background runs are drained (`SHUTDOWN_DRAIN_SECONDS`).
-- **Reproducible installs**: `requirements.lock` (generated with
-  `pip-compile pyproject.toml -o requirements.lock`) fully pins the dependency
-  tree. Use it for production/Docker images: `pip install -r requirements.lock`.
-  Regenerate it after editing `pyproject.toml` dependencies.
+```
+ui.py              Gradio interface
+cli.py             Terminal entry point
+app/
+├── standalone.py  In-process entry point used by both of the above
+├── ai/            AI client, tool-use schemas, prompts
+├── graph/         LangGraph builder + RunState + nodes
+│   └── nodes/     ingest, classify, severity, route, draft,
+│                  prioritize, persist, error_handler
+├── rules/         Rules engine + YAML policies
+├── scoring/       Priority scoring engine
+├── schemas/       Pydantic models
+├── vendor/        Vendor reliability profiles
+├── audit/         Append-only audit event helpers
+├── api/           Optional FastAPI service (not used by ui.py / cli.py)
+└── config.py
+examples/          Sample exception queue
+sample_data/       Brief-mandated 25-row queue
+```
 
 ## License
 

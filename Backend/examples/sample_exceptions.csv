@@ -1,0 +1,11 @@
+invoice_id,vendor_name,invoice_amount,invoice_date,po_number,exception_type,exception_description,days_outstanding,approver_assigned
+INV-2001,Halford Logistics,182400.00,2026-04-15,PO-99821,Price Variance,Unit price 14% over PO on 3 lines,61,controller@acme.com
+INV-2002,Cedar Tooling Co.,44950.00,2026-05-02,,Missing PO,No purchase order on file,33,
+INV-2003,Brightpath Media,9120.00,2026-05-20,PO-99710,Duplicate,Same vendor and amount as prior invoice INV-1845,12,ap.clerk@acme.com
+INV-2004,Nordwind Freight,275300.00,2026-03-28,PO-99655,Quantity Mismatch,Received 480 units vs 500 billed,74,controller@acme.com
+INV-2005,Peak Office Supplies,1280.50,2026-06-10,PO-99902,Price Variance,Line total 3% over PO tolerance,8,ap.clerk@acme.com
+INV-2006,Orion Consulting,63000.00,2026-05-05,,Unapproved Vendor,Vendor not in approved master list,30,procurement@acme.com
+INV-2007,Halford Logistics,4500.00,2026-06-18,PO-99821,GRN Missing,No goods receipt note recorded,7,
+INV-2008,Cedar Tooling Co.,98750.00,2026-04-22,PO-99730,Quantity Mismatch,Partial delivery not reflected on invoice,67,controller@acme.com
+INV-2009,Brightpath Media,9120.00,2026-05-20,PO-99710,Duplicate,Same vendor and amount as prior invoice INV-1845,12,ap.clerk@acme.com
+INV-2010,Summit Facilities,320.00,2026-06-25,PO-99940,Price Variance,Minor rounding difference on tax line,3,ap.clerk@acme.com

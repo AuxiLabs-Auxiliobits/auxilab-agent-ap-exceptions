@@ -13,7 +13,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 # Point APP_ENV_FILE at an out-of-repo secrets file (e.g. .env.prod) to load
 # it instead of the default local .env. Unset => fall back to ".env" in the
 # current working directory.
-_ENV_FILE = os.environ.get("APP_ENV_FILE", ".test")
+_ENV_FILE = os.environ.get("APP_ENV_FILE", ".env")
 
 
 class Settings(BaseSettings):
@@ -185,15 +185,51 @@ class Settings(BaseSettings):
     # to reach a terminal status before the process exits.
     shutdown_drain_seconds: int = 30
 
+    # Explicit provider selection. Empty (default) => auto-detect by precedence,
+    # which is the historical behaviour. Set to pin one provider so a key left
+    # configured for a higher-precedence provider can't silently win — e.g.
+    # AI_PROVIDER=gemini is honoured even when ANTHROPIC_API_KEY is also set.
+    ai_provider: str = Field(
+        default="",
+        description="Force an AI provider (anthropic|gemini|azure|mock). "
+        "Empty => auto precedence: anthropic > gemini > azure > mock.",
+    )
+
+    _VALID_AI_PROVIDERS: ClassVar[tuple[str, ...]] = ("anthropic", "gemini", "azure", "mock")
+
+    @property
+    def _provider_ready(self) -> dict[str, bool]:
+        """Which providers have enough config to actually be constructed."""
+        return {
+            "anthropic": bool(self.anthropic_api_key),
+            "gemini": bool(self.gemini_api_key),
+            "azure": bool(self.azure_openai_api_key and self.azure_chat_openai_endpoint),
+            "mock": True,
+        }
+
     @property
     def active_ai_provider(self) -> str:
-        """Provider precedence: anthropic > gemini > azure > mock."""
-        if self.anthropic_api_key:
-            return "anthropic"
-        if self.gemini_api_key:
-            return "gemini"
-        if self.azure_openai_api_key and self.azure_chat_openai_endpoint:
-            return "azure"
+        """The provider to run with.
+
+        An explicit AI_PROVIDER wins outright. If that provider is missing its
+        credentials we fall back to mock rather than sliding to a *different*
+        live provider — silently billing a provider the operator didn't pick
+        would be worse than running the deterministic offline path.
+        """
+        ready = self._provider_ready
+        forced = self.ai_provider.strip().lower()
+        if forced:
+            if forced not in self._VALID_AI_PROVIDERS:
+                raise ValueError(
+                    f"Invalid AI_PROVIDER {self.ai_provider!r}; expected one of "
+                    + ", ".join(self._VALID_AI_PROVIDERS)
+                )
+            return forced if ready[forced] else "mock"
+
+        # No explicit choice: auto precedence (unchanged).
+        for name in ("anthropic", "gemini", "azure"):
+            if ready[name]:
+                return name
         return "mock"
 
     def model_for(self, purpose: str) -> str:

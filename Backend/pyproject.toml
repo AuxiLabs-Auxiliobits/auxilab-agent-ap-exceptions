@@ -27,6 +27,10 @@ dependencies = [
     "pyjwt[crypto]>=2.9",
     "slowapi>=0.1.9",
     "sentry-sdk[fastapi]>=2.0",
+    # Browser interface (`python ui.py`) — the primary entry point, so it is a
+    # core dependency rather than an extra: `pip install -e .` is all a new
+    # user needs. (`python cli.py` does not require it.)
+    "gradio>=4.44",
 ]
 
 [project.optional-dependencies]
