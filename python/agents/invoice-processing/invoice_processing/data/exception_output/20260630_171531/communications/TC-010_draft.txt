@@ -1,0 +1,11 @@
+Hi team,
+
+Urgent request from AP regarding invoice **TC-010** from **Epsilon Parts** for $4500.
+
+This payment is currently on hold as the Purchase Order number provided is invalid in our system. The invoice is now 49 days outstanding and requires your immediate attention.
+
+To get this paid, please urgently raise a new Purchase Order in the ERP. Per our policy, this must be completed within **3 business days** to avoid further delays and maintain our vendor relationship.
+
+We cannot process the payment until we receive the new PO number. Please let us know as soon as it has been created.
+
+Thanks for your prompt help on this.

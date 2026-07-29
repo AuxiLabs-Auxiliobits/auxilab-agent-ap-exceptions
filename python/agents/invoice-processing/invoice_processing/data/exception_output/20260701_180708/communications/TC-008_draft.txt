@@ -1,0 +1,7 @@
+Invoice TC-008 from Delta Services for $20,000.00 is now on payment hold.
+
+Our pre-classification system flagged it as a potential duplicate, noting a similar charge with a different invoice number in the current batch. A duplicate means we may have already been billed for these same services.
+
+AP will investigate this discrepancy and contact the vendor for clarification to confirm the charge is valid. Payment is blocked until this is resolved.
+
+The AP Manager has been notified of this hold. No further action is required at this time.

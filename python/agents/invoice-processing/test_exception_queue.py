@@ -14,8 +14,11 @@ raw_exceptions = [
     {
         'invoice_id': 'HP-99001',
         'vendor_name': 'HP Enterprise',
+        'invoice_number': 'INV-99001',
         'invoice_amount': '15000',
         'days_outstanding': '15',
+        'currency': 'EUR',
+        'po_number': 'PO-99999',
     }
 ]
 

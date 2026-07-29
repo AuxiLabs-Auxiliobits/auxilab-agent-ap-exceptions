@@ -1,0 +1,9 @@
+Dear Procurement Team,
+
+We require your urgent assistance with invoice TC-014 from Phantom Invoicing LLC for $88,000.00. This payment, now 46 days outstanding, is on hold due to critical discrepancies.
+
+The vendor, Phantom Invoicing LLC, is not a registered supplier in our vendor master file. Furthermore, the vendor name on the invoice does not match the approved supplier associated with the provided PO number. This suggests a potential fraudulent invoice or an incorrect reference. Additionally, the invoiced amount is significantly higher than the value approved on the purchase order.
+
+Could you please investigate and either initiate the vendor onboarding process for this entity or provide the correct, approved vendor and PO details? Payment is blocked until this matter is resolved and the vendor is properly approved.
+
+Your prompt attention is appreciated.

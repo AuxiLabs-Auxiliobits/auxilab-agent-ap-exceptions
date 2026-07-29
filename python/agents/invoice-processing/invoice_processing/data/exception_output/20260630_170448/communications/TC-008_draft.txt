@@ -1,0 +1,7 @@
+Invoice TC-008 from Delta Services for $20,000.00 has been placed on payment hold. The invoice is currently 51 days outstanding.
+
+Our system flagged a potential duplicate in the current batch, suggesting we may have been billed for the same services under a different invoice number.
+
+Payment is now blocked pending investigation. We will contact Delta Services to verify the charges and confirm if this is a valid, separate invoice or an erroneous duplicate.
+
+The AP Manager has been notified of this action. No payment will be released until the issue is resolved.

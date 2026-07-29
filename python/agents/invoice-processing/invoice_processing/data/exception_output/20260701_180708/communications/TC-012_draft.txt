@@ -1,0 +1,12 @@
+This note is to formally escalate a high-priority invoice exception requiring your review and decision.
+
+Invoice ID: TC-012
+Vendor: Eta Consulting
+Amount: $120,000.00
+Days Outstanding: 48
+
+The invoice is blocked from processing due to two critical data exceptions. First, it lacks a currency code, a mandatory field for our financial systems. Second, it was submitted without a Purchase Order number.
+
+Given the significant value and the 48-day aging, this issue now requires senior-level intervention. Our recommended action is to either return the invoice to the vendor to have the currency specified and PO confirmed, or to authorize a manual review to identify the correct currency and validate it as a non-PO expense.
+
+To mitigate payment delays and manage vendor relationship risk, your decision on how to proceed is respectfully requested within two business days.

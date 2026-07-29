@@ -1,0 +1,9 @@
+This note is to formally escalate a high-priority invoice exception requiring your decision.
+
+The invoice, TC-012 from Eta Consulting for 120,000.0, has been outstanding for 47 days. Processing is blocked due to two critical data omissions:
+1.  **Missing Currency Code:** The value is ambiguous without a specified currency, posing a risk to financial reporting accuracy.
+2.  **Missing PO Number:** This prevents standard matching and indicates the invoice may require a non-PO approval workflow.
+
+Given the significant amount, extended aging, and risk of improper financial recording, Controller-level guidance is necessary to ensure compliance with internal controls. Our recommendation is to either request a corrected invoice from the vendor or confirm the currency with the internal business owner before processing.
+
+To resolve this aged item and manage the vendor relationship, please advise on the preferred path forward within two business days.

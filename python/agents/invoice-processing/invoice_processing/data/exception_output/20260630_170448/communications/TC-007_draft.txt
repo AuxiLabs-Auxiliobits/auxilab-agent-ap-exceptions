@@ -1,0 +1,18 @@
+Subject: URGENT: Payment Hold & Resolution Request — Invoice INV-G001 (Gamma Logistics)
+
+Hi Finance Controls, Receiving Team,
+
+We are holding Invoice INV-G001 from Gamma Logistics for $8,000.00 (currently 53 days outstanding).
+
+Payment processing has been blocked due to the following critical exception(s):
+• Currency Mismatch: The vendor invoiced in GBP, but the purchase order was created with an expectation of being billed in USD. This may be a vendor error or a data entry error in the PO.
+• GRN Not Received: The invoice was likely submitted before the goods or services were formally logged as received in the ERP, or the receiving department has a backlog.
+
+Recommended Action Paths:
+• Contact the procurement department to confirm the correct currency for PO-6003. Either the PO must be amended or the vendor must submit a revised invoice in USD.
+• Place invoice on hold. Contact the purchasing or receiving department to confirm receipt of goods/services for PO-6003 and to create a GRN.
+
+This item has been assigned priority tier MEDIUM with a resolution SLA of 48 hours. Please investigate the discrepancy and provide confirmation or corrected documentation so we can proceed with payment.
+
+Thank you,
+Accounts Payable Operations

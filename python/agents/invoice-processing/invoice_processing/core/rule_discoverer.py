@@ -18,9 +18,7 @@ from .case_loader import CaseData
 from .config import (
     RULES_BOOK_PATH,
     get_llm_call_delay,
-    get_llm_location,
     get_llm_model,
-    get_llm_project_id,
 )
 from .prompts import (
     RULE_DISCOVERY_SYSTEM_PROMPT,
@@ -56,26 +54,24 @@ class ProposedRule:
 
 
 class _LLMClient:
-    """Lazy-initialized Vertex AI Gemini Pro client."""
+    """Lazy-initialized google.generativeai Gemini Pro client."""
 
     _model = None
 
     @classmethod
     def get_model(cls):
         if cls._model is None:
-            from google.cloud import aiplatform  # noqa: PLC0415
-            from vertexai.generative_models import (  # noqa: PLC0415
-                GenerativeModel,
-            )
+            import os  # noqa: PLC0415
+            import google.generativeai as genai  # noqa: PLC0415
 
-            project_id = get_llm_project_id()
-            if not project_id:
+            api_key = os.getenv("GEMINI_API_KEY")
+            if not api_key:
                 raise ValueError(
-                    "PROJECT_ID not set. Export it or add to .env file."
+                    "GEMINI_API_KEY not set. Add it to .env or set DEMO_MODE=true."
                 )
-            aiplatform.init(project=project_id, location=get_llm_location())
-            cls._model = GenerativeModel(get_llm_model())
-            logger.info(f"Initialized {get_llm_model()} (project={project_id})")
+            genai.configure(api_key=api_key)
+            cls._model = genai.GenerativeModel(get_llm_model())
+            logger.info(f"Initialized {get_llm_model()} (google.generativeai)")
         return cls._model
 
     @classmethod

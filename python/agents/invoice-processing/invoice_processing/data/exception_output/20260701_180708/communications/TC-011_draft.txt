@@ -1,0 +1,7 @@
+This note is to escalate a high-priority exception for an invoice from Zeta Manufacturing (ID: TC-011) for $35,000.00.
+
+The invoice is currently on hold due to a missing Goods Receipt Note (GRN). Our investigation reveals two critical issues: goods have not been confirmed as received for the associated PO-6005, and the invoice is future-dated. This non-compliant dating practice presents a significant risk of payment for services not yet rendered.
+
+Given the large invoice amount and the policy deviation, your review and sign-off are required. The recommended action is to contact the business unit to validate receipt and instruct them to process the GRN, but the future-dating issue requires your specific guidance before we proceed.
+
+Please advise on how to handle this exception within two business days to ensure timely resolution and mitigate financial risk.

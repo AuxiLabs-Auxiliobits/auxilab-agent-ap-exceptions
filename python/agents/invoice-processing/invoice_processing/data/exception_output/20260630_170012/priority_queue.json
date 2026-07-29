@@ -1,0 +1,63 @@
+[
+  {
+    "invoice_id": "TC-012",
+    "invoice_amount": 120000.0,
+    "invoice_age_days": 47,
+    "vendor_name": "Eta Consulting",
+    "invoice_number": "INV-H001",
+    "final_exception_list": [
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "The invoice is missing the currency code, making the financial value of '120000' ambiguous. This is a critical piece of data required for processing.",
+        "recommended_action": "Contact the vendor and request a corrected invoice that includes the currency code.",
+        "evidence_used": "Invoice field `currency` is `''` (blank).",
+        "evidence_checked": "Reviewed the `currency` field in the RAW INVOICE DATA. The definition for 'Missing Required Data' lists 'currency' as an example of a required field.",
+        "missing_data": [],
+        "business_rule_triggered": "Missing Required Data: The invoice is missing a required non-PO field (e.g. invoice_number, vendor_name, invoice_amount, currency).",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The invoice was submitted without a Purchase Order number, which is required for 2-way or 3-way matching. This is likely a non-PO invoice or a vendor error.",
+        "recommended_action": "Contact the vendor or business unit to determine if a PO exists for this charge. If not, route for non-PO invoice approval.",
+        "evidence_used": "Invoice field `po_number` is `''` (blank).",
+        "evidence_checked": "Reviewed the `po_number` field in the RAW INVOICE DATA.",
+        "missing_data": [],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice is blank, empty, or does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "HIGH",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 100.0,
+    "raw_priority_score": 600.0,
+    "root_cause_categories": [
+      "Vendor Submission",
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "AP Manager",
+      "Procurement"
+    ],
+    "sla_hours": 4,
+    "decision_trace": [
+      "Evaluated Missing Required Data with confidence 1.00.",
+      "Critical Priority applied: Missing Required Data on High Value Invoice (>10k). SLA reduced to 4h.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 100.0 from 2 evaluated exceptions (Raw: 600.0).",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 47 days).",
+      "Assigned Priority Tier: HIGH"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "This note is to request your guidance and approval on a high-priority exception for invoice TC-012 from Eta Consulting, outstanding for 47 days.\n\nThe invoice is for an amount listed as '120,000', but it critically lacks a currency code, making the value ambiguous and creating a significant financial risk. Furthermore, it was submitted without a Purchase Order number, preventing our standard 2-way matching process.\n\nDue to the high value and the critical nature of the missing currency data, AP cannot assume the currency or process the payment. This requires Controller-level sign-off before we proceed or reject the invoice.\n\nOur recommendation is to contact the vendor immediately and request a corrected invoice that includes both the currency code and a valid PO number.\n\nPlease provide your decision or an alternative course of action within the next two business days to resolve this aged, high-value item."
+  }
+]

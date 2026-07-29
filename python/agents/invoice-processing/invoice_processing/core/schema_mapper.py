@@ -11,9 +11,7 @@ import time
 
 from .config import (
     get_llm_call_delay,
-    get_llm_location,
     get_llm_model,
-    get_llm_project_id,
 )
 
 logger = logging.getLogger("APException.SchemaMapper")
@@ -72,19 +70,23 @@ Example:
 """
 
 class _LLMClient:
+    """Lazy-initialized google.generativeai Gemini Pro client."""
+
     _model = None
 
     @classmethod
     def get_model(cls):
         if cls._model is None:
-            from google.cloud import aiplatform  # noqa: PLC0415
-            from vertexai.generative_models import GenerativeModel  # noqa: PLC0415
+            import os  # noqa: PLC0415
+            import google.generativeai as genai  # noqa: PLC0415
 
-            project_id = get_llm_project_id()
-            if not project_id:
-                raise ValueError("PROJECT_ID not set. Export it or add to .env file.")
-            aiplatform.init(project=project_id, location=get_llm_location())
-            cls._model = GenerativeModel(get_llm_model())
+            api_key = os.getenv("GEMINI_API_KEY")
+            if not api_key:
+                raise ValueError(
+                    "GEMINI_API_KEY not set. Add it to .env or set DEMO_MODE=true."
+                )
+            genai.configure(api_key=api_key)
+            cls._model = genai.GenerativeModel(get_llm_model())
         return cls._model
 
     @classmethod
@@ -93,6 +95,9 @@ class _LLMClient:
         start = time.time()
         response = model.generate_content(prompt)
         latency_ms = (time.time() - start) * 1000
+        delay = get_llm_call_delay()
+        if delay > 0:
+            time.sleep(delay)
         return response.text.strip(), latency_ms
 
 def _extract_json_object(text: str) -> str:

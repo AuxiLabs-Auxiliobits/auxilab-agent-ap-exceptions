@@ -1,0 +1,5 @@
+Invoice TC-020 from Delta Services for $20,000.00 has been placed on hold. Our system has flagged a potential duplicate invoice in the current batch with similar service dates but a different invoice number.
+
+Consequently, payment for this invoice is blocked pending investigation. A duplicate means we may have already been billed for these services under a different invoice. We will contact Delta Services to verify and resolve this discrepancy.
+
+The AP Manager has been notified of this action. Further updates will be provided once the review is complete.

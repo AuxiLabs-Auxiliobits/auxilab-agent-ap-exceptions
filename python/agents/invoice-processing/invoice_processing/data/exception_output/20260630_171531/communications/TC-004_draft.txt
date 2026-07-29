@@ -1,0 +1,5 @@
+Invoice TC-004 from BetaTech Corp for $5,000.00 has been placed on hold. A pre-classification check detected a potential exact duplicate in the current batch, meaning we may have already received and processed this same invoice.
+
+Payment is now blocked pending an investigation to confirm its validity. If it is a true duplicate, the new invoice will be rejected. If it is a unique and valid charge, it will be released for payment processing.
+
+The AP Manager has been notified of this hold.

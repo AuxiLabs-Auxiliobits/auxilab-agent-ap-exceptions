@@ -1,0 +1,7 @@
+This note is to formally escalate a high-priority exception for a newly received invoice from Zeta Manufacturing (ID: TC-011) for $35,000.
+
+The invoice has been flagged as it lacks a corresponding Goods Receipt Note (GRN) in the system, which is a mandatory requirement for our three-way match process. This indicates we have been billed for goods that have not been formally recorded as received against the expected PO (PO-6005). Furthermore, the invoice is dated in the future, representing a second compliance violation.
+
+Given the significant amount and dual policy deviations, I am escalating for your awareness and direction. This situation presents a material risk of paying for unconfirmed deliveries.
+
+Our recommended action is to place the invoice on hold and contact the receiving department to expedite the GRN. Please provide your guidance or approval on this matter within the next two business days.

@@ -41,18 +41,18 @@ function initThemeToggle() {
   const currentTheme = localStorage.getItem('theme') || 'dark';
   if (currentTheme === 'light') {
     document.documentElement.classList.add('light-mode');
-    if(iconDark) iconDark.style.display = 'none';
-    if(iconLight) iconLight.style.display = 'block';
+    if (iconDark) iconDark.style.display = 'none';
+    if (iconLight) iconLight.style.display = 'block';
   }
 
   btn?.addEventListener('click', () => {
     document.documentElement.classList.toggle('light-mode');
     const isLight = document.documentElement.classList.contains('light-mode');
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
-    
-    if(iconDark) iconDark.style.display = isLight ? 'none' : 'block';
-    if(iconLight) iconLight.style.display = isLight ? 'block' : 'none';
-    
+
+    if (iconDark) iconDark.style.display = isLight ? 'none' : 'block';
+    if (iconLight) iconLight.style.display = isLight ? 'block' : 'none';
+
     // Re-render charts for color updates
     renderCharts();
     renderAnalytics();
@@ -92,18 +92,18 @@ function switchView(view) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
 
   const viewEl = document.getElementById(`view-${view}`);
-  const navEl  = document.getElementById(`nav-${view}`);
+  const navEl = document.getElementById(`nav-${view}`);
   if (viewEl) viewEl.classList.add('active');
-  if (navEl)  navEl.classList.add('active');
+  if (navEl) navEl.classList.add('active');
 
   const titles = {
-    overview:  ['Command Center',    'Real-time exception intelligence'],
-    queue:     ['Priority Queue',    'Ranked exception work items'],
-    analytics: ['Analytics',         'Exception patterns & distributions'],
-    history:   ['Run History',       'Past pipeline execution runs'],
+    overview: ['Command Center', 'Real-time exception intelligence'],
+    queue: ['Priority Queue', 'Ranked exception work items'],
+    analytics: ['Analytics', 'Exception patterns & distributions'],
+    history: ['Run History', 'Past pipeline execution runs'],
   };
   const [t, s] = titles[view] || ['Dashboard', ''];
-  document.getElementById('view-title').textContent    = t;
+  document.getElementById('view-title').textContent = t;
   document.getElementById('view-subtitle').textContent = s;
 
   // Trigger chart resize
@@ -162,11 +162,11 @@ function renderKPIs() {
   const db = DATA.dashboard || {};
   const bv = db.business_value_metrics || {};
 
-  set('val-blocked',       db.payments_blocked ?? '—');
-  set('val-escalations',   db.escalations_required ?? '—');
-  set('val-total',         db.total_invoices ?? '—');
-  set('val-auto',          db.auto_resolved_count ?? '—');
-  set('val-score',         formatScore(db.average_normalized_priority_score));
+  set('val-blocked', db.payments_blocked ?? '—');
+  set('val-escalations', db.escalations_required ?? '—');
+  set('val-total', db.total_invoices ?? '—');
+  set('val-approved', db.valid_invoices_count ?? '—');
+  set('val-score', formatScore(db.average_normalized_priority_score));
   set('val-blocked-value', formatCurrency(bv.blocked_payment_value));
 }
 
@@ -184,7 +184,7 @@ function renderCharts() {
   // Donut — exception types
   destroyChart('chart-donut');
   const donutCtx = document.getElementById('chart-donut').getContext('2d');
-  const donutColors = ['#00c8ff','#ff4060','#ffb300','#00ff88','#b060ff','#ff8040','#40e0d0','#ff60a0'];
+  const donutColors = ['#00c8ff', '#ff4060', '#ffb300', '#00ff88', '#b060ff', '#ff8040', '#40e0d0', '#ff60a0'];
   const labels = Object.keys(byType);
   const values = Object.values(byType);
   charts['chart-donut'] = new Chart(donutCtx, {
@@ -200,7 +200,7 @@ function renderCharts() {
         legend: { display: false },
         tooltip: Object.assign(tooltipDefaults(), {
           callbacks: {
-            label: ctx => ` ${ctx.label}: ${ctx.parsed} (${Math.round(ctx.parsed / values.reduce((a,b)=>a+b,0)*100)}%)`
+            label: ctx => ` ${ctx.label}: ${ctx.parsed} (${Math.round(ctx.parsed / values.reduce((a, b) => a + b, 0) * 100)}%)`
           }
         })
       }
@@ -266,9 +266,8 @@ function renderBusinessValue() {
   const bv = (DATA.dashboard || {}).business_value_metrics || {};
   const vals = [
     { id: 'blocked', amount: bv.blocked_payment_value || 0 },
-    { id: 'dup',     amount: bv.potential_duplicate_payment_value || 0 },
-    { id: 'auto',    amount: bv.auto_resolved_value || 0 },
-    { id: 'valid',   amount: bv.valid_invoice_value || 0 },
+    { id: 'dup', amount: bv.potential_duplicate_payment_value || 0 },
+    { id: 'valid', amount: bv.valid_invoice_value || 0 },
   ];
   const max = Math.max(...vals.map(v => v.amount), 1);
   vals.forEach(({ id, amount }) => {
@@ -301,7 +300,7 @@ function renderFullQueue() {
 }
 
 function initQueueFilters() {
-  ['tier-filter','status-filter'].forEach(id => {
+  ['tier-filter', 'status-filter'].forEach(id => {
     document.getElementById(id)?.addEventListener('change', renderFilteredQueue);
   });
   document.getElementById('queue-search')?.addEventListener('input', renderFilteredQueue);
@@ -309,13 +308,13 @@ function initQueueFilters() {
 
 function renderFilteredQueue() {
   if (!DATA) return;
-  const tierF   = document.getElementById('tier-filter')?.value || 'all';
+  const tierF = document.getElementById('tier-filter')?.value || 'all';
   const statusF = document.getElementById('status-filter')?.value || 'all';
-  const search  = (document.getElementById('queue-search')?.value || '').toLowerCase();
+  const search = (document.getElementById('queue-search')?.value || '').toLowerCase();
 
   let queue = DATA.priority_queue || [];
-  if (tierF !== 'all')   queue = queue.filter(i => i.priority_tier === tierF);
-  if (statusF === 'blocked')    queue = queue.filter(i => i.payment_blocked);
+  if (tierF !== 'all') queue = queue.filter(i => i.priority_tier === tierF);
+  if (statusF === 'blocked') queue = queue.filter(i => i.payment_blocked);
   if (statusF === 'escalation') queue = queue.filter(i => i.escalation_required);
   if (search) {
     queue = queue.filter(i =>
@@ -398,13 +397,13 @@ function renderAnalytics() {
   // Horizontal bar chart — type frequency
   destroyChart('chart-hbar');
   const hbarCtx = document.getElementById('chart-hbar').getContext('2d');
-  const sortedTypes = Object.entries(byType).sort((a,b) => b[1]-a[1]);
+  const sortedTypes = Object.entries(byType).sort((a, b) => b[1] - a[1]);
   charts['chart-hbar'] = new Chart(hbarCtx, {
     type: 'bar',
     data: {
       labels: sortedTypes.map(([t]) => t),
       datasets: [{
-        data: sortedTypes.map(([,v]) => v),
+        data: sortedTypes.map(([, v]) => v),
         backgroundColor: 'rgba(0,200,255,0.6)',
         hoverBackgroundColor: '#00c8ff',
         borderRadius: 6,
@@ -452,12 +451,11 @@ function renderAnalytics() {
   // Stats list
   const statsEl = document.getElementById('analytics-stats');
   const stats = [
-    { label: 'Total Invoices',      value: db.total_invoices ?? '—' },
-    { label: 'Valid Invoices',      value: db.valid_invoices_count ?? '—' },
-    { label: 'Multi-Exception',     value: db.multi_exception_invoice_count ?? '—' },
-    { label: 'Comm. Drafts',        value: db.communication_drafts_produced ?? '—' },
-    { label: 'Avg Raw Score',       value: db.average_raw_priority_score?.toFixed(1) ?? '—' },
-    { label: '% Other Type',        value: (db.percentage_other ?? '—') + '%' },
+    { label: 'Total Invoices', value: db.total_invoices ?? '—' },
+    { label: 'Valid Invoices', value: db.valid_invoices_count ?? '—' },
+    { label: 'Multi-Exception', value: db.multi_exception_invoice_count ?? '—' },
+    { label: 'Comm. Drafts', value: db.communication_drafts_produced ?? '—' },
+    { label: '% Other Type', value: (db.percentage_other ?? '—') + '%' },
   ];
   statsEl.innerHTML = stats.map(s =>
     `<div class="stat-item">
@@ -673,7 +671,7 @@ function handleFileSelection(file) {
   document.getElementById('upload-zone').style.display = 'none';
   document.getElementById('upload-status').style.display = 'block';
   document.getElementById('upload-filename').textContent = file.name;
-  
+
   const ext = file.name.split('.').pop().toLowerCase();
   const autoRunCheckbox = document.getElementById('auto-run-pipeline').closest('label');
   const autoRunLabelText = document.getElementById('auto-run-label-text');
@@ -709,10 +707,10 @@ function setUploadState(text, cls) {
 
 async function uploadFile() {
   if (!selectedFile) return;
-  
+
   const formData = new FormData();
   formData.append('file', selectedFile);
-  
+
   const autoRun = document.getElementById('auto-run-pipeline').checked;
   formData.append('run_pipeline', autoRun);
 
@@ -728,9 +726,9 @@ async function uploadFile() {
       body: formData
     });
     const data = await res.json();
-    
+
     progressBar.style.width = '100%';
-    
+
     if (data.success) {
       if (data.job_id) {
         setUploadState('Pipeline Running', 'state-running');
@@ -755,16 +753,16 @@ async function uploadFile() {
 
 function startJobPolling() {
   document.getElementById('pipeline-status-area').style.display = 'block';
-  
+
   jobPollInterval = setInterval(async () => {
     try {
       const res = await fetch('/api/jobs/' + currentJobId);
       const job = await res.json();
-      
+
       const statusText = document.getElementById('pipeline-status-text');
       const logsPre = document.getElementById('pipeline-logs');
       const loader = document.querySelector('.pipeline-loader');
-      
+
       if (job.status === 'running') {
         statusText.textContent = job.message || 'Pipeline running...';
         statusText.style.color = 'var(--amber)';
@@ -776,28 +774,28 @@ function startJobPolling() {
         statusText.style.color = 'var(--green)';
         setUploadState('Done', 'state-done');
         document.getElementById('upload-progress-bar').classList.remove('striped');
-        
+
         if (job.stdout) {
           logsPre.textContent = job.stdout;
           logsPre.scrollTop = logsPre.scrollHeight;
         }
-        
+
         showToast('Pipeline finished processing new data');
         document.getElementById('post-upload-actions').style.display = 'flex';
-        
+
         if (job.type === 'inference') {
           if (job.postprocessing) {
             const pp = job.postprocessing;
             const invProc = pp["Invoice Processing"] || {};
             const invDet = pp["Invoice Details"] || {};
             const vendInfo = pp["Vendor Information"] || {};
-            
+
             const status = invProc["Invoice Status"] || "Unknown";
             const reason = invProc["Rejection Reason"] || "";
             const phase = invProc["Rejection Phase"] || "";
-            
+
             const isRejected = status.toLowerCase() === "rejected" || status === "ERROR" || status === "REJECT";
-            
+
             const mockInv = {
               invoice_id: job.filename,
               vendor_name: vendInfo["Vendor Name"] || "Unknown",
@@ -826,20 +824,20 @@ function startJobPolling() {
                 `Phase: ${phase || "All"}`
               ]
             };
-            
+
             // Put it in the logs
             logsPre.textContent = "=== INFERENCE RESULT ===\n" + JSON.stringify(job.postprocessing, null, 2);
             logsPre.scrollTop = 0;
 
             if (isRejected) {
-                showToast('Invoice rejected. Added to Priority Queue.');
-                // Give the background queue pipeline a moment to process, then refresh
-                setTimeout(() => {
-                    loadData(true);
-                    switchView('queue');
-                }, 5000);
+              showToast('Invoice rejected. Added to Priority Queue.');
+              // Give the background queue pipeline a moment to process, then refresh
+              setTimeout(() => {
+                loadData(true);
+                switchView('queue');
+              }, 5000);
             }
-            
+
           } else if (job.result) {
             logsPre.textContent = "=== INFERENCE RESULT ===\n" + JSON.stringify(job.result, null, 2);
             logsPre.scrollTop = 0;
@@ -859,11 +857,11 @@ function startJobPolling() {
         setUploadState('Error', 'state-error');
         document.getElementById('upload-progress-bar').classList.remove('striped');
         document.getElementById('upload-progress-bar').style.background = 'var(--red)';
-        
+
         logsPre.textContent = job.message || 'Unknown error occurred';
         document.getElementById('post-upload-actions').style.display = 'flex';
       }
-      
+
     } catch (err) {
       console.error("Polling error:", err);
     }

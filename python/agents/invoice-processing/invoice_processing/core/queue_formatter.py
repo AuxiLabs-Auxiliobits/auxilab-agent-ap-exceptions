@@ -182,7 +182,6 @@ class QueueFormatter:
             "auto_resolved_count": auto_resolved_count,
             "payments_blocked": payments_blocked,
             "multi_exception_invoice_count": multi_exception_count,
-            "average_raw_priority_score": round(avg_raw_priority, 2),
             "average_normalized_priority_score": round(avg_norm_priority, 2),
             "exception_count_by_type": dict(
                 sorted(by_type.items(), key=lambda x: -x[1])

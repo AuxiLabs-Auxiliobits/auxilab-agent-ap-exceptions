@@ -168,29 +168,6 @@ try:
 except ImportError:
     pass
 
-def _get_llm_project_id():
-    project = (
-        os.getenv("PROJECT_ID")
-        or os.getenv("GOOGLE_CLOUD_PROJECT")
-        or os.getenv("GOOGLE_CLOUD_PROJECT_ID")
-        or os.getenv("GCP_PROJECT")
-    )
-    if not project:
-        try:
-            import google.auth  # noqa: PLC0415
-
-            _, project = google.auth.default()
-        except Exception:
-            pass
-    return project
-
-
-def _get_llm_location():
-    return os.getenv("LOCATION") or os.getenv(
-        "GOOGLE_CLOUD_REGION", "us-central1"
-    )
-
-
 def _get_llm_model():
     return os.getenv("GEMINI_PRO_MODEL", "gemini-2.5-pro")
 
@@ -940,32 +917,28 @@ class LLMActionExecutor:
 
     @classmethod
     def _get_model(cls):
-        """Lazy-initialize the Vertex AI GenerativeModel."""
+        """Lazy-initialize the google.generativeai GenerativeModel."""
         if cls._model is None:
             try:
-                from google.cloud import aiplatform  # noqa: PLC0415
-                from vertexai.generative_models import (  # noqa: PLC0415
-                    GenerationConfig,
-                    GenerativeModel,
-                )
+                import google.generativeai as genai  # noqa: PLC0415
 
-                if not _get_llm_project_id():
+                api_key = os.getenv("GEMINI_API_KEY")
+                if not api_key:
                     raise ValueError(
-                        "PROJECT_ID not set. Export it or add to .env file."
+                        "GEMINI_API_KEY not set. Add it to .env or set DEMO_MODE=true."
                     )
-                aiplatform.init(project=_get_llm_project_id(), location=_get_llm_location())
-                cls._model = GenerativeModel(
+                genai.configure(api_key=api_key)
+                cls._model = genai.GenerativeModel(
                     _get_llm_model(),
-                    generation_config=GenerationConfig(temperature=0),
+                    generation_config={"temperature": 0},
                 )
                 logger.info(
-                    f"[LLM] Initialized {_get_llm_model()} "
-                    f"(project={_get_llm_project_id()}, location={_get_llm_location()})"
+                    f"[LLM] Initialized {_get_llm_model()} (google.generativeai)"
                 )
             except ImportError:
                 raise ImportError(
-                    "Vertex AI SDK required for LLM actions. Install with: "
-                    "pip install google-cloud-aiplatform"
+                    "google-generativeai SDK required for LLM actions. Install with: "
+                    "pip install google-generativeai"
                 ) from None
         return cls._model
 

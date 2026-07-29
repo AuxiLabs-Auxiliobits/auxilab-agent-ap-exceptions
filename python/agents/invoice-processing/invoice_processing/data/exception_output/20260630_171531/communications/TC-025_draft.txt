@@ -1,0 +1,17 @@
+Dear ABC Office Supplies,
+
+We hope this email finds you well.
+
+We are writing to you regarding a discrepancy with invoice TC-025 for $1250.0.
+
+Our records show this invoice was processed, but we have no corresponding Goods Receipt Note (GRN) logged in our system. This indicates the goods were not formally recorded as received before the invoice was processed.
+
+To resolve this, could you please provide a Proof of Delivery (POD) for this order? If the goods have not yet been delivered or a POD is unavailable, please issue a credit note for the full invoice amount to cancel the original charge.
+
+We kindly request your response and the necessary documentation within the next 5 business days.
+
+Thank you for your prompt assistance in this matter.
+
+Sincerely,
+
+Accounts Payable Team

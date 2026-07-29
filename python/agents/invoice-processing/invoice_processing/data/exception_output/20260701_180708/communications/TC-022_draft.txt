@@ -1,0 +1,9 @@
+This note is to request your guidance on a high-priority, high-value invoice exception.
+
+We have received Invoice TC-022 from Zeta Manufacturing for $35,000. The invoice is on hold due to a "GRN Not Received" exception, preventing a 3-way match. While the invoice is not yet overdue, its significant value warrants immediate escalation.
+
+Our investigation indicates goods related to PO-6005 were likely delivered, but the receiving department did not create the corresponding Goods Receipt Note (GRN) in our ERP system. This represents a breakdown in the standard procurement process and a financial control risk.
+
+Due to the amount at risk and the required deviation from standard procedure, Controller-level sign-off is necessary to proceed. Our recommended action is to have the receiving department urgently confirm delivery against PO-6005 and process the GRN.
+
+Please provide your decision on how to proceed within the next two business days to ensure process compliance and manage our vendor relationship effectively.

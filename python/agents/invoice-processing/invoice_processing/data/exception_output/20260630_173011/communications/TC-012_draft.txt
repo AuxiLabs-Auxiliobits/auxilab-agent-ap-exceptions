@@ -1,0 +1,7 @@
+This is a high-priority escalation for your review and decision. Invoice TC-012 from Eta Consulting for $120,000.00 has been outstanding for 47 days due to critical data exceptions that prevent processing.
+
+The invoice is blocked for two reasons: it is missing the currency, a mandatory field for financial systems, and it was submitted without a Purchase Order number, which prevents standard approval routing. This combination of issues on a high-value invoice represents a significant control risk.
+
+Given the amount, the extended delay, and the failure of standard resolution paths, AP requires your direction. We need to determine whether to reject the invoice entirely and await a corrected version from the vendor, or seek an exception-based approval path.
+
+To mitigate further payment delays and potential vendor relationship impact, we respectfully request your decision on how to proceed within the next two business days.

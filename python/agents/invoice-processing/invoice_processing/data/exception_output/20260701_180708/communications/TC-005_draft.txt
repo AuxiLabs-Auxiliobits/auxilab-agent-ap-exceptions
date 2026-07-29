@@ -1,0 +1,5 @@
+Invoice TC-005 from BetaTech Corp for $5,000.00 has been placed on hold. A pre-classification check flagged an exact duplicate of this invoice within the current processing batch.
+
+A duplicate means the same invoice may have been submitted twice. To prevent an overpayment, payment for TC-005 is blocked pending investigation.
+
+AP will now verify the submission and contact the vendor if necessary to resolve the discrepancy. The AP Manager has been notified of this hold.

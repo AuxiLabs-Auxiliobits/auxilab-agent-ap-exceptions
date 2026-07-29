@@ -39,6 +39,9 @@ from ..core.safe_rule_orchestrator import SafeRuleOrchestrator  # noqa: E402
 from ..core.schema_mapper import SchemaMapper  # noqa: E402
 from ..core.session_logger import SessionLogger  # noqa: E402
 
+import os as _os
+_DEMO_MODE = _os.getenv("DEMO_MODE", "false").lower() == "true"
+
 # ---------------------------------------------------------------------------
 # Module-level instances (singletons)
 # ---------------------------------------------------------------------------
@@ -105,6 +108,393 @@ def _safe_json_loads(text) -> dict:
     raise ValueError(
         f"Could not parse input as JSON. Received: {text[:100]}..."
     )
+
+
+# ===========================================================================
+# DEMO MODE STUBS
+# When DEMO_MODE=true all LLM-calling tools return pre-canned realistic
+# responses so the agent works with zero API keys.
+# ===========================================================================
+
+
+def _DEMO_discover_safe_rule(case_id: str, sme_feedback: str) -> dict:
+    """Demo stub: returns a realistic pre-canned rule discovery result."""
+    rule = {
+        "id": "ALF-001",
+        "name": "WAF Exemption for Emergency Maintenance Under $2,000",
+        "scope": "waf_exemption",
+        "priority": 50,
+        "enabled": True,
+        "conditions": [
+            {"field": "phase4.decision", "operator": "equals", "value": "REJECT"},
+            {"field": "phase4.rejection_template", "operator": "contains", "value": "work authorization"},
+            {"field": "invoice.total_amount", "operator": "less_than", "value": 2000},
+        ],
+        "actions": [
+            {"type": "set_field", "target": "Invoice Processing.Invoice Status", "value": "Pending Payment"},
+            {"type": "set_field", "target": "Invoice Processing.Rejection Reason", "value": ""},
+            {"type": "set_field", "target": "Invoice Processing.Rejection Phase", "value": ""},
+        ],
+        "metadata": {
+            "root_cause": "Policy exception -- updated procurement policy not yet reflected in rules book",
+            "added_by": "Learning Agent (SME-guided) [DEMO]",
+            "added_date": "2026-07-20",
+            "cases_affected": [case_id],
+            "issue_reference": "SME feedback: " + sme_feedback[:80],
+        },
+    }
+    display = (
+        f"=== Proposed Rule: ALF-001 ===\n"
+        f"Name: WAF Exemption for Emergency Maintenance Under $2,000\n"
+        f"Scope: waf_exemption | Priority: 50\n\n"
+        f"Conditions:\n"
+        f"  1. phase4.decision equals \"REJECT\"\n"
+        f"  2. phase4.rejection_template contains \"work authorization\"\n"
+        f"  3. invoice.total_amount less_than 2000\n\n"
+        f"Actions:\n"
+        f"  1. set_field: Invoice Processing.Invoice Status = \"Pending Payment\"\n"
+        f"  2. set_field: Invoice Processing.Rejection Reason = \"\"\n"
+        f"  3. set_field: Invoice Processing.Rejection Phase = \"\"\n\n"
+        f"Metadata:\n"
+        f"  Root cause: Policy exception -- updated procurement policy\n"
+        f"    not yet reflected in rules book\n\n"
+        f"[DEMO MODE -- no LLM call made]"
+    )
+    return {
+        "success": True,
+        "rule": rule,
+        "rule_json": json.dumps(rule, indent=2),
+        "display": display,
+        "impact": {
+            "target_matched": True,
+            "collateral_matches": [],
+            "safe_cases": ["case_002", "case_003", "case_004", "case_005"],
+            "total_cases": 5,
+            "sampled": 5,
+            "sample_size": 10,
+            "summary": f"Target {case_id}: MATCH. 4 other cases: NO MATCH (safe).",
+        },
+        "attempts": 1,
+        "revision_log": [],
+        "has_collateral": False,
+        "collateral_warning": "",
+        "demo_mode": True,
+    }
+
+
+def _DEMO_revise_safe_rule(case_id: str, current_rule_json: str, sme_feedback: str) -> dict:
+    """Demo stub: returns a tightened version of the rule."""
+    try:
+        current_rule = json.loads(current_rule_json) if isinstance(current_rule_json, str) else current_rule_json
+    except Exception:
+        current_rule = {}
+    rule = dict(current_rule)
+    rule.setdefault("conditions", [])
+    rule["conditions"] = list(rule["conditions"]) + [
+        {"field": "invoice.service_category", "operator": "in_list",
+         "value": ["HVAC", "ELECTRICAL", "PLUMBING", "MECHANICAL"]},
+    ]
+    rule_id = rule.get("id", "ALF-001")
+    display = (
+        f"=== Revised Rule: {rule_id} ===\n"
+        f"Added condition: invoice.service_category in [HVAC, ELECTRICAL, PLUMBING, MECHANICAL]\n"
+        f"SME feedback applied: {sme_feedback[:80]}\n\n"
+        f"[DEMO MODE -- no LLM call made]"
+    )
+    return {
+        "success": True,
+        "rule": rule,
+        "rule_json": json.dumps(rule, indent=2),
+        "display": display,
+        "impact": {
+            "target_matched": True,
+            "collateral_matches": [],
+            "safe_cases": ["case_002", "case_003", "case_004"],
+            "total_cases": 5,
+            "sampled": 5,
+            "sample_size": 10,
+            "summary": f"Target {case_id}: MATCH. 3 other cases: NO MATCH (safe).",
+        },
+        "attempts": 1,
+        "revision_log": [f"Applied SME feedback: {sme_feedback[:80]}"],
+        "has_collateral": False,
+        "collateral_warning": "",
+        "demo_mode": True,
+    }
+
+
+def _DEMO_build_rule_discovery_context(case_id: str, sme_feedback: str) -> dict:
+    """Demo stub: returns a pre-canned rule discovery context."""
+    task_prompt = (
+        f"[DEMO MODE]\n"
+        f"Case: {case_id}\n"
+        f"SME Feedback: {sme_feedback}\n\n"
+        f"This is a demo rule discovery context. In live mode, the full case "
+        f"data, validation phase details, and rules book sections would be "
+        f"included here to guide the LLM rule generation."
+    )
+    return {
+        "task_prompt": task_prompt,
+        "case_id": case_id,
+        "agent_decision": "Rejected",
+        "rejection_reason": "Invoice does not match work authorization",
+        "failing_phase": "phase4",
+        "next_rule_id": "ALF-001",
+        "demo_mode": True,
+    }
+
+
+def _DEMO_build_rule_revision_context(
+    case_id: str, current_rule_json: str, revision_feedback: str, impact_summary: str
+) -> dict:
+    """Demo stub: returns a pre-canned rule revision context."""
+    try:
+        current_rule = json.loads(current_rule_json) if isinstance(current_rule_json, str) else current_rule_json
+    except Exception:
+        current_rule = {}
+    task_prompt = (
+        f"[DEMO MODE]\n"
+        f"Case: {case_id} | Rule: {current_rule.get('id', 'ALF-???')}\n"
+        f"Revision Feedback: {revision_feedback}\n"
+        f"Impact Summary: {impact_summary}\n\n"
+        f"This is a demo rule revision context. In live mode, the full case "
+        f"and current rule JSON would be embedded here."
+    )
+    return {
+        "task_prompt": task_prompt,
+        "case_id": case_id,
+        "rule_id": current_rule.get("id"),
+        "demo_mode": True,
+    }
+
+
+def _DEMO_classify_exceptions(queue_json: str) -> dict:
+    """Demo stub: returns pre-canned exception classifications."""
+    try:
+        exceptions = json.loads(queue_json) if isinstance(queue_json, str) else queue_json
+        if isinstance(exceptions, dict):
+            exceptions = exceptions.get("exceptions", [])
+    except Exception:
+        exceptions = []
+
+    demo_types = [
+        ("Amount Exceeds Tolerance", "Invoice amount differs from the expected PO amount by more than the allowed tolerance.",
+         "Contact vendor to request a credit note or corrected invoice."),
+        ("PO Not Found", "The PO number referenced on the invoice does not exist in the ERP purchase orders database.",
+         "Request budget owner to raise a valid PO or confirm the correct PO reference."),
+        ("GRN Not Received", "A valid PO exists but no Goods Receipt Note has been recorded against it.",
+         "Confirm with warehouse/operations that goods have been received before processing payment."),
+        ("Vendor Mismatch", "The vendor name on the invoice does not match the approved vendor master record.",
+         "Escalate to Procurement to verify vendor identity and update vendor master if required."),
+        ("Exact Duplicate Invoice", "An identical invoice from the same vendor for the same amount was previously processed.",
+         "Reject duplicate and notify vendor that invoice has already been paid."),
+        ("VALID", "All validation checks passed. Invoice is compliant and ready for payment.",
+         "Approve for payment processing."),
+        ("Missing Required Data", "Invoice is missing required fields: invoice_number or vendor_name.",
+         "Return invoice to vendor requesting the missing information."),
+        ("Potential Duplicate Invoice", "A similar invoice was submitted recently with a matching vendor and amount.",
+         "Place on hold and verify with vendor whether this is a resubmission."),
+    ]
+
+    classifications = []
+    for i, exc in enumerate(exceptions):
+        exc_type, hypothesis, action = demo_types[i % len(demo_types)]
+        classifications.append({
+            "invoice_id": exc.get("invoice_id", f"INV-{i+1:04d}"),
+            "primary_type": exc_type,
+            "root_cause_hypothesis": hypothesis,
+            "recommended_action": action,
+            "evidence_used": f"ERP lookup confirmed: {exc_type.lower()} detected for invoice {exc.get('invoice_id', 'UNKNOWN')}.",
+            "missing_data": [],
+            "evidence_checked": "ERP purchase_orders, vendor_master, historical_invoices",
+            "business_rule_triggered": f"Phase 1 Rule: {exc_type}",
+            "raw_exception_type": exc.get("exception_type", "Other"),
+            "success": True,
+            "error": "",
+            "confidence": 0.92,
+        })
+
+    summary = {
+        "total": len(classifications),
+        "successful": len(classifications),
+        "by_type": {},
+    }
+    for c in classifications:
+        t = c["primary_type"]
+        summary["by_type"][t] = summary["by_type"].get(t, 0) + 1
+
+    return {"classifications": classifications, "summary": summary, "demo_mode": True}
+
+
+def _DEMO_assign_resolution_paths(classified_json: str) -> dict:
+    """Demo stub: returns pre-canned resolution path assignments."""
+    try:
+        data = json.loads(classified_json) if isinstance(classified_json, str) else classified_json
+    except Exception:
+        data = {}
+    exceptions = data.get("exceptions", [])
+    classifications = data.get("classifications", [])
+
+    invoices = []
+    for i, exc in enumerate(exceptions):
+        classification = classifications[i] if i < len(classifications) else {}
+        exc_type = classification.get("primary_type", "Other")
+        amount = float(exc.get("invoice_amount", 0) or 0)
+        is_high = amount > 10000 or exc_type in ["Exact Duplicate Invoice", "Amount Exceeds Tolerance"]
+        invoices.append({
+            "invoice_id": exc.get("invoice_id", f"INV-{i+1:04d}"),
+            "invoice_number": exc.get("invoice_number", ""),
+            "vendor_name": exc.get("vendor_name", "Unknown Vendor"),
+            "invoice_amount": amount,
+            "po_number": exc.get("po_number", ""),
+            "invoice_age_days": int(exc.get("invoice_age_days", 0) or 0),
+            "final_exception_list": [classification] if classification else [],
+            "root_cause_categories": [exc_type],
+            "priority_tier": "HIGH" if is_high else "MEDIUM",
+            "normalized_priority_score": 0.85 if is_high else 0.5,
+            "raw_priority_score": 85 if is_high else 50,
+            "payment_blocked": exc_type != "VALID",
+            "escalation_required": is_high,
+            "escalation_decision_reason": "High value or duplicate detected" if is_high else "",
+            "communication_required": exc_type not in ["VALID"],
+            "communication_type": "escalation_note" if is_high else "vendor_query",
+            "resolution_owners": ["AP Manager"] if is_high else ["AP Clerk"],
+            "sla_hours": 4 if is_high else 24,
+            "decision_trace": [
+                f"Exception type: {exc_type}",
+                f"Amount: ${amount:,.2f}",
+                f"Priority: {'HIGH' if is_high else 'MEDIUM'}",
+            ],
+            "skipped_exceptions_trace": [],
+            "auto_resolved": exc_type == "VALID",
+            "auto_close_flag": exc_type == "VALID",
+        })
+
+    return {
+        "invoices": invoices,
+        "summary": {
+            "total_invoices": len(invoices),
+            "payments_blocked": sum(1 for inv in invoices if inv["payment_blocked"]),
+            "escalations_required": sum(1 for inv in invoices if inv["escalation_required"]),
+        },
+        "demo_mode": True,
+    }
+
+
+def _DEMO_draft_communications(resolved_json: str) -> dict:
+    """Demo stub: returns pre-canned email drafts."""
+    try:
+        data = json.loads(resolved_json) if isinstance(resolved_json, str) else resolved_json
+    except Exception:
+        data = {}
+    invoices = data.get("invoices", [])
+
+    communications = {}
+    drafted = 0
+    for inv in invoices:
+        if inv.get("communication_required") or inv.get("escalation_required"):
+            exc_list = inv.get("final_exception_list", [])
+            exc_type = exc_list[0].get("primary_type", "Other") if exc_list else "Other"
+            amount = inv.get("invoice_amount", 0)
+            vendor = inv.get("vendor_name", "Vendor")
+            invoice_id = inv.get("invoice_id", "UNKNOWN")
+            days = inv.get("invoice_age_days", 0)
+
+            if inv.get("priority_tier") == "HIGH":
+                draft = (
+                    f"Dear Finance Controller,\n\n"
+                    f"I am writing to escalate Invoice {invoice_id} from {vendor} for "
+                    f"${float(amount):,.2f}, currently {days} days outstanding.\n\n"
+                    f"Exception identified: {exc_type}\n"
+                    f"This invoice has been assigned HIGH priority and requires your approval "
+                    f"within 2 business days.\n\n"
+                    f"Please review and advise on next steps.\n\n"
+                    f"Regards,\nAccounts Payable Team\n\n[DEMO MODE]"
+                )
+            else:
+                draft = (
+                    f"Dear {vendor},\n\n"
+                    f"We are writing regarding Invoice {invoice_id} for ${float(amount):,.2f}, "
+                    f"submitted {days} days ago.\n\n"
+                    f"We have identified the following exception: {exc_type}\n"
+                    f"Please provide a corrected invoice or credit note within 5 business days.\n\n"
+                    f"Regards,\nAccounts Payable Team\n\n[DEMO MODE]"
+                )
+            communications[invoice_id] = draft
+            drafted += 1
+
+    return {
+        "communications": communications,
+        "summary": {"total": len(invoices), "drafted": drafted},
+        "demo_mode": True,
+    }
+
+
+def _DEMO_build_priority_output(all_stages_json: str) -> dict:
+    """Demo stub: returns pre-canned priority queue and dashboard."""
+    try:
+        data = json.loads(all_stages_json) if isinstance(all_stages_json, str) else all_stages_json
+    except Exception:
+        data = {}
+    invoices = data.get("invoices", [])
+    communications = data.get("communications", {})
+
+    high = [inv for inv in invoices if inv.get("priority_tier") == "HIGH"]
+    medium = [inv for inv in invoices if inv.get("priority_tier") == "MEDIUM"]
+    low = [inv for inv in invoices if inv.get("priority_tier") == "LOW"]
+
+    total_value = sum(float(inv.get("invoice_amount", 0) or 0) for inv in invoices)
+    blocked_value = sum(
+        float(inv.get("invoice_amount", 0) or 0)
+        for inv in invoices if inv.get("payment_blocked")
+    )
+    auto_resolved_value = sum(
+        float(inv.get("invoice_amount", 0) or 0)
+        for inv in invoices if inv.get("auto_resolved")
+    )
+
+    priority_queue = high + medium + low
+
+    top_5_high = []
+    for inv in high[:5]:
+        top_5_high.append({
+            **inv,
+            "communication": communications.get(inv.get("invoice_id", ""), ""),
+        })
+
+    return {
+        "priority_queue": priority_queue,
+        "top_5_high": top_5_high,
+        "total_exceptions": len(invoices),
+        "output_path": "[DEMO MODE — no files written]",
+        "dashboard": {
+            "total_invoices": len(invoices),
+            "valid_invoices_count": sum(1 for inv in invoices if inv.get("auto_resolved")),
+            "auto_resolved_count": sum(1 for inv in invoices if inv.get("auto_resolved")),
+            "escalations_required": sum(1 for inv in invoices if inv.get("escalation_required")),
+            "payments_blocked": sum(1 for inv in invoices if inv.get("payment_blocked")),
+            "by_priority": {"HIGH": len(high), "MEDIUM": len(medium), "LOW": len(low)},
+            "percentage_other": round(
+                100 * sum(1 for inv in invoices
+                          if (inv.get("final_exception_list") or [{}])[0].get("primary_type") == "Other")
+                / max(len(invoices), 1), 1
+            ),
+            "business_value_metrics": {
+                "valid_invoice_value": auto_resolved_value,
+                "auto_resolved_value": auto_resolved_value,
+                "blocked_payment_value": blocked_value,
+                "potential_duplicate_payment_value": sum(
+                    float(inv.get("invoice_amount", 0) or 0)
+                    for inv in invoices
+                    if any(
+                        e.get("primary_type", "") in ["Exact Duplicate Invoice", "Potential Duplicate Invoice"]
+                        for e in inv.get("final_exception_list", [])
+                    )
+                ),
+            },
+        },
+        "demo_mode": True,
+    }
 
 
 # ===========================================================================
@@ -334,6 +724,8 @@ def build_rule_discovery_context(case_id: str, sme_feedback: str) -> dict:
     Returns:
         dict with task_prompt and context fields for rule discovery.
     """
+    if _DEMO_MODE:
+        return _DEMO_build_rule_discovery_context(case_id, sme_feedback)
     case_data = _case_loader.run(case_id)
     _session_logger.log_sme_feedback(sme_feedback)
 
@@ -424,6 +816,10 @@ def build_rule_revision_context(
     Returns:
         dict with task_prompt for rule revision.
     """
+    if _DEMO_MODE:
+        return _DEMO_build_rule_revision_context(
+            case_id, current_rule_json, revision_feedback, impact_summary
+        )
     case_data = _case_loader.run(case_id)
     _session_logger.log_sme_revision(revision_feedback)
     current_rule = _safe_json_loads(current_rule_json)
@@ -472,6 +868,8 @@ def discover_safe_rule(case_id: str, sme_feedback: str) -> dict:
         impact (assessment results), attempts, revision_log, has_collateral,
         collateral_warning.
     """
+    if _DEMO_MODE:
+        return _DEMO_discover_safe_rule(case_id, sme_feedback)
     _session_logger.log_sme_feedback(sme_feedback)
     result = _orchestrator.discover(case_id, sme_feedback)
     if result.get("success"):
@@ -504,6 +902,8 @@ def revise_safe_rule(
     Returns:
         Same format as discover_safe_rule.
     """
+    if _DEMO_MODE:
+        return _DEMO_revise_safe_rule(case_id, current_rule_json, sme_feedback)
     current_rule = _safe_json_loads(current_rule_json)
     _session_logger.log_sme_revision(sme_feedback)
     result = _orchestrator.revise(case_id, current_rule, sme_feedback)
@@ -648,6 +1048,8 @@ def classify_exceptions(queue_json: str) -> dict:
     Returns:
         dict with 'classifications' (list of dicts) and 'summary'.
     """
+    if _DEMO_MODE:
+        return _DEMO_classify_exceptions(queue_json)
     exceptions = _safe_json_loads(queue_json)
     if isinstance(exceptions, dict):
         exceptions = exceptions.get("exceptions", [])
@@ -934,6 +1336,8 @@ def assign_resolution_paths(classified_json: str) -> dict:
     Returns:
         dict with 'invoices' (list of dicts) and 'summary'.
     """
+    if _DEMO_MODE:
+        return _DEMO_assign_resolution_paths(classified_json)
     data = _safe_json_loads(classified_json)
 
     # Support being called with the full classify output or just the lists
@@ -975,6 +1379,8 @@ def draft_communications(resolved_json: str) -> dict:
     Returns:
         dict with 'communications' (dict mapping invoice_id to text) and 'summary'.
     """
+    if _DEMO_MODE:
+        return _DEMO_draft_communications(resolved_json)
     data = _safe_json_loads(resolved_json)
     invoices = data.get("invoices", [])
 
@@ -986,13 +1392,68 @@ def draft_communications(resolved_json: str) -> dict:
             "summary": {"total": 0, "drafted": 0},
         }
 
-    # Since drafting isn't fully updated yet, we will mock communication drafts
-    # for any invoice that has escalation_required.
     communications = {}
     drafted = 0
     for inv in invoices:
-        if inv.get("escalation_required"):
-            communications[inv["invoice_id"]] = f"Drafted communication for {inv['invoice_id']} regarding escalations."
+        if inv.get("escalation_required") or inv.get("communication_required"):
+            final_list = inv.get("final_exception_list", [])
+            primary_type = final_list[0].get("primary_type", "Other") if final_list else "Other"
+            
+            comm_type = inv.get("communication_type", "")
+            if not comm_type:
+                if primary_type in ["Exact Duplicate Invoice", "Potential Duplicate Invoice"]:
+                    comm_type = "duplicate_hold"
+                elif primary_type == "PO Not Found":
+                    comm_type = "internal_po_request"
+                elif primary_type == "Vendor Mismatch":
+                    comm_type = "unapproved_vendor"
+                elif inv.get("priority_tier") == "HIGH" or float(inv.get("invoice_amount", 0)) > 20000:
+                    comm_type = "escalation_note"
+                else:
+                    comm_type = "vendor_query"
+            
+            exc_dict = {
+                "invoice_id": inv.get("invoice_id", "UNKNOWN"),
+                "vendor_name": inv.get("vendor_name", "Unknown Vendor"),
+                "invoice_amount": str(inv.get("invoice_amount", "0")),
+                "po_number": inv.get("po_number", "N/A"),
+                "days_outstanding": str(inv.get("invoice_age_days", "0")),
+                "approver_assigned": ", ".join(inv.get("resolution_owners", [])) or "AP Manager",
+                "exception_description": "; ".join([e.get("root_cause_hypothesis", "") for e in final_list]) or "Validation exception identified."
+            }
+            cls_dict = {
+                "primary_type": primary_type,
+                "root_cause_hypothesis": final_list[0].get("root_cause_hypothesis", "") if final_list else "",
+                "recommended_action": final_list[0].get("recommended_action", "") if final_list else ""
+            }
+            res_dict = {
+                "communication_required": True,
+                "communication_type": comm_type
+            }
+            
+            draft_res = _communication_drafter.draft_one(exc_dict, cls_dict, res_dict)
+            if draft_res.get("success") and draft_res.get("draft"):
+                draft_text = draft_res["draft"]
+            else:
+                owners_str = ", ".join(inv.get("resolution_owners", [])) or "AP Team"
+                reasons_str = "\n".join([f"• {e.get('primary_type')}: {e.get('root_cause_hypothesis', 'Discrepancy identified during audit.')}" for e in final_list]) or "• Discrepancies identified during validation."
+                actions_str = "\n".join([f"• {e.get('recommended_action')}" for e in final_list if e.get('recommended_action')]) or "• Please verify invoice details and resubmit."
+                try:
+                    amt_val = float(inv.get("invoice_amount", 0))
+                except (ValueError, TypeError):
+                    amt_val = 0.0
+                
+                draft_text = (
+                    f"Subject: URGENT: Payment Hold & Resolution Request — Invoice {inv.get('invoice_number') or inv.get('invoice_id')} ({inv.get('vendor_name', 'Vendor')})\n\n"
+                    f"Hi {owners_str},\n\n"
+                    f"We are holding Invoice {inv.get('invoice_number') or inv.get('invoice_id')} from {inv.get('vendor_name', 'Vendor')} for ${amt_val:,.2f} (currently {inv.get('invoice_age_days', 0)} days outstanding).\n\n"
+                    f"Payment processing has been blocked due to the following critical exception(s):\n{reasons_str}\n\n"
+                    f"Recommended Action Paths:\n{actions_str}\n\n"
+                    f"This item has been assigned priority tier {inv.get('priority_tier', 'HIGH')} with a resolution SLA of {inv.get('sla_hours', 24)} hours. Please investigate the discrepancy and provide confirmation or corrected documentation so we can proceed with payment.\n\n"
+                    f"Thank you,\nAccounts Payable Operations"
+                )
+            
+            communications[inv["invoice_id"]] = draft_text
             drafted += 1
 
     summary = {
@@ -1012,6 +1473,8 @@ def build_priority_output(all_stages_json: str) -> dict:
     Returns:
         dict from queue formatter.
     """
+    if _DEMO_MODE:
+        return _DEMO_build_priority_output(all_stages_json)
     data = _safe_json_loads(all_stages_json)
     invoices_data = data.get("invoices", [])
     communications = data.get("communications", {})

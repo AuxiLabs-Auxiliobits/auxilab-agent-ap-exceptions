@@ -1,0 +1,1001 @@
+[
+  {
+    "invoice_id": "TC-012",
+    "invoice_amount": 120000.0,
+    "invoice_age_days": 48,
+    "vendor_name": "Eta Consulting",
+    "invoice_number": "INV-H001",
+    "final_exception_list": [
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "The invoice lacks a currency code, which is a mandatory field for financial processing. The data extraction may have failed to identify it, or it was absent from the original document.",
+        "recommended_action": "Return the invoice to the vendor to have the currency specified, or manually review the invoice document to identify the correct currency.",
+        "evidence_used": "The 'currency' field in the RAW INVOICE DATA is an empty string: ''.",
+        "evidence_checked": "Checked the 'currency' field in the RAW INVOICE DATA.",
+        "missing_data": [],
+        "business_rule_triggered": "Missing Required Data: The invoice is missing a required non-PO field (currency).",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The invoice was submitted without a Purchase Order number. This may be a non-PO invoice that was incorrectly submitted, or the vendor forgot to include the PO reference.",
+        "recommended_action": "Contact the business approver or vendor to obtain the correct PO number. If it is a non-PO invoice, route it through the appropriate approval process.",
+        "evidence_used": "The 'po_number' field in the RAW INVOICE DATA is an empty string: ''.",
+        "evidence_checked": "Checked the 'po_number' field in the RAW INVOICE DATA.",
+        "missing_data": [],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice is blank, empty, or does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "HIGH",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 100.0,
+    "raw_priority_score": 600.0,
+    "root_cause_categories": [
+      "Vendor Submission",
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "AP Manager",
+      "Procurement"
+    ],
+    "sla_hours": 4,
+    "decision_trace": [
+      "Evaluated Missing Required Data with confidence 1.00.",
+      "Critical Priority applied: Missing Required Data on High Value Invoice (>10k). SLA reduced to 4h.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 100.0 from 2 evaluated exceptions.",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 48 days).",
+      "Assigned Priority Tier: HIGH"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "This note is to formally escalate a high-priority invoice exception requiring your review and decision.\n\nInvoice ID: TC-012\nVendor: Eta Consulting\nAmount: $120,000.00\nDays Outstanding: 48\n\nThe invoice is blocked from processing due to two critical data exceptions. First, it lacks a currency code, a mandatory field for our financial systems. Second, it was submitted without a Purchase Order number.\n\nGiven the significant value and the 48-day aging, this issue now requires senior-level intervention. Our recommended action is to either return the invoice to the vendor to have the currency specified and PO confirmed, or to authorize a manual review to identify the correct currency and validate it as a non-PO expense.\n\nTo mitigate payment delays and manage vendor relationship risk, your decision on how to proceed is respectfully requested within two business days."
+  },
+  {
+    "invoice_id": "TC-018",
+    "invoice_amount": 15000.0,
+    "invoice_age_days": 42,
+    "vendor_name": "Omega Contractors",
+    "invoice_number": "INV-O001",
+    "final_exception_list": [
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The invoice was submitted without a Purchase Order number. This is likely a non-PO invoice that needs to be routed for manual coding and approval.",
+        "recommended_action": "Forward invoice to the relevant business department to obtain a PO number or seek non-PO invoice approval and GL coding.",
+        "evidence_used": "The 'po_number' field in the RAW INVOICE DATA is an empty string: \"po_number\": \"\".",
+        "evidence_checked": "RAW INVOICE DATA.po_number",
+        "missing_data": [],
+        "business_rule_triggered": "Purchase Order number from invoice is blank, empty, or does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "HIGH",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 85.71,
+    "raw_priority_score": 180.0,
+    "root_cause_categories": [
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 85.71 from 1 evaluated exceptions.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 42 days).",
+      "Assigned Priority Tier: HIGH"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Hi there,\n\nHope you're having a great week.\n\nThis is an urgent follow-up on an outstanding invoice from Omega Contractors. The payment is currently on hold as it was submitted without a Purchase Order, and it is now 42 days overdue.\n\nInvoice ID: TC-018\nVendor: Omega Contractors\nAmount: $15,000.00\n\nTo get this processed and paid, could you please raise a PO for this expense? To prevent further delays, we need the PO to be raised within the next 3 business days.\n\nPlease let us know if you have any questions. Thanks for your prompt attention to this"
+  },
+  {
+    "invoice_id": "TC-004",
+    "invoice_amount": 5000.0,
+    "invoice_age_days": 57,
+    "vendor_name": "BetaTech Corp",
+    "invoice_number": "INV-B001",
+    "final_exception_list": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 3 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 73.81,
+    "raw_priority_score": 155.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 73.81 from 1 evaluated exceptions.",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 57 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Payment for invoice TC-004 from BetaTech Corp for $5,000.00 has been placed on hold.\n\nOur system detected a potential exact duplicate during processing. This means we may have already processed an identical invoice, posing a risk of overpayment.\n\nAP will now investigate to validate both documents. We will contact the vendor if necessary to resolve the discrepancy. No payment will be issued for this invoice until the investigation is complete.\n\nThe AP Manager has been notified of this action. No further steps are required from other departments at this time. An update will be provided once our review is concluded."
+  },
+  {
+    "invoice_id": "TC-005",
+    "invoice_amount": 5000.0,
+    "invoice_age_days": 57,
+    "vendor_name": "BetaTech Corp",
+    "invoice_number": "INV-B001",
+    "final_exception_list": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 3 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 73.81,
+    "raw_priority_score": 155.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 73.81 from 1 evaluated exceptions.",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 57 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Invoice TC-005 from BetaTech Corp for $5,000.00 has been placed on hold. A pre-classification check flagged an exact duplicate of this invoice within the current processing batch.\n\nA duplicate means the same invoice may have been submitted twice. To prevent an overpayment, payment for TC-005 is blocked pending investigation.\n\nAP will now verify the submission and contact the vendor if necessary to resolve the discrepancy. The AP Manager has been notified of this hold."
+  },
+  {
+    "invoice_id": "TC-006",
+    "invoice_amount": 5000.0,
+    "invoice_age_days": 57,
+    "vendor_name": "BetaTech Corp",
+    "invoice_number": "INV-B001",
+    "final_exception_list": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 3 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 73.81,
+    "raw_priority_score": 155.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 73.81 from 1 evaluated exceptions.",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 30 points (invoice age = 57 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Invoice TC-006 from BetaTech Corp ($5,000.00) has been placed on payment hold.\n\nOur pre-classification system identified an exact duplicate of this invoice within the current processing batch. A duplicate means an invoice with the same vendor, ID, and amount may have already been processed or submitted.\n\nPayment is blocked pending investigation to prevent a double payment. I will verify the status of both items to confirm if this is an error and proceed with voiding the duplicate or releasing the hold.\n\nThe AP Manager has been notified of this action."
+  },
+  {
+    "invoice_id": "TC-010",
+    "invoice_amount": 4500.0,
+    "invoice_age_days": 50,
+    "vendor_name": "Epsilon Parts",
+    "invoice_number": "INV-E001",
+    "final_exception_list": [
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The Purchase Order number provided on the invoice does not exist in the company's ERP system. This could be due to a data entry error by the vendor or the PO was never created.",
+        "recommended_action": "Contact the vendor or the internal business requester to obtain the correct Purchase Order number for this invoice.",
+        "evidence_used": "The invoice lists `po_number` as 'PO-INVALID-999'. This PO number does not exist as a key in the `ERP DATABASE CONTEXT.purchase_orders` object.",
+        "evidence_checked": "Checked `RAW INVOICE DATA.po_number` against the keys of the `ERP DATABASE CONTEXT.purchase_orders` object.",
+        "missing_data": [],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice is blank, empty, or does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 73.81,
+    "raw_priority_score": 155.0,
+    "root_cause_categories": [
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 73.81 from 1 evaluated exceptions.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 50 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Hi Team,\n\nThis is an urgent request regarding invoice **TC-010** from **Epsilon Parts**. The payment is currently on hold.\n\nThe invoice is 50 days outstanding because the Purchase Order number provided does not exist in our system. We cannot process the $4,500 payment until a valid PO is created and approved.\n\nTo resolve this, please raise a new PO for this expense immediately. To comply with our internal SLA and prevent further vendor delays, this must be completed within **3 business days**.\n\nPlease let me know once this is actioned. Thanks for your prompt assistance with this matter."
+  },
+  {
+    "invoice_id": "TC-013",
+    "invoice_amount": 17500.0,
+    "invoice_age_days": 47,
+    "vendor_name": "Theta Wholesale",
+    "invoice_number": "INV-T001",
+    "final_exception_list": [
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "Historical ERP lookup detected potential duplicate.",
+        "recommended_action": "Verify if this is a duplicate submission of a recently processed invoice.",
+        "evidence_used": "Matched historical invoice INV-T001 on vendor, PO, and amount within 7 days.",
+        "evidence_checked": "ERP historical_invoices",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification historical duplicate pass",
+        "confidence": 0.85
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 71.43,
+    "raw_priority_score": 150.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Potential Duplicate Invoice with confidence 0.85.",
+      "Evaluated Potential Duplicate Invoice with confidence 0.85.",
+      "Calculated Priority Score: 71.43 from 2 evaluated exceptions.",
+      "Payment blocked by Potential Duplicate Invoice.",
+      "Escalation required by Potential Duplicate Invoice.",
+      "Payment blocked by Potential Duplicate Invoice.",
+      "Escalation required by Potential Duplicate Invoice.",
+      "Age Weight Applied: 30 points (invoice age = 47 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Please be advised that invoice TC-013 from Theta Wholesale ($17,500.00) has been placed on payment hold.\n\nA system check flagged this as a potential duplicate, suggesting we may have already processed or paid an identical invoice.\n\nAP is investigating this discrepancy by reviewing our payment history and will contact the vendor for clarification. Payment is blocked pending the outcome of this review. No action is required from you at this time.\n\nThe AP Manager has been notified. We will provide an update once the investigation is complete."
+  },
+  {
+    "invoice_id": "TC-014",
+    "invoice_amount": 88000.0,
+    "invoice_age_days": 46,
+    "vendor_name": "Phantom Invoicing LLC",
+    "invoice_number": "INV-P001",
+    "final_exception_list": [
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor on the invoice is not an approved supplier and does not match the vendor associated with the provided PO number, suggesting a potential fraudulent invoice or an incorrect PO reference.",
+        "recommended_action": "Verify the correct PO with the vendor. Escalate for review as the vendor is not in the master list and does not match the PO's vendor.",
+        "evidence_used": "The invoice vendor_name 'Phantom Invoicing LLC' is not present in the ERP vendor_master list. Additionally, the vendor associated with PO-6001 in the ERP is 'Acme Supplies Ltd'.",
+        "evidence_checked": "RAW INVOICE DATA: vendor_name ('Phantom Invoicing LLC'); ERP DATABASE CONTEXT: vendor_master list, purchase_orders['PO-6001']['vendor_name'] ('Acme Supplies Ltd')",
+        "missing_data": [],
+        "business_rule_triggered": "Vendor Mismatch: The vendor_name from the invoice is not in the ERP vendor_master list, OR the invoice vendor_name does not match the vendor_name associated with the PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoiced amount is significantly higher than the amount approved on the purchase order, possibly due to a data entry error, incorrect pricing, or unapproved scope changes.",
+        "recommended_action": "Contact the vendor and the business unit that raised the PO to investigate the significant price discrepancy before processing.",
+        "evidence_used": "The invoice amount is 88000 USD, while the ERP record for PO-6001 shows an expected amount of 10000.0 USD.",
+        "evidence_checked": "RAW INVOICE DATA: invoice_amount ('88000'); ERP DATABASE CONTEXT: purchase_orders['PO-6001']['expected_amount'] (10000.0)",
+        "missing_data": [],
+        "business_rule_triggered": "Amount Exceeds Tolerance: Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 71.43,
+    "raw_priority_score": 150.0,
+    "root_cause_categories": [
+      "Vendor Master Data",
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "Vendor Master Team",
+      "AP Manager"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Vendor Mismatch with confidence 1.00.",
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Calculated Priority Score: 71.43 from 2 evaluated exceptions.",
+      "Payment blocked by Vendor Mismatch.",
+      "Escalation required by Vendor Mismatch.",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Age Weight Applied: 30 points (invoice age = 46 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Dear Procurement Team,\n\nWe require your urgent assistance with invoice TC-014 from Phantom Invoicing LLC for $88,000.00. This payment, now 46 days outstanding, is on hold due to critical discrepancies.\n\nThe vendor, Phantom Invoicing LLC, is not a registered supplier in our vendor master file. Furthermore, the vendor name on the invoice does not match the approved supplier associated with the provided PO number. This suggests a potential fraudulent invoice or an incorrect reference. Additionally, the invoiced amount is significantly higher than the value approved on the purchase order.\n\nCould you please investigate and either initiate the vendor onboarding process for this entity or provide the correct, approved vendor and PO details? Payment is blocked until this matter is resolved and the vendor is properly approved.\n\nYour prompt attention is appreciated."
+  },
+  {
+    "invoice_id": "TC-002",
+    "invoice_amount": 10500.0,
+    "invoice_age_days": 61,
+    "vendor_name": "Acme Supplies Ltd",
+    "invoice_number": "INV-A002",
+    "final_exception_list": [
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoice amount is greater than the amount specified on the purchase order. This may be due to price increases, added fees, or a data entry error not reflected in the PO.",
+        "recommended_action": "Contact the procurement department or the PO owner to clarify the $500 discrepancy and obtain approval or a revised PO if necessary.",
+        "evidence_used": "The invoice amount is 10500 USD, while the purchase order PO-6001 has an expected amount of 10000.0 USD.",
+        "evidence_checked": "Compared RAW INVOICE DATA.invoice_amount (10500) with ERP.purchase_orders['PO-6001'].expected_amount (10000.0).",
+        "missing_data": [],
+        "business_rule_triggered": "Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 61.9,
+    "raw_priority_score": 130.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Calculated Priority Score: 61.9 from 1 evaluated exceptions.",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Age Weight Applied: 30 points (invoice age = 61 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Dear Acme Supplies Ltd,\n\nWe are writing in reference to your invoice TC-002 for the amount of $10,500.00.\n\nOur review shows that the invoiced amount is greater than the amount agreed upon in the associated purchase order. Due to this discrepancy, payment for this invoice is currently on hold.\n\nCould you please investigate this matter and provide clarification for the difference? If this is an error, please provide a corrected invoice or a credit note for the overbilled amount.\n\nTo ensure we can resolve this and process your payment, we kindly request a response within 5 business days.\n\nThank you for your prompt attention to this query.\n\nBest regards,\n\nAccounts Payable Team"
+  },
+  {
+    "invoice_id": "TC-003",
+    "invoice_amount": 11500.0,
+    "invoice_age_days": 61,
+    "vendor_name": "Acme Supplies Ltd",
+    "invoice_number": "INV-A003",
+    "final_exception_list": [
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoice amount is higher than the purchase order's expected amount. This may be due to a price increase, additional unapproved services, or a data entry error on either the invoice or the PO.",
+        "recommended_action": "Contact the business requestor or budget holder to verify the price difference and seek approval for the additional amount, or ask the vendor for a corrected invoice.",
+        "evidence_used": "Invoice `invoice_amount` is 11500 USD, but the associated `po_number` PO-6001 has an `expected_amount` of 10000.0 USD in the ERP `purchase_orders` database.",
+        "evidence_checked": "RAW INVOICE DATA: {invoice_amount: \"11500\"}, ERP DATABASE CONTEXT.purchase_orders: {PO-6001: {expected_amount: 10000.0}}",
+        "missing_data": [],
+        "business_rule_triggered": "Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 61.9,
+    "raw_priority_score": 130.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Calculated Priority Score: 61.9 from 1 evaluated exceptions.",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Age Weight Applied: 30 points (invoice age = 61 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Dear Acme Supplies Ltd,\n\nWe are writing in reference to your invoice TC-003, for the amount of $11,500.00.\n\nOur team has identified a discrepancy where the invoiced amount exceeds the expected amount on our corresponding purchase order. Payment for this invoice is currently on hold pending resolution of this variance.\n\nCould you please review this discrepancy on your end? To proceed with payment, we kindly request that you provide either a corrected invoice or a credit note reflecting the agreed-upon amount.\n\nPlease provide a response or the required documentation within 5 business days to ensure we can resolve this matter promptly.\n\nWe appreciate your cooperation and swift attention to this query.\n\nSincerely,\n\nAccounts Payable Team"
+  },
+  {
+    "invoice_id": "TC-008",
+    "invoice_amount": 20000.0,
+    "invoice_age_days": 52,
+    "vendor_name": "Delta Services",
+    "invoice_number": "INV-D001",
+    "final_exception_list": [
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected potential duplicate in the current batch (similar dates, diff invoice numbers).",
+        "recommended_action": "Verify if this is a duplicate submission under a different number.",
+        "evidence_used": "Matched another invoice on vendor, PO, amount, currency, and date within 3 days.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification potential duplicate pass",
+        "confidence": 0.85
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 61.9,
+    "raw_priority_score": 130.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Potential Duplicate Invoice with confidence 0.85.",
+      "Calculated Priority Score: 61.9 from 1 evaluated exceptions.",
+      "Payment blocked by Potential Duplicate Invoice.",
+      "Escalation required by Potential Duplicate Invoice.",
+      "Age Weight Applied: 30 points (invoice age = 52 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Invoice TC-008 from Delta Services for $20,000.00 is now on payment hold.\n\nOur pre-classification system flagged it as a potential duplicate, noting a similar charge with a different invoice number in the current batch. A duplicate means we may have already been billed for these same services.\n\nAP will investigate this discrepancy and contact the vendor for clarification to confirm the charge is valid. Payment is blocked until this is resolved.\n\nThe AP Manager has been notified of this hold. No further action is required at this time."
+  },
+  {
+    "invoice_id": "TC-009",
+    "invoice_amount": 20000.0,
+    "invoice_age_days": 51,
+    "vendor_name": "Delta Services",
+    "invoice_number": "INV-D002",
+    "final_exception_list": [
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected potential duplicate in the current batch (similar dates, diff invoice numbers).",
+        "recommended_action": "Verify if this is a duplicate submission under a different number.",
+        "evidence_used": "Matched another invoice on vendor, PO, amount, currency, and date within 3 days.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification potential duplicate pass",
+        "confidence": 0.85
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 61.9,
+    "raw_priority_score": 130.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Potential Duplicate Invoice with confidence 0.85.",
+      "Calculated Priority Score: 61.9 from 1 evaluated exceptions.",
+      "Payment blocked by Potential Duplicate Invoice.",
+      "Escalation required by Potential Duplicate Invoice.",
+      "Age Weight Applied: 30 points (invoice age = 51 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Invoice TC-009 from Delta Services for $20000.0 has been placed on payment hold.\n\nOur system flagged this as a potential duplicate, identifying another invoice in the batch with a similar date but a different invoice number. This means we may have been billed twice for the same services.\n\nPayment is blocked pending a full investigation. AP will contact the vendor to verify the charges and resolve the discrepancy.\n\nThe AP Manager has been notified of this hold. No further action is required from other departments at this time."
+  },
+  {
+    "invoice_id": "TC-020",
+    "invoice_amount": 20000.0,
+    "invoice_age_days": 52,
+    "vendor_name": "Delta Services",
+    "invoice_number": "INV-D003",
+    "final_exception_list": [
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected potential duplicate in the current batch (similar dates, diff invoice numbers).",
+        "recommended_action": "Verify if this is a duplicate submission under a different number.",
+        "evidence_used": "Matched another invoice on vendor, PO, amount, currency, and date within 3 days.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification potential duplicate pass",
+        "confidence": 0.85
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 61.9,
+    "raw_priority_score": 130.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Potential Duplicate Invoice with confidence 0.85.",
+      "Calculated Priority Score: 61.9 from 1 evaluated exceptions.",
+      "Payment blocked by Potential Duplicate Invoice.",
+      "Escalation required by Potential Duplicate Invoice.",
+      "Age Weight Applied: 30 points (invoice age = 52 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Invoice TC-020 from Delta Services for $20,000.00 has been placed on payment hold.\n\nOur system flagged this as a potential duplicate, as it shares similar dates with another invoice in the current batch despite having a different invoice number. A duplicate means we risk paying twice for the same service.\n\nPayment is now blocked pending investigation. AP will contact Delta Services directly to confirm if this is a valid and distinct charge.\n\nThe AP Manager has been notified of this hold. Further updates will be provided once the issue is resolved with the vendor."
+  },
+  {
+    "invoice_id": "TC-007",
+    "invoice_amount": 8000.0,
+    "invoice_age_days": 54,
+    "vendor_name": "Gamma Logistics",
+    "invoice_number": "INV-G001",
+    "final_exception_list": [
+      {
+        "primary_type": "Currency Mismatch",
+        "root_cause_hypothesis": "The vendor has invoiced in a currency (GBP) that is different from the currency specified on the corresponding purchase order (USD). This could be an invoicing error or an uncommunicated change in terms.",
+        "recommended_action": "Verify the correct transaction currency with Procurement/vendor. Request a corrected invoice if the PO currency is correct.",
+        "evidence_used": "Invoice `currency` is 'GBP'. ERP `purchase_orders` for 'PO-6003' shows `expected_currency` is 'USD'.",
+        "evidence_checked": "Invoice `currency` field, ERP `purchase_orders` database for PO-6003.",
+        "missing_data": [],
+        "business_rule_triggered": "Currency Mismatch: The currency on the invoice does not match the expected_currency on the PO in the ERP database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "Payment cannot be processed because there is no Goods Receipt Note (GRN) in the ERP system for this PO. The goods/services may not have been delivered, or the receipt has not yet been logged by the receiving department.",
+        "recommended_action": "Place invoice on hold. Contact the business user or receiving department to confirm if goods/services for PO-6003 have been received and logged.",
+        "evidence_used": "A lookup for 'PO-6003' in the ERP `grn_records` database yields no results. A GRN is required for payment against a PO.",
+        "evidence_checked": "ERP `grn_records` database.",
+        "missing_data": [],
+        "business_rule_triggered": "GRN Not Received: A valid PO exists but there is no GRN record...",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 59.52,
+    "raw_priority_score": 125.0,
+    "root_cause_categories": [
+      "Finance Controls",
+      "Receiving"
+    ],
+    "resolution_owners": [
+      "Finance Controls",
+      "Receiving Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Currency Mismatch with confidence 1.00.",
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Calculated Priority Score: 59.52 from 2 evaluated exceptions.",
+      "Payment blocked by Currency Mismatch.",
+      "Escalation required by Currency Mismatch.",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Age Weight Applied: 30 points (invoice age = 54 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Dear Gamma Logistics,\n\nWe are writing regarding invoice TC-007. Payment is currently on hold due to a discrepancy preventing processing.\n\nThe invoice was submitted in GBP, but our records indicate the agreed-upon currency for this transaction is USD. Furthermore, we are unable to process this invoice as the receipt of goods or services has not yet been registered in our system.\n\nTo resolve this, please issue a credit note for invoice TC-007 and provide a corrected invoice in USD. We are investigating the delivery confirmation internally, but we ask that you also verify receipt with your contact on our team.\n\nPlease provide the corrected documentation or an update within 5 business days to avoid further payment delays.\n\nThank you for your prompt attention to this matter.\n\nRegards,\n\nAccounts Payable Team"
+  },
+  {
+    "invoice_id": "TC-011",
+    "invoice_amount": 35000.0,
+    "invoice_age_days": 0,
+    "vendor_name": "Zeta Manufacturing",
+    "invoice_number": "INV-Z001",
+    "final_exception_list": [
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The invoice was submitted by the vendor before the goods or services were physically received, or the receiving department has not yet entered the Goods Receipt Note (GRN) into the ERP system.",
+        "recommended_action": "Contact the business unit or warehouse to confirm if goods/services for PO-6005 have been received and request they process the GRN.",
+        "evidence_used": "The invoice references 'po_number': 'PO-6005', which is a valid PO in the 'purchase_orders' database. However, there is no corresponding entry for 'PO-6005' in the 'grn_records' database.",
+        "evidence_checked": "Checked invoice 'po_number' against ERP 'purchase_orders' and 'grn_records' databases.",
+        "missing_data": [],
+        "business_rule_triggered": "A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice was dated in the future, which is non-compliant with standard accounting practices. This could be a vendor error or an attempt to bill for services not yet rendered.",
+        "recommended_action": "Place invoice on hold and do not process for payment until the invoice date ('2026-07-01') is reached or passed.",
+        "evidence_used": "The invoice 'invoice_date' of '2026-07-01' is after the current 'processing_date' of '2026-06-14'.",
+        "evidence_checked": "Compared invoice 'invoice_date' to the ERP 'processing_date'.",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 59.52,
+    "raw_priority_score": 125.0,
+    "root_cause_categories": [
+      "Receiving",
+      "Data Error"
+    ],
+    "resolution_owners": [
+      "Receiving Team",
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Evaluated Future Date with confidence 1.00.",
+      "Calculated Priority Score: 59.52 from 2 evaluated exceptions.",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Age Weight Applied: 5 points (invoice age = 0 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "This note is to escalate a high-priority exception for an invoice from Zeta Manufacturing (ID: TC-011) for $35,000.00.\n\nThe invoice is currently on hold due to a missing Goods Receipt Note (GRN). Our investigation reveals two critical issues: goods have not been confirmed as received for the associated PO-6005, and the invoice is future-dated. This non-compliant dating practice presents a significant risk of payment for services not yet rendered.\n\nGiven the large invoice amount and the policy deviation, your review and sign-off are required. The recommended action is to contact the business unit to validate receipt and instruct them to process the GRN, but the future-dating issue requires your specific guidance before we proceed.\n\nPlease advise on how to handle this exception within two business days to ensure timely resolution and mitigate financial risk."
+  },
+  {
+    "invoice_id": "TC-022",
+    "invoice_amount": 35000.0,
+    "invoice_age_days": 0,
+    "vendor_name": "Zeta Manufacturing",
+    "invoice_number": "INV-Z002",
+    "final_exception_list": [
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "Goods or services were likely delivered, but the corresponding Goods Receipt Note (GRN) was not created or entered into the ERP system.",
+        "recommended_action": "Contact the purchasing or receiving department to confirm receipt of goods and request creation of a GRN for PO-6005.",
+        "evidence_used": "The invoice references PO-6005, which is a valid PO in the purchase_orders database, but there is no corresponding entry for PO-6005 in the grn_records database.",
+        "evidence_checked": "RAW INVOICE DATA.po_number (\"PO-6005\"), ERP DATABASE CONTEXT.purchase_orders (contains \"PO-6005\"), ERP DATABASE CONTEXT.grn_records (lacks \"PO-6005\").",
+        "missing_data": [
+          "GRN record for PO-6005"
+        ],
+        "business_rule_triggered": "GRN Not Received: A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 0.2
+      },
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The vendor may have post-dated the invoice, or a data entry error occurred during invoice creation or automated extraction.",
+        "recommended_action": "Hold the invoice for future processing. Contact the vendor to confirm if the date is a mistake and requires a corrected invoice.",
+        "evidence_used": "The invoice_date of \"2027-03-01\" is later than the system's processing_date of \"2026-06-14\".",
+        "evidence_checked": "RAW INVOICE DATA.invoice_date (\"2027-03-01\"), PROCESSING DATE (\"2026-06-14\").",
+        "missing_data": [],
+        "business_rule_triggered": "Future Date: The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 59.52,
+    "raw_priority_score": 125.0,
+    "root_cause_categories": [
+      "Receiving",
+      "Data Error"
+    ],
+    "resolution_owners": [
+      "Receiving Team",
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated GRN Not Received with confidence 0.20.",
+      "Evaluated Future Date with confidence 1.00.",
+      "Calculated Priority Score: 59.52 from 2 evaluated exceptions.",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Age Weight Applied: 5 points (invoice age = 0 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "This note is to request your guidance on a high-priority, high-value invoice exception.\n\nWe have received Invoice TC-022 from Zeta Manufacturing for $35,000. The invoice is on hold due to a \"GRN Not Received\" exception, preventing a 3-way match. While the invoice is not yet overdue, its significant value warrants immediate escalation.\n\nOur investigation indicates goods related to PO-6005 were likely delivered, but the receiving department did not create the corresponding Goods Receipt Note (GRN) in our ERP system. This represents a breakdown in the standard procurement process and a financial control risk.\n\nDue to the amount at risk and the required deviation from standard procedure, Controller-level sign-off is necessary to proceed. Our recommended action is to have the receiving department urgently confirm delivery against PO-6005 and process the GRN.\n\nPlease provide your decision on how to proceed within the next two business days to ensure process compliance and manage our vendor relationship effectively."
+  },
+  {
+    "invoice_id": "TC-023",
+    "invoice_amount": 500.0,
+    "invoice_age_days": 38,
+    "vendor_name": "Theta Wholesale",
+    "invoice_number": "INV-T002",
+    "final_exception_list": [
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoice amount is significantly lower than the expected amount on the purchase order. This may be a partial billing for a larger order, or an incorrect invoice.",
+        "recommended_action": "Contact the vendor or internal requestor to clarify if this is a partial shipment/billing against the PO. Place the invoice on hold.",
+        "evidence_used": "Invoice amount is '500' USD, while the expected amount for PO 'PO-6006' in the ERP is '17000.0' USD.",
+        "evidence_checked": "RAW INVOICE DATA.invoice_amount, ERP DATABASE CONTEXT.purchase_orders['PO-6006'].expected_amount",
+        "missing_data": [],
+        "business_rule_triggered": "Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "An invoice has been submitted against a purchase order for which the goods or services have not been marked as received in the ERP system. Payment cannot be processed until receipt is confirmed.",
+        "recommended_action": "Check with the receiving department or the PO owner to confirm if goods/services for PO-6006 have been delivered and have them post the GRN.",
+        "evidence_used": "The invoice cites PO 'PO-6006', which is a valid PO, but there is no corresponding entry for 'PO-6006' in the ERP grn_records database.",
+        "evidence_checked": "RAW INVOICE DATA.po_number, ERP DATABASE CONTEXT.grn_records",
+        "missing_data": [],
+        "business_rule_triggered": "A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 52.38,
+    "raw_priority_score": 110.0,
+    "root_cause_categories": [
+      "Accounts Payable",
+      "Receiving"
+    ],
+    "resolution_owners": [
+      "AP Manager",
+      "Receiving Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Calculated Priority Score: 52.38 from 2 evaluated exceptions.",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Age Weight Applied: 30 points (invoice age = 38 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Dear Theta Wholesale Accounts Team,\n\nWe are writing to you regarding invoice TC-023 for $500.00, which is currently on hold.\n\nPayment is pending for two reasons. Firstly, our system shows that the goods/services for the associated purchase order have not yet been confirmed as received. Secondly, the invoiced amount is significantly lower than what we expected based on the purchase order value.\n\nTo resolve this, could you please confirm the delivery status and provide a proof of delivery? Please also clarify if this invoice represents a partial billing or if a corrected invoice is required to reflect the full order.\n\nWe kindly request a response within 5 business days to enable us to process your payment promptly.\n\nThank you for your assistance.\n\nKind regards,\n\nAccounts Payable Team"
+  },
+  {
+    "invoice_id": "TC-017",
+    "invoice_amount": 5000.0,
+    "invoice_age_days": 43,
+    "vendor_name": "BetaTech Corp",
+    "invoice_number": "INV-B002",
+    "final_exception_list": [
+      {
+        "primary_type": "Currency Mismatch",
+        "root_cause_hypothesis": "The vendor has invoiced in a different currency (EUR) than what was specified on the purchase order (USD). This may be an error by the vendor or a miscommunication during the purchasing process.",
+        "recommended_action": "Contact the vendor to issue a corrected invoice in USD or verify with the procurement team if the PO should be amended to EUR.",
+        "evidence_used": "Invoice currency is 'EUR', but the expected currency for PO-6002 in the ERP is 'USD'.",
+        "evidence_checked": "RAW INVOICE DATA.currency, ERP DATABASE CONTEXT.purchase_orders['PO-6002'].expected_currency",
+        "missing_data": [],
+        "business_rule_triggered": "The currency on the invoice does not match the expected_currency on the PO in the ERP database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 50.0,
+    "raw_priority_score": 105.0,
+    "root_cause_categories": [
+      "Finance Controls"
+    ],
+    "resolution_owners": [
+      "Finance Controls"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Currency Mismatch with confidence 1.00.",
+      "Calculated Priority Score: 50.0 from 1 evaluated exceptions.",
+      "Payment blocked by Currency Mismatch.",
+      "Escalation required by Currency Mismatch.",
+      "Age Weight Applied: 30 points (invoice age = 43 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Dear BetaTech Corp Accounts Team,\n\nWe are writing in reference to invoice TC-017.\n\nUpon review, we have identified a currency discrepancy. The invoice was issued in EUR, but our agreed-upon currency for this transaction was USD. Due to this mismatch, we are currently unable to process the payment.\n\nTo resolve this, please issue a credit note for invoice TC-017 and provide a corrected invoice reflecting the charge in USD.\n\nWe kindly request the updated documentation within the next 5 business days to ensure we can process your payment promptly.\n\nThank you for your prompt attention to this matter.\n\nBest regards,\n\nAccounts Payable Team"
+  },
+  {
+    "invoice_id": "TC-021",
+    "invoice_amount": 9999.99,
+    "invoice_age_days": 40,
+    "vendor_name": "Acme Supplies Ltd",
+    "invoice_number": "INV-A005",
+    "final_exception_list": [
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoice amount is slightly different from the purchase order's expected amount. This may be due to a minor rounding error or a price adjustment not reflected in the PO.",
+        "recommended_action": "Investigate the minor discrepancy of 0.01. Either approve the invoice if within an acceptable de minimis tolerance or contact procurement to update the PO amount.",
+        "evidence_used": "The invoice amount is 9999.99 USD, while the expected amount for PO 'PO-6001' in the ERP database is 10000.0 USD.",
+        "evidence_checked": "RAW INVOICE DATA.invoice_amount, ERP DATABASE CONTEXT.purchase_orders['PO-6001'].expected_amount",
+        "missing_data": [],
+        "business_rule_triggered": "Amount Exceeds Tolerance: Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 50.0,
+    "raw_priority_score": 105.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Calculated Priority Score: 50.0 from 1 evaluated exceptions.",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Age Weight Applied: 30 points (invoice age = 40 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Dear Acme Supplies Ltd,\n\nWe hope this email finds you well.\n\nWe are writing in reference to your invoice TC-021 for the amount of $9999.99.\n\nOur team has identified a minor discrepancy where the invoiced amount is slightly higher than the expected total on our corresponding purchase order. This appears to be a small variance, possibly due to rounding or a price adjustment.\n\nTo ensure we can process this payment, could you please review the discrepancy? If this is an error, please provide a credit note for the difference or a fully corrected invoice that aligns with our purchase order.\n\nWe kindly request a response within the next 5 business days to help resolve this matter promptly.\n\nThank you for your assistance.\n\nBest regards,\n\nAccounts Payable Team"
+  },
+  {
+    "invoice_id": "TC-025",
+    "invoice_amount": 1250.0,
+    "invoice_age_days": 36,
+    "vendor_name": "ABC Office Supplies",
+    "invoice_number": "INV-ABC001",
+    "final_exception_list": [
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The invoice was submitted and is being processed before the goods or services for the corresponding Purchase Order were confirmed as received in the ERP system. This could be a timing issue or the goods may not have arrived yet.",
+        "recommended_action": "Place invoice on hold and contact the receiving department to confirm if goods/services for PO-45001 have been delivered and to process the Goods Receipt Note (GRN) in the system.",
+        "evidence_used": "The invoice references PO-45001. The ERP grn_records for PO-45001 show a status of 'received: false'.",
+        "evidence_checked": "Raw Invoice Data (po_number: 'PO-45001'), ERP grn_records (grn_records['PO-45001'].received is false).",
+        "missing_data": [],
+        "business_rule_triggered": "A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 42.86,
+    "raw_priority_score": 90.0,
+    "root_cause_categories": [
+      "Receiving"
+    ],
+    "resolution_owners": [
+      "Receiving Team"
+    ],
+    "sla_hours": 72,
+    "decision_trace": [
+      "Evaluated GRN Not Received with confidence 1.00.",
+      "Calculated Priority Score: 42.86 from 1 evaluated exceptions.",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Age Weight Applied: 30 points (invoice age = 36 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Dear ABC Office Supplies Team,\n\nWe are writing in reference to your invoice TC-025 for the amount of $1250.0.\n\nOur system shows that the Goods Received Note (GRN) for this invoice has not yet been registered, meaning we cannot confirm receipt of the goods or services. As per our policy, we are unable to process payment until delivery is confirmed.\n\nCould you please provide a copy of the signed Proof of Delivery (POD) to help us resolve this discrepancy? If the goods have not yet been dispatched, please advise on the expected delivery date.\n\nWe kindly request your response with the necessary documentation or an update within 5 business days to avoid further payment delays.\n\nThank you for your prompt attention to this matter.\n\nKind regards,\n\nAccounts Payable Team"
+  }
+]

@@ -1,0 +1,9 @@
+Hi Procurement Team,
+
+We are escalating invoice TC-014 from Phantom Invoicing LLC for your urgent attention. This $88,000.00 invoice, now 45 days outstanding, is currently blocked for payment due to two critical issues.
+
+First, "Phantom Invoicing LLC" is not an approved vendor in our master list and the name does not match the vendor on the referenced purchase order. Second, the invoiced amount is significantly greater than the authorized PO amount.
+
+To proceed, please investigate and confirm the correct vendor entity. If Phantom Invoicing LLC is the correct party, please initiate the vendor onboarding process. We also require your team to provide clarification and approval for the variance between the invoice and the PO.
+
+Payment will remain on hold until these discrepancies are fully resolved. Please advise on the next steps as soon as possible.

@@ -65,6 +65,14 @@ class InvoiceResult:
     vendor_name: str = ""
     invoice_number: str = ""
 
+    @property
+    def exceptions(self) -> list[ExceptionClassification]:
+        return self.evaluated_exceptions
+
+    @property
+    def priority_score(self) -> float:
+        return self.normalized_priority_score
+
     def to_dict(self) -> dict:
         return {
             "invoice_id": self.invoice_id,
@@ -434,7 +442,7 @@ class ResolutionRouter:
             result.normalized_priority_score = round(min(100.0, norm_score), 2)
             result.decision_trace.append(
                 f"Calculated Priority Score: {result.normalized_priority_score} "
-                f"from {len(result.evaluated_exceptions)} evaluated exceptions (Raw: {result.raw_priority_score})."
+                f"from {len(result.evaluated_exceptions)} evaluated exceptions."
             )
 
             # ── Phase 2: Routing Engine (Constraints & Actions) ─────────

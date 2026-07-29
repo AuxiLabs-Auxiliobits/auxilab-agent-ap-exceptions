@@ -1,0 +1,7 @@
+Payment for invoice TC-004 from BetaTech Corp for $5,000.00 has been placed on hold.
+
+Our system detected a potential exact duplicate during processing. This means we may have already processed an identical invoice, posing a risk of overpayment.
+
+AP will now investigate to validate both documents. We will contact the vendor if necessary to resolve the discrepancy. No payment will be issued for this invoice until the investigation is complete.
+
+The AP Manager has been notified of this action. No further steps are required from other departments at this time. An update will be provided once our review is concluded.

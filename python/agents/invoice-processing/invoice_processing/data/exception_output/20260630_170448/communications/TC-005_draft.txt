@@ -1,0 +1,5 @@
+Please be advised that invoice TC-005 from BetaTech Corp for $5,000.00 has been placed on payment hold. Our system flagged an exact duplicate of this invoice during processing.
+
+A duplicate means we may have received the same bill twice. To prevent overpayment, payment is blocked pending investigation. We will now contact the vendor to validate both documents and confirm which, if any, is correct for processing.
+
+The AP Manager has been informed of this action.

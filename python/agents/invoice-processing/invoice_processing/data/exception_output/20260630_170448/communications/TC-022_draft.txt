@@ -1,0 +1,11 @@
+Dear Finance Controller,
+
+This note is to formally escalate a high-priority exception for invoice TC-022 from Zeta Manufacturing, amounting to $35,000.00.
+
+The exception is a "GRN Not Received" error. The invoice was submitted for payment before the goods or services for the associated purchase order, PO-6005, were formally logged as received in our system. This violates the mandatory three-way match control.
+
+Due to the significant value of this invoice, processing payment without a confirmed GRN presents a material financial risk to the company. Escalation is required to ensure proper financial controls are followed before any funds are disbursed.
+
+The recommended action is to place the invoice on hold while we urgently contact the receiving department to confirm delivery and ensure the GRN is created.
+
+Your review and approval of this action plan are requested within two business days to ensure this high-value item is handled with appropriate oversight.

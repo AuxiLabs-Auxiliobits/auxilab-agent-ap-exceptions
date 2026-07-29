@@ -1,0 +1,9 @@
+This note is to request your review and decision on a high-priority exception for invoice TC-012 from Eta Consulting. The invoice amount is $120,000 and it has been outstanding for 47 days.
+
+Processing is stalled due to two critical data omissions. First, the invoice is missing a currency code, which prevents financial validation and payment. Second, it was submitted without a Purchase Order number, preventing it from entering the standard approval workflow.
+
+Due to the significant value and extended aging of this invoice, your sign-off is required to authorize an exception action.
+
+The AP team's recommended action is to return the invoice to the vendor and formally request they resubmit it with the mandatory currency code and applicable PO number. This ensures compliance and proper financial controls are met before processing.
+
+Your approval is required to proceed. Please provide your decision within two business days to mitigate further payment delays and manage this vendor exception.
