@@ -8,141 +8,23 @@
 
 ## What This Does
 
-<!-- TODO: Replace this section with a clear 2-3 sentence description of what the tool does,
-     what problem it solves, and who would use it. -->
-
-**auxilab-agent-ap-exceptions** is a production-grade, AI-powered **Accounts Payable (AP) Exception Handling** agent built using the **Google Agent Development Kit (ADK)**. It automates the complete invoice exception management lifecycle—from processing raw exception queues to generating resolution-ready outputs—through a robust multi-agent pipeline.
-
-The system combines deterministic validation, AI reasoning, and human oversight to deliver accurate, auditable, and scalable exception handling for enterprise AP operations.
+**auxilab-agent-ap-exceptions** is an enterprise-grade AI pipeline that automates Accounts Payable (AP) exception management end-to-end. It eliminates manual triage bottlenecks by ingesting batch exception queues, cross-referencing ERP records (Purchase Orders, Goods Receipt Notes, and Vendor Master data) to produce evidence-grounded root-cause classifications, then deterministically routing each exception to the correct team with a calculated priority score, SLA, and a ready-to-send vendor or internal communication draft. AP operations teams, finance controllers, and procurement specialists use this tool to prevent duplicate payments, unblock vendor cash flow, and continuously improve accuracy through a human-in-the-loop Adaptive Learning Framework (ALF).
 
 ---
-
-## Operating Modes
-
-### Inference Mode
-
-A fully autonomous, end-to-end processing pipeline that:
-
-- Ingests batches of invoice exceptions from a CSV queue.
-- Classifies each invoice exception by its root cause.
-- Determines the appropriate resolution path.
-- Prioritizes exceptions based on financial risk.
-- Automatically resolves eligible cases using the Adaptive Learning Framework (ALF).
-
-### Learning Mode
-
-A human-in-the-loop workflow designed for Accounts Payable Subject Matter Experts (SMEs).
-
-In this mode, AP managers can:
-
-- Review exceptions that could not be resolved automatically.
-- Propose new exception-handling rules.
-- Validate proposed rules using automated safety and impact analysis.
-- Approve validated rules into the production rule base, enabling future autonomous resolution.
-
----
-
-## Pipeline Overview
-
-For every invoice exception, the agent performs the following steps:
-
-### Data Ingestion
-
-- Reads invoice exceptions from `exception_queue.csv`.
-- Cross-references each invoice against `erp_database.json`.
-- Retrieves supporting ERP information, including:
-  - Purchase Orders (PO)
-  - Goods Receipt Notes (GRN)
-  - Vendor Master records
-  - Payment history
-
-### Root Cause Classification
-
-Identifies the underlying cause of each exception, including:
-
-- Vendor mismatch
-- PO tolerance breach
-- Duplicate invoice
-- Missing Work Authorization (WAF)
-- Tax/GST calculation errors
-- Currency discrepancies
-- Other Accounts Payable exception categories
-
-### Multi-Agent Processing Pipeline
-
-Each invoice passes through a structured 4-phase, 9-sub-agent pipeline:
-
-```text
-Classify
-    ↓
-Extract
-    ↓
-Phase 1
-    ↓
-Phase 2
-    ↓
-Phase 3
-    ↓
-Phase 4
-    ↓
-Transform
-    ↓
-Output
-    ↓
-Audit
-```
-
-### Multi-Layer Validation
-
-Every output is validated through a three-layer critic framework:
-
-1. Deterministic business-rule validation.
-2. LLM-based rule discovery with SHA-256 response caching.
-3. Ultra-conservative per-group validation to ensure financial accuracy and consistency.
-
-### Adaptive Learning Framework (ALF)
-
-The Adaptive Learning Framework (ALF) automatically applies previously approved exception-handling rules to eligible invoices. Matching cases are corrected deterministically without re-running the complete AI pipeline, improving throughput while maintaining consistency and auditability.
-
-### Risk Prioritization
-
-Exceptions requiring human intervention are:
-
-- Assigned a normalized financial risk score.
-- Ranked according to business impact.
-- Mapped to structured resolution paths for AP teams.
-
-### Automated Communication
-
-For exceptions requiring manual review, the agent automatically generates:
-
-- Vendor communication emails.
-- Internal escalation notes.
-- Resolution summaries.
-
-### Audit and Compliance
-
-Every decision made by the system is fully traceable through comprehensive audit logs, including:
-
-- Classification decisions
-- Validation results
-- Rule matches
-- Automatic corrections
-- Agent execution history
 
 ## Tools / Capabilities
 
-<!-- TODO: List each tool or agent step with a one-line description.
-     Example:
-     | Tool | Description |
-     |------|-------------|
-     | invoice_extractor | Extracts structured fields from raw invoice text |
--->
-
 | Name | Description |
 |------|-------------|
-| _tool_1_ | _description_ |
-| _tool_2_ | _description_ |
+| `ingest_exception_queue` | Ingests CSV or JSON exception queues and uses an LLM to auto-map any custom column headers to the canonical AP schema |
+| `classify_exceptions` | Cross-references each invoice against ERP data using Gemini Pro or Claude (switchable via `LLM_PROVIDER`) to assign a root-cause type with a confidence score |
+| `assign_resolution_paths` | Deterministically calculates priority scores (0–100), SLAs (24h–72h), payment block flags, and resolution owners from a YAML rule engine — no LLM involved |
+| `draft_communications` | Generates professional vendor query emails and internal escalation notes for each exception that requires outreach |
+| `build_priority_output` | Produces a ranked work queue (HIGH → MEDIUM → LOW) and an executive dashboard with blocked payment value, duplicate risk, and auto-resolved counts |
+| `run_exception_queue` | Single-call entry point that runs all five pipeline steps in sequence and returns the complete result |
+| `run_inference` | Runs the full document-level pipeline: a 9-sub-agent invoice extraction engine, a 3-layer compliance audit, and a rule-based correction engine |
+| `discover_safe_rule` | Lets an SME teach the system a new correction rule in plain English; the rule is validated against all historical cases before it is saved |
+| `revise_safe_rule` | Modifies an existing learned rule with automated cross-case safety validation to ensure zero collateral damage |
 
 ---
 
@@ -153,12 +35,18 @@ Every decision made by the system is fully traceable through comprehensive audit
 git clone https://github.com/AuxiLabs-Auxiliobits/auxilab-agent-ap-exceptions.git
 cd auxilab-agent-ap-exceptions
 
+# Navigate to the agent directory
+cd python/agents/invoice-processing
+
 # Create a virtual environment
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 
-# Install dependencies
-pip install -r requirements.txt
+# Install dependencies (recommended: uv)
+uv sync
+
+# Or with pip
+pip install -r invoice_processing/requirements.txt
 ```
 
 ### Environment Variables
@@ -170,40 +58,144 @@ cp .env.example .env
 ```
 
 ```env
-ANTHROPIC_API_KEY=your_key_here
-# Add any other required keys
+# Choose your LLM provider: "gemini" (default) or "claude"
+LLM_PROVIDER=gemini
+
+# Gemini — required when LLM_PROVIDER=gemini
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Claude — required when LLM_PROVIDER=claude
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+
+# Demo mode — set to true to run with no API key (returns stub responses)
+DEMO_MODE=false
 ```
+
+> **Switching providers is a one-line change.** Set `LLM_PROVIDER=claude` and add your `ANTHROPIC_API_KEY` — no code changes needed.
 
 ---
 
 ## Usage
 
 ```python
-# TODO: Add a realistic usage example with a sample input and the expected output.
-# This is mandatory for submission.
+from invoice_processing.agent import run_exception_queue
+
+# Run the full 5-step batch exception queue pipeline
+result = run_exception_queue(
+    file_paths=["invoice_processing/exemplary_data/exception_queue/exception_queue.csv"],
+    debug=True
+)
+
+# Executive dashboard metrics
+dashboard = result.get("dashboard", {})
+bv = dashboard.get("business_value_metrics", {})
+print(f"Total invoices   : {dashboard.get('total_invoices')}")
+print(f"Payments blocked : {dashboard.get('payments_blocked')}")
+print(f"Blocked value    : ${bv.get('blocked_payment_value', 0):,.2f}")
+print(f"Duplicate risk   : ${bv.get('potential_duplicate_payment_value', 0):,.2f}")
+
+# Priority queue — highest risk first
+for invoice in result.get("priority_queue", []):
+    print(f"\n{invoice['invoice_id']} | {invoice['vendor_name']}")
+    print(f"  Priority : {invoice['priority_tier']} (score {invoice['normalized_priority_score']}) | SLA {invoice['sla_hours']}h")
+    for exc in invoice.get("final_exception_list", []):
+        print(f"  -> {exc['primary_type']} ({exc['confidence']*100:.0f}% confidence)")
+        print(f"     Action: {exc['recommended_action']}")
 ```
 
 ### Run the Demo
 
 ```bash
-python demo/demo.py
+# Batch exception queue pipeline (CLI)
+python run_queue_cli.py \
+  --file invoice_processing/exemplary_data/exception_queue/exception_queue.csv \
+  --debug
+
+# Web dashboard — open http://localhost:5001
+python ui/app.py
+
+# Single document inference
+python run_single_inference_cli.py --case case_001
 ```
 
 ---
 
 ## Example
 
-**Input:**
+**Input — TC-010: Invoice referencing a non-existent PO**
+
 ```json
 {
-  "TODO": "replace with a realistic sample input"
+  "invoice_id": "TC-010",
+  "vendor_name": "Epsilon Parts",
+  "invoice_number": "INV-E001",
+  "invoice_amount": 4500,
+  "currency": "USD",
+  "po_number": "PO-INVALID-999",
+  "invoice_date": "2026-05-12"
 }
 ```
 
 **Output:**
+
 ```json
 {
-  "TODO": "replace with the expected output"
+  "invoice_id": "TC-010",
+  "vendor_name": "Epsilon Parts",
+  "priority_tier": "HIGH",
+  "normalized_priority_score": 85.0,
+  "payment_blocked": true,
+  "sla_hours": 24,
+  "resolution_owners": ["Procurement"],
+  "final_exception_list": [
+    {
+      "primary_type": "PO Not Found",
+      "root_cause_hypothesis": "Purchase order PO-INVALID-999 does not exist in the ERP database.",
+      "recommended_action": "Contact vendor to confirm the correct PO number or ask Procurement to issue a retroactive PO.",
+      "confidence": 0.98,
+      "evidence_used": "PO-INVALID-999 cross-referenced against erp_database.json — no matching record found."
+    }
+  ],
+  "drafted_communication": {
+    "communication_type": "internal_po_request",
+    "draft": "Hi [Procurement Team], invoice INV-E001 from Epsilon Parts ($4,500) is on hold as PO-INVALID-999 cannot be found in the system. Please raise a valid PO within 3 business days to unblock payment. Reference: TC-010."
+  }
+}
+```
+
+**Input — TC-005: Exact duplicate invoice**
+
+```json
+{
+  "invoice_id": "TC-005",
+  "vendor_name": "BetaTech Corp",
+  "invoice_number": "INV-B001",
+  "invoice_amount": 5000,
+  "currency": "USD",
+  "po_number": "PO-6002",
+  "invoice_date": "2026-05-05"
+}
+```
+
+**Output:**
+
+```json
+{
+  "invoice_id": "TC-005",
+  "priority_tier": "HIGH",
+  "normalized_priority_score": 91.0,
+  "payment_blocked": true,
+  "sla_hours": 24,
+  "resolution_owners": ["AP Manager"],
+  "final_exception_list": [
+    {
+      "primary_type": "Exact Duplicate Invoice",
+      "root_cause_hypothesis": "INV-B001 from BetaTech Corp for $5,000 already exists in ERP payment history with an identical amount.",
+      "recommended_action": "Place on hold immediately and initiate a duplicate payment investigation.",
+      "confidence": 1.0,
+      "evidence_used": "ERP historical_invoices: INV-B001, BetaTech Corp, $5,000 USD — exact match on vendor, invoice number, and amount."
+    }
+  ]
 }
 ```
 
@@ -212,17 +204,30 @@ python demo/demo.py
 ## Running Tests
 
 ```bash
-pytest tests/ -v
+# Exception queue integration test
+python test_exception_queue.py
+
+# Schema mapper unit test
+python test_schema_mapper.py
+
+# Classifier unit test
+python test_classify.py
+
+# Evaluation framework (field-by-field accuracy scoring)
+uv run eval/eval.py \
+  --ground-truth invoice_processing/exemplary_data \
+  --agent-output invoice_processing/data/agent_output
 ```
 
 ---
 
 ## Known Limitations
 
-<!-- TODO: Be honest about what the tool does not handle yet.
-     Example: "Does not support multi-currency invoices." -->
-
-- _Add known limitations here before submission_
+- **Language & Localization**: Optimized for English-language invoices; multi-language OCR and automated translation are not natively supported.
+- **Real-Time FX Conversion**: Currency mismatches are detected and flagged, but live foreign exchange rate conversion is not applied during tolerance checks.
+- **Line-Item Reconciliation**: Exception classification operates at the invoice header level; complex line-item splits against partial goods receipts are not reconciled.
+- **Mock ERP Grounding**: ERP lookups query a static `erp_database.json` file; live SQL or REST API integrations require a custom adapter.
+- **PDF Quality**: Invoice extraction accuracy depends on the PDF text layer; scanned or low-resolution documents may reduce field extraction confidence.
 
 ---
 
@@ -230,14 +235,9 @@ pytest tests/ -v
 
 | Name | GitHub | Role |
 |------|--------|------|
-| _Team Member 1_ | [@handle](https://github.com/handle) | _Role_ |
-| _Team Member 2_ | [@handle](https://github.com/handle) | _Role_ |
-| _Team Member 3_ | [@handle](https://github.com/handle) | _Role_ |
+| Rohan Walia | [@rohanwalia1](https://github.com/rohanwalia1) | Backend Developer |
+| Pawandeep Singh | [@pawandeepsingh1](https://github.com/pawandeepsingh1) | Frontend Developer |
 
 Built during the **AuxiLab Founding Hackathon** by [Auxiliobits Technologies](https://auxiliobits.com).
 
 ---
-
-## Licence
-
-MIT — see [LICENSE](./LICENSE)
