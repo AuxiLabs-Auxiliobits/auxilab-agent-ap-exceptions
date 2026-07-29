@@ -1,6 +1,6 @@
 # auxilab-agent-ap-exceptions
 
-> Agentic AI · AP exception queue triage, root-cause classification, resolution path assignment, and communication drafting
+> Agentic AI  AP exception queue triage, root-cause classification, resolution path assignment, and communication drafting
 
 **Part of [AuxiLab](https://auxiliobits.com/auxilab) — Auxiliobits' open-source agentic AI lab for Finance and AP operations.**
 
