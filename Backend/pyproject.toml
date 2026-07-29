@@ -3,30 +3,24 @@ name = "ap-exception-agent"
 version = "0.1.0"
 description = "AP Exception Handling Agent — LangGraph-orchestrated workflow with selective Claude AI nodes"
 requires-python = ">=3.11"
+# Core = what it takes to run the agent itself: `python cli.py` and `python
+# ui.py`, offline in mock mode or against a provider API. The FastAPI service,
+# its datastores and its auth stack live in the `server` extra below, so
+# `pip install -e .` stays lean.
 dependencies = [
-    "fastapi>=0.115",
-    "uvicorn[standard]>=0.30",
     "pydantic>=2.7",
     "pydantic-settings>=2.4",
     "pandas>=2.2",
-    "numpy>=1.26",
+    "pyyaml>=6.0",
+    "langgraph>=0.2.40",
+    # Encrypts per-org provider secrets; imported on every run via
+    # app/security/crypto.py, so it is core rather than server-only.
+    "cryptography>=42.0",
+    # Multi-provider AI clients. All three are core: the provider is chosen at
+    # runtime from config, and any of them may be the one that is configured.
     "anthropic>=0.40",
     "google-genai>=1.0,<2.0",
     "openai>=1.50",
-    "langgraph>=0.2.40",
-    "langchain-core>=0.3",
-    "pyyaml>=6.0",
-    "python-multipart>=0.0.9",
-    "httpx>=0.27",
-    "tenacity>=9.0",
-    "structlog>=24.4",
-    "sqlalchemy>=2.0",
-    "psycopg[binary]>=3.2",
-    "alembic>=1.13",
-    "supabase>=2.7",
-    "pyjwt[crypto]>=2.9",
-    "slowapi>=0.1.9",
-    "sentry-sdk[fastapi]>=2.0",
     # Browser interface (`python ui.py`) — the primary entry point, so it is a
     # core dependency rather than an extra: `pip install -e .` is all a new
     # user needs. (`python cli.py` does not require it.)
@@ -34,7 +28,30 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# The full API service: `pip install -e ".[server]"`, then
+# `uvicorn app.api.main:app`. Includes the durable run stores (SQLAlchemy /
+# Supabase), auth, rate limiting and outbound comms. The agent degrades
+# cleanly without these — runs simply persist to the local snapshot only.
+server = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "python-multipart>=0.0.9",
+    "httpx>=0.27",
+    "sqlalchemy>=2.0",
+    "psycopg[binary]>=3.2",
+    "alembic>=1.13",
+    "supabase>=2.7",
+    "pyjwt[crypto]>=2.9",
+    "slowapi>=0.1.9",
+    "sentry-sdk[fastapi]>=2.0",
+    # .xlsx attachments on digest / vendor emails (app/comms/attachments.py).
+    "openpyxl>=3.1",
+]
 dev = [
+    # Most of the suite exercises the API, so dev pulls in the server extra.
+    # tests/test_standalone_mock.py deliberately does not, and passes on a
+    # core-only install.
+    "ap-exception-agent[server]",
     "pytest>=8.3",
     "pytest-asyncio>=0.24",
     "ruff>=0.6",

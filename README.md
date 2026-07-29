@@ -46,4 +46,4 @@ the scoring model, and the full configuration reference.
 
 ## License
 
-Proprietary — internal enterprise template.
+MIT — see [LICENSE](LICENSE).

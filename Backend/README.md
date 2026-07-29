@@ -42,6 +42,23 @@ python cli.py examples/sample_exceptions.csv   # text summary to stdout
 Both call into [app/standalone.py](app/standalone.py), which runs the same
 LangGraph pipeline with an in-memory store — exactly as the test suite does.
 
+### Optional extras
+
+`pip install -e .` installs only what the agent itself needs. The FastAPI
+service and its datastores are an extra:
+
+```bash
+pip install -e ".[server]"     # + FastAPI, SQLAlchemy/Supabase, auth, comms
+uvicorn app.api.main:app --reload
+
+pip install -e ".[dev]"        # the above + pytest, ruff, mypy
+pytest
+```
+
+Without the `server` extra the pipeline still runs end to end; it just persists
+the local run snapshot only, and skips the normalized database write and the
+per-org rulebook lookup.
+
 ## Pipeline
 
 ```
@@ -248,4 +265,4 @@ sample_data/       Brief-mandated 25-row queue
 
 ## License
 
-Proprietary — internal enterprise template.
+MIT — see [LICENSE](../LICENSE).

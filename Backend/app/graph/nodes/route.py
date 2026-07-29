@@ -40,6 +40,11 @@ def _engine_for(tenant_id: str | None) -> tuple[RulesEngine, bool]:
             custom = org_policy.get_policy(tenant_id)
             if custom is not None:
                 return RulesEngine(custom), True
+        except ImportError:
+            # The per-org rulebook store is backed by SQLAlchemy, which ships in
+            # the optional `[server]` extra. A lean `pip install -e .` has no
+            # store and always uses the default policy — expected, not a fault.
+            log.debug("route: per-org policy store unavailable; using default policy")
         except Exception:  # noqa: BLE001 — policy resolution must never break a run
             log.warning(
                 "route: per-org policy lookup failed for tenant=%s; using default",

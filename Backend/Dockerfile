@@ -7,7 +7,9 @@ WORKDIR /app
 
 FROM base AS builder
 COPY pyproject.toml ./
-RUN pip install --upgrade pip && pip install .
+# The image serves the FastAPI app (see CMD), so it needs the `server` extra —
+# plain `pip install .` is the lean agent-only install.
+RUN pip install --upgrade pip && pip install ".[server]"
 
 FROM base AS runtime
 RUN useradd -m -u 10001 app

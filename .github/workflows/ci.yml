@@ -112,7 +112,9 @@ jobs:
       - name: Dependency vulnerability scan (pip-audit)
         # Surfaces known CVEs in the dependency tree. Now a hard gate — a CVE
         # fails CI. Use `--ignore-vuln <ID>` to consciously accept a finding.
+        # `[server]` so the scan covers the deployed dependency tree, not just
+        # the lean agent-only install.
         run: |
           pip install pip-audit
-          pip install -e .
+          pip install -e ".[server]"
           pip-audit --skip-editable

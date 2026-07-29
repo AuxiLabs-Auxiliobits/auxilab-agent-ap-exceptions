@@ -83,10 +83,15 @@ def persist_node(state: RunState) -> RunState:
 
     # Normalized enterprise persistence (opt-in via DB_PERSISTENCE_ENABLED).
     # Writes the full audit-event list, so persist after appending NODE_END.
-    # Self-guarded + never raises into the pipeline.
-    from app.db.persistence import persist_run
-
-    persist_run(out)
+    # Self-guarded + never raises into the pipeline. The import is also guarded:
+    # SQLAlchemy ships in the optional `[server]` extra, so a lean
+    # `pip install -e .` runs the whole pipeline without it.
+    try:
+        from app.db.persistence import persist_run
+    except ImportError:
+        log.debug("persist: db persistence unavailable (install the 'server' extra)")
+    else:
+        persist_run(out)
     return out
 
 
