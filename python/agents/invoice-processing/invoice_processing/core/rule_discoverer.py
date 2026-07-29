@@ -53,38 +53,19 @@ class ProposedRule:
 # ---------------------------------------------------------------------------
 
 
+# ---------------------------------------------------------------------------
+# LLM Client — delegates to shared provider abstraction (Gemini or Claude)
+# ---------------------------------------------------------------------------
+from .llm_client import SharedLLMClient as _LLMClientShared  # noqa: E402
+
+
 class _LLMClient:
-    """Lazy-initialized google.generativeai Gemini Pro client."""
-
-    _model = None
-
-    @classmethod
-    def get_model(cls):
-        if cls._model is None:
-            import os  # noqa: PLC0415
-            import google.generativeai as genai  # noqa: PLC0415
-
-            api_key = os.getenv("GEMINI_API_KEY")
-            if not api_key:
-                raise ValueError(
-                    "GEMINI_API_KEY not set. Add it to .env or set DEMO_MODE=true."
-                )
-            genai.configure(api_key=api_key)
-            cls._model = genai.GenerativeModel(get_llm_model())
-            logger.info(f"Initialized {get_llm_model()} (google.generativeai)")
-        return cls._model
+    """Thin wrapper kept for call-site compatibility — delegates to SharedLLMClient."""
 
     @classmethod
     def generate(cls, prompt: str) -> tuple[str, float]:
-        """Call Gemini Pro and return (response_text, latency_ms)."""
-        model = cls.get_model()
-        start = time.time()
-        response = model.generate_content(prompt)
-        latency_ms = (time.time() - start) * 1000
-        call_delay = get_llm_call_delay()
-        if call_delay > 0:
-            time.sleep(call_delay)
-        return response.text.strip(), latency_ms
+        """Call the active LLM provider and return (response_text, latency_ms)."""
+        return _LLMClientShared.generate(prompt)
 
 
 # ---------------------------------------------------------------------------

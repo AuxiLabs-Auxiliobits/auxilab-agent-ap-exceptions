@@ -102,12 +102,14 @@ To make the system accessible to business users (like AP Clerks), a full-stack W
 - **Automated Queue Integration**: If an invoice fails validation (e.g., Missing PO, Future Date), it is automatically appended to the `exception_queue.csv` and the background Exception Queue Pipeline is triggered.
 - **Priority Queue View**: A sortable, filterable dashboard displaying the evaluated queue. It prominently features actual Invoice Numbers, calculated Priority Scores, dynamic SLAs, and flagged exceptions.
 
-**Running the Dashboard:**
+**Running the Demo:**
 ```bash
-# Start the Flask web server
-python ui/app.py
+# No API key needed
+DEMO_MODE=true python demo.py
+
+# With a real key
+LLM_PROVIDER=gemini GEMINI_API_KEY=your_key python demo.py
 ```
-Then open `http://127.0.0.1:5001` in your browser.
 
 ---
 

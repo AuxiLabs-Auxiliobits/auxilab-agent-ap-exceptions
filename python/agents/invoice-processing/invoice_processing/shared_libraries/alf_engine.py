@@ -913,34 +913,26 @@ class LLMActionExecutor:
     5. Logs the full prompt/response for auditability
     """
 
-    _model = None  # Lazy-initialized Vertex AI model
+    # Import shared LLM client
+    _shared_client = None
 
     @classmethod
-    def _get_model(cls):
-        """Lazy-initialize the google.generativeai GenerativeModel."""
-        if cls._model is None:
+    def _get_shared_client(cls):
+        """Lazy-import SharedLLMClient (avoids circular import at module load time)."""
+        if cls._shared_client is None:
+            import sys as _sys  # noqa: PLC0415
+            import importlib  # noqa: PLC0415
+            # Dynamic import so alf_engine.py doesn't hard-depend on core package layout
             try:
-                import google.generativeai as genai  # noqa: PLC0415
-
-                api_key = os.getenv("GEMINI_API_KEY")
-                if not api_key:
-                    raise ValueError(
-                        "GEMINI_API_KEY not set. Add it to .env or set DEMO_MODE=true."
-                    )
-                genai.configure(api_key=api_key)
-                cls._model = genai.GenerativeModel(
-                    _get_llm_model(),
-                    generation_config={"temperature": 0},
-                )
-                logger.info(
-                    f"[LLM] Initialized {_get_llm_model()} (google.generativeai)"
-                )
+                from invoice_processing.core.llm_client import SharedLLMClient  # noqa: PLC0415
             except ImportError:
-                raise ImportError(
-                    "google-generativeai SDK required for LLM actions. Install with: "
-                    "pip install google-generativeai"
-                ) from None
-        return cls._model
+                # Fallback path when running from shared_libraries/ directly
+                _parent = str(Path(__file__).resolve().parent.parent)
+                if _parent not in _sys.path:
+                    _sys.path.insert(0, _parent)
+                from invoice_processing.core.llm_client import SharedLLMClient  # noqa: PLC0415
+            cls._shared_client = SharedLLMClient
+        return cls._shared_client
 
     @staticmethod
     def execute(output: dict, action: dict, context: dict) -> dict:
@@ -989,42 +981,29 @@ class LLMActionExecutor:
             f"{LLM_CONTINUE_SYSTEM_PROMPT}\n\n===TASK===\n{task_prompt}"
         )
 
-        # Call Gemini Pro
+        # Call LLM provider (Gemini or Claude via SharedLLMClient)
+        provider_label = os.getenv("LLM_PROVIDER", "gemini")
         logger.info(
-            f"[LLM] Calling {_get_llm_model()} for {rule_id} (resume_from={resume_from})..."
+            f"[LLM] Calling {provider_label}/{_get_llm_model()} for {rule_id} (resume_from={resume_from})..."
         )
-        start_time = time.time()
 
         try:
-            model = LLMActionExecutor._get_model()
-            response = model.generate_content(full_prompt)
-            latency_ms = (time.time() - start_time) * 1000
-
-            response_text = response.text.strip()
+            client = LLMActionExecutor._get_shared_client()
+            response_text, latency_ms = client.generate(full_prompt)
 
             # Parse JSON from response
             revised = LLMActionExecutor._parse_response(response_text)
 
-            # Extract token usage
-            usage = response.usage_metadata
-            prompt_tokens = usage.prompt_token_count
-            completion_tokens = usage.candidates_token_count
-
             logger.info(
-                f"[LLM] {rule_id} completed in {latency_ms:.0f}ms "
-                f"(prompt={prompt_tokens}, completion={completion_tokens})"
+                f"[LLM] {rule_id} completed in {latency_ms:.0f}ms"
             )
-
-            if _get_llm_call_delay() > 0:
-                time.sleep(_get_llm_call_delay())
 
             # Store LLM metadata in output for audit
             revised["_alf_llm_metadata"] = {
                 "rule_id": rule_id,
+                "provider": provider_label,
                 "model": _get_llm_model(),
                 "latency_ms": round(latency_ms, 2),
-                "prompt_tokens": prompt_tokens,
-                "completion_tokens": completion_tokens,
                 "resume_from": resume_from,
             }
 
@@ -1045,6 +1024,7 @@ class LLMActionExecutor:
             ).strip()
             output["_alf_llm_metadata"] = {
                 "rule_id": rule_id,
+                "provider": provider_label,
                 "model": _get_llm_model(),
                 "error": str(e),
                 "resume_from": resume_from,
@@ -1112,35 +1092,23 @@ class LLMActionExecutor:
 
         full_prompt = f"{LLM_PATCH_SYSTEM_PROMPT}\n\n===TASK===\n{task_prompt}"
 
-        # Call Gemini Pro
+        # Call LLM provider (Gemini or Claude via SharedLLMClient)
+        provider_label = os.getenv("LLM_PROVIDER", "gemini")
         logger.info(
-            f"[LLM-PATCH] Calling {_get_llm_model()} for {rule_id} "
+            f"[LLM-PATCH] Calling {provider_label}/{_get_llm_model()} for {rule_id} "
             f"(patching {len(target_fields)} fields)..."
         )
-        start_time = time.time()
 
         try:
-            model = LLMActionExecutor._get_model()
-            response = model.generate_content(full_prompt)
-            latency_ms = (time.time() - start_time) * 1000
-
-            response_text = response.text.strip()
+            client = LLMActionExecutor._get_shared_client()
+            response_text, latency_ms = client.generate(full_prompt)
 
             # Parse JSON from response
             patches = LLMActionExecutor._parse_response(response_text)
 
-            # Extract token usage
-            usage = response.usage_metadata
-            prompt_tokens = usage.prompt_token_count
-            completion_tokens = usage.candidates_token_count
-
             logger.info(
-                f"[LLM-PATCH] {rule_id} completed in {latency_ms:.0f}ms "
-                f"(prompt={prompt_tokens}, completion={completion_tokens})"
+                f"[LLM-PATCH] {rule_id} completed in {latency_ms:.0f}ms"
             )
-
-            if _get_llm_call_delay() > 0:
-                time.sleep(_get_llm_call_delay())
 
             # Apply patches to output (surgical: only target fields changed)
             patched_output = copy.deepcopy(output)
@@ -1162,10 +1130,9 @@ class LLMActionExecutor:
             patched_output["_alf_llm_metadata"] = {
                 "rule_id": rule_id,
                 "action_type": "llm_patch_fields",
+                "provider": provider_label,
                 "model": _get_llm_model(),
                 "latency_ms": round(latency_ms, 2),
-                "prompt_tokens": prompt_tokens,
-                "completion_tokens": completion_tokens,
                 "target_fields": target_fields,
                 "fields_patched": fields_patched,
             }
@@ -1187,6 +1154,7 @@ class LLMActionExecutor:
             output["_alf_llm_metadata"] = {
                 "rule_id": rule_id,
                 "action_type": "llm_patch_fields",
+                "provider": provider_label,
                 "model": _get_llm_model(),
                 "error": str(e),
                 "target_fields": target_fields,
