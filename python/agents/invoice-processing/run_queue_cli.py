@@ -2,11 +2,9 @@ import argparse
 import json
 import sys
 import os
-import warnings
 from dotenv import load_dotenv
 
-# Suppress Vertex AI SDK deprecation warnings to clean up terminal output
-warnings.filterwarnings("ignore", category=UserWarning, module="vertexai")
+
 
 # Ensure we're running from the correct directory so paths work
 os.chdir(os.path.dirname(os.path.abspath(__file__)))

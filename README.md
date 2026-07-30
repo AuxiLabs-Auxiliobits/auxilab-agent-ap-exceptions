@@ -12,6 +12,38 @@
 
 ---
 
+## Architecture
+
+The project has two independent layers so you only install what you need.
+
+### Core Pipeline (no GCP required)
+
+The 5-step exception queue pipeline runs with just an API key — no Google Cloud account, no project ID, no ADK.
+
+```bash
+pip install -r requirements.txt
+python run_queue_cli.py --file your_queue.csv
+```
+
+### Advanced Features (GCP optional)
+
+The 9-agent document inference pipeline and the ADK-powered orchestration layer require Google Cloud credentials.
+
+```bash
+pip install -r requirements-adk.txt
+python run_acting_cli.py
+```
+
+### Provider Options
+
+| Variable | Value | Key needed |
+|---|---|---|
+| `LLM_PROVIDER` | `gemini` (default) | `GEMINI_API_KEY` from [Google AI Studio](https://aistudio.google.com) — **no GCP project required** |
+| `LLM_PROVIDER` | `claude` | `ANTHROPIC_API_KEY` from [Anthropic](https://console.anthropic.com) |
+| `DEMO_MODE` | `true` | No key required — returns stub responses |
+
+---
+
 ## Tools / Capabilities
 
 | Name | Description |
@@ -106,16 +138,16 @@ for invoice in result.get("priority_queue", []):
 ### Run the Demo
 
 ```bash
-# Batch exception queue pipeline (CLI)
-python run_queue_cli.py \
-  --file invoice_processing/exemplary_data/exception_queue/exception_queue.csv \
+# Run the demo (no API key needed — uses DEMO_MODE)
+DEMO_MODE=true python demo.py
+
+# Or with a real key
+LLM_PROVIDER=gemini GEMINI_API_KEY=your_key python demo.py
+
+# Full CLI pipeline
+python python/agents/invoice-processing/run_queue_cli.py \
+  --file python/agents/invoice-processing/invoice_processing/exemplary_data/exception_queue/exception_queue.csv \
   --debug
-
-# Web dashboard — open http://localhost:5001
-python ui/app.py
-
-# Single document inference
-python run_single_inference_cli.py --case case_001
 ```
 
 ---
@@ -241,3 +273,7 @@ uv run eval/eval.py \
 Built during the **AuxiLab Founding Hackathon** by [Auxiliobits Technologies](https://auxiliobits.com).
 
 ---
+
+## Licence
+
+MIT — see [LICENSE](./LICENSE)

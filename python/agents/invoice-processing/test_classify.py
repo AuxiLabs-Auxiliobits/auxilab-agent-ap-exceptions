@@ -2,7 +2,7 @@ import sys
 import os
 
 sys.path.insert(0, '.')
-os.environ.setdefault('PROJECT_ID', 'project-b9c31b73-1c01-4c8a-b55')
+os.environ.setdefault('PROJECT_ID', 'test-project')
 os.environ.setdefault('LOCATION', 'us-central1')
 
 from invoice_processing.core.exception_classifier import ExceptionClassifier
