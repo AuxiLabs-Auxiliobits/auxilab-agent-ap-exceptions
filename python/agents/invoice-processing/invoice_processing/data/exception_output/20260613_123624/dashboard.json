@@ -1,0 +1,20 @@
+{
+  "total_invoices": 10,
+  "valid_invoices_count": 0,
+  "escalations_required": 10,
+  "payments_blocked": 10,
+  "total_value_blocked": 60400.0,
+  "multi_exception_invoice_count": 7,
+  "average_priority_score": 112.5,
+  "exception_count_by_type": {
+    "Amount Exceeds Tolerance": 5,
+    "Currency Mismatch": 4,
+    "Vendor Mismatch": 3,
+    "Exact Duplicate Invoice": 3,
+    "GRN Not Received": 2,
+    "Missing Required Data": 2,
+    "Potential Duplicate Invoice": 1
+  },
+  "percentage_other": 0.0,
+  "communication_drafts_produced": 10
+}

@@ -1,0 +1,18 @@
+# ============================================================
+# requirements-adk.txt — Advanced Features (GCP optional)
+# ============================================================
+# Required only for:
+#   - The ADK-powered multi-agent inference pipeline (run_acting_cli.py)
+#   - The 9-sub-agent invoice extraction engine
+#   - Vertex AI model serving
+#
+# Install:   pip install -r requirements-adk.txt
+# Run:       python run_acting_cli.py
+
+# Includes everything from core requirements
+-r requirements.txt
+
+# GCP / ADK extras
+google-adk>=1.0.0
+google-cloud-aiplatform>=1.38.0
+vertexai>=1.38.0

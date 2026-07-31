@@ -1,0 +1,15 @@
+Dear BetaTech Corp,
+
+We are writing regarding invoice TC-017.
+
+We have identified a currency discrepancy that is preventing payment. Our records indicate the transaction was agreed upon in USD, but the invoice has been issued for €5,000.00. Although the numeric values are identical, the different currencies create a mismatch against the expected value.
+
+To resolve this, please issue a credit note to cancel invoice TC-017 and provide a corrected invoice reflecting the charge in USD.
+
+We kindly request a response and the updated documentation within 5 business days to ensure we can process your payment promptly.
+
+Thank you for your assistance.
+
+Sincerely,
+
+Accounts Payable Team

@@ -1,0 +1,3 @@
+invoice_id,invoice_amount,decision_trace
+V001,1500.0,No exceptions detected. | Invoice routed to valid_invoice_queue.
+V002,950.0,No exceptions detected. | Invoice routed to valid_invoice_queue.

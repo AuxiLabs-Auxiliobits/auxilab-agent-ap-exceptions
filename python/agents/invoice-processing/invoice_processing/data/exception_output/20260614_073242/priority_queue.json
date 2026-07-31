@@ -1,0 +1,90 @@
+[
+  {
+    "invoice_id": "T-007",
+    "invoice_amount": 4200.0,
+    "invoice_age_days": 16,
+    "vendor_name": "Epsilon Parts",
+    "invoice_number": "INV-5001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 2 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 66.67,
+    "raw_priority_score": 140.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 66.67 from 1 evaluated exceptions (Raw: 140.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 15 points (invoice age = 16 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for T-007 regarding escalations."
+  },
+  {
+    "invoice_id": "T-008",
+    "invoice_amount": 4200.0,
+    "invoice_age_days": 16,
+    "vendor_name": "Epsilon Parts",
+    "invoice_number": "INV-5001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Exact Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected exact duplicate in the current batch.",
+        "recommended_action": "Reject duplicate invoice.",
+        "evidence_used": "Matched 2 invoices exactly on vendor, invoice number, amount, currency, PO, and date.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification exact duplicate pass",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 66.67,
+    "raw_priority_score": 140.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Evaluated Exact Duplicate Invoice with confidence 1.00.",
+      "Calculated Priority Score: 66.67 from 1 evaluated exceptions (Raw: 140.0).",
+      "Payment blocked by Exact Duplicate Invoice.",
+      "Escalation required by Exact Duplicate Invoice.",
+      "Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing.",
+      "Age Weight Applied: 15 points (invoice age = 16 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for T-008 regarding escalations."
+  }
+]

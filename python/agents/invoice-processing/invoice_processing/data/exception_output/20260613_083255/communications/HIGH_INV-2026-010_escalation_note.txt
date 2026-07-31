@@ -1,0 +1,13 @@
+Invoice: INV-2026-010
+Vendor: Amazon Web Services
+Type: escalation_note
+Severity: High
+============================================================
+
+This is a formal request for guidance on a high-priority invoice exception. Invoice INV-2026-010 from Amazon Web Services for $33,800.00 has a price variance, exceeding its associated PO (PO-1166) by 1.4%. The invoice is currently 3 days outstanding.
+
+The root cause is that actual consumption of variable cloud services slightly exceeded the initial PO estimate, which is a common occurrence for this billing model.
+
+While the 1.4% variance is within our standard auto-approval threshold, we are escalating this matter due to the high dollar value of the invoice. The recommended action is to route the invoice to the budget owner, David Kim, for review and approval.
+
+Your decision on this recommendation is requested within two business days to ensure timely payment and maintain our account standing with the vendor.

@@ -1,0 +1,7 @@
+Invoice TC-006 from BetaTech Corp for $5,000.00 has been placed on hold.
+
+Our system flagged this as an exact duplicate of another invoice currently in process. A duplicate means we may have already received or paid for this exact charge.
+
+Payment for TC-006 is blocked pending investigation. We will now verify against our payment history to confirm if it is a true duplicate. If confirmed, this entry will be voided.
+
+The AP Manager has been notified of this action. No further steps are required at this time.

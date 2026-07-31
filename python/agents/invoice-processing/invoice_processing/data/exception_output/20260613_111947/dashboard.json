@@ -1,0 +1,14 @@
+{
+  "total_invoices": 1,
+  "escalations_required": 1,
+  "payments_blocked": 1,
+  "total_value_blocked": 15000.0,
+  "multi_exception_invoice_count": 1,
+  "average_priority_score": 205.0,
+  "exception_count_by_type": {
+    "Duplicate Invoice": 1,
+    "PO Not Found": 1,
+    "Currency Mismatch": 1
+  },
+  "communication_drafts_produced": 0
+}

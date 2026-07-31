@@ -1,0 +1,69 @@
+[
+  {
+    "invoice_id": "HP-99001",
+    "invoice_amount": 15000.0,
+    "invoice_age_days": 15,
+    "exceptions": [
+      {
+        "primary_type": "Duplicate Invoice",
+        "root_cause_hypothesis": "",
+        "recommended_action": "",
+        "evidence_used": "Invoice history shows exact match",
+        "evidence_checked": "",
+        "missing_data": [],
+        "business_rule_triggered": "",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "",
+        "recommended_action": "",
+        "evidence_used": "PO-99999 missing in ERP",
+        "evidence_checked": "",
+        "missing_data": [],
+        "business_rule_triggered": "",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Currency Mismatch",
+        "root_cause_hypothesis": "",
+        "recommended_action": "",
+        "evidence_used": "Invoice in EUR, expected USD",
+        "evidence_checked": "",
+        "missing_data": [],
+        "business_rule_triggered": "",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "priority_score": 205.0,
+    "root_cause_categories": [
+      "Accounts Payable",
+      "Procurement",
+      "Finance Controls"
+    ],
+    "resolution_owners": [
+      "AP Team",
+      "Procurement",
+      "Finance Controls"
+    ],
+    "sla_hours": 24,
+    "decision_trace": [
+      "Assigned 1.00 confidence to Duplicate Invoice based on evidence rules.",
+      "Payment blocked by rule for Duplicate Invoice.",
+      "Escalation required by rule for Duplicate Invoice.",
+      "Assigned High severity to Duplicate Invoice.",
+      "Assigned 1.00 confidence to PO Not Found based on evidence rules.",
+      "Payment blocked by rule for PO Not Found.",
+      "Escalation required by rule for PO Not Found.",
+      "Assigned High severity to PO Not Found.",
+      "Assigned 1.00 confidence to Currency Mismatch based on evidence rules.",
+      "Payment blocked by rule for Currency Mismatch.",
+      "Escalation required by rule for Currency Mismatch.",
+      "Assigned Medium severity to Currency Mismatch.",
+      "Calculated Priority Score: 205.0 (Sev: High, Amt: 15000.0, Age: 15, Excs: 3)."
+    ],
+    "communication_draft": ""
+  }
+]

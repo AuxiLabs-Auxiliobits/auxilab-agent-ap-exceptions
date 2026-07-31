@@ -1,0 +1,22 @@
+{
+  "total_invoices": 1,
+  "valid_invoices_count": 0,
+  "escalations_required": 1,
+  "auto_resolved_count": 0,
+  "payments_blocked": 1,
+  "multi_exception_invoice_count": 1,
+  "average_raw_priority_score": 150.0,
+  "average_normalized_priority_score": 71.43,
+  "exception_count_by_type": {
+    "Vendor Mismatch": 1,
+    "Amount Exceeds Tolerance": 1
+  },
+  "percentage_other": 0.0,
+  "communication_drafts_produced": 1,
+  "business_value_metrics": {
+    "valid_invoice_value": 0,
+    "blocked_payment_value": 250000.0,
+    "potential_duplicate_payment_value": 0.0,
+    "auto_resolved_value": 0.0
+  }
+}

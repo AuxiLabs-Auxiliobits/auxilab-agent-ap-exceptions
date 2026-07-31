@@ -1,0 +1,7 @@
+Invoice TC-006 from BetaTech Corp ($5,000.00) has been placed on payment hold.
+
+Our pre-classification system identified an exact duplicate of this invoice within the current processing batch. A duplicate means an invoice with the same vendor, ID, and amount may have already been processed or submitted.
+
+Payment is blocked pending investigation to prevent a double payment. I will verify the status of both items to confirm if this is an error and proceed with voiding the duplicate or releasing the hold.
+
+The AP Manager has been notified of this action.

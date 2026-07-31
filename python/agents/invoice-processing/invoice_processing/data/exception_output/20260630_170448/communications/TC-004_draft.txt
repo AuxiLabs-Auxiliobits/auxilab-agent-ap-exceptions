@@ -1,0 +1,7 @@
+Please be advised that invoice TC-004 from BetaTech Corp for $5,000.0 has been placed on payment hold.
+
+Our system has flagged this as a potential duplicate, meaning we may have already received and processed an identical invoice. Payment is blocked pending review.
+
+AP will investigate to confirm if a prior payment exists. If a duplicate is confirmed, this invoice will be voided. If not, the hold will be released for payment.
+
+The AP Manager has been notified of this action.

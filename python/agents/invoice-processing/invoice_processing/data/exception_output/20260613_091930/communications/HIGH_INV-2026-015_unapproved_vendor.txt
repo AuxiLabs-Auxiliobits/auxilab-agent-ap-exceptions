@@ -1,0 +1,17 @@
+Invoice: INV-2026-015
+Vendor: HP Enterprise
+Type: unapproved_vendor
+Severity: High
+============================================================
+
+Hi Procurement Team,
+
+We are writing to you regarding invoice INV-2026-015 from HP Enterprise for $2100.00. This invoice, approved by Maria Lopez, is currently on hold.
+
+During processing, we discovered the vendor's trading name on the invoice does not match a registered legal entity in our vendor master. As per AP policy, we cannot issue payment to an unverified vendor entity.
+
+Could you please investigate this matter? We require you to either confirm the correct, existing vendor entity to process this payment against, or initiate the onboarding process if this is a new legal entity.
+
+This invoice is now 6 days outstanding, and payment will remain blocked until we receive your verification.
+
+Thank you for your prompt assistance in resolving this.

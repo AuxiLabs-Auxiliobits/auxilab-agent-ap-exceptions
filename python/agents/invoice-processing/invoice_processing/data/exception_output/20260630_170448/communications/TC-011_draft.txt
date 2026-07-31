@@ -1,0 +1,9 @@
+This note is to request your approval on a high-priority invoice exception for TC-011 from Zeta Manufacturing for $35,000.00. The invoice is currently 0 days outstanding.
+
+The exception type is "GRN Not Received." This high-value invoice, associated with PO-6005, has been submitted without a corresponding goods receipt logged in our ERP system. The root cause is either premature invoicing by the vendor or a processing delay in our receiving department.
+
+Due to the significant value, this poses a risk of paying for goods not yet confirmed as received. Your sign-off is required to formally place a payment of this amount on hold, per standard procedure for high-value exceptions.
+
+My recommended action is to place invoice TC-011 on hold and contact the receiving department to confirm the delivery status of the goods.
+
+Please provide your decision on this action within 2 business days to ensure proper handling and risk mitigation.

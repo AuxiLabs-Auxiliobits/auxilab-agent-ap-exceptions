@@ -1,0 +1,11 @@
+Hi there,
+
+This is an urgent request regarding an overdue invoice for Epsilon Parts (Invoice ID: TC-010 for $4500.0).
+
+The payment is currently on hold as the invoice is 49 days outstanding. The reason for the hold is that the Purchase Order number provided is not valid in our system.
+
+To resolve this and release the payment, please raise a new Purchase Order for this expense. We need the PO to be raised within the next 3 business days to meet our internal SLA and prevent further vendor payment delays.
+
+Please be aware that payment cannot be processed until we have a valid PO.
+
+Thanks for your prompt action on this.

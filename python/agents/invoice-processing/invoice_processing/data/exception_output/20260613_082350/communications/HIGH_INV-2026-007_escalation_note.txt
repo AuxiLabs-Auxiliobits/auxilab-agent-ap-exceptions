@@ -1,0 +1,15 @@
+Invoice: INV-2026-007
+Vendor: ServiceNow
+Type: escalation_note
+Severity: High
+============================================================
+
+This note is to escalate a high-priority price variance exception for your review and approval.
+
+Invoice INV-2026-007 from ServiceNow for $19,400.00 is on hold due to a significant variance against PO-4401. Based on the invoice value and 15.5% variance, the PO is for approximately $16,800, creating a variance of $2,600. This high-value invoice is now 40 days outstanding.
+
+The root cause stems from additional professional services rendered that were not covered in the original PO scope.
+
+As the variance percentage exceeds our standard approval threshold and the invoice's aging status poses a risk, your authorization is required to proceed. Our recommended action is for the PO owner to validate the additional charges and provide formal approval for the variance or a revised PO.
+
+To resolve this aging item and maintain our vendor relationship, please provide your decision within two business days.

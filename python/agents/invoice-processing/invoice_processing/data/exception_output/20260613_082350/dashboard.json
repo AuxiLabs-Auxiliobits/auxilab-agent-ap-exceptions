@@ -1,0 +1,21 @@
+{
+  "total_exceptions": 25,
+  "auto_resolvable_count": 3,
+  "escalations_required": 10,
+  "payments_blocked": 9,
+  "total_value_in_exception": 325420.0,
+  "total_value_blocked": 40330.0,
+  "by_severity": {
+    "High": 18,
+    "Medium": 7,
+    "Low": 0
+  },
+  "by_type": {
+    "Price Variance": 8,
+    "Unapproved Vendor": 5,
+    "Missing PO": 4,
+    "Quantity Mismatch": 4,
+    "Duplicate": 4
+  },
+  "communication_drafts_produced": 22
+}

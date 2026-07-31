@@ -1,0 +1,21 @@
+{
+  "total_invoices": 2,
+  "valid_invoices_count": 0,
+  "escalations_required": 0,
+  "auto_resolved_count": 2,
+  "payments_blocked": 0,
+  "multi_exception_invoice_count": 0,
+  "average_raw_priority_score": 155.0,
+  "average_normalized_priority_score": 73.81,
+  "exception_count_by_type": {
+    "Exact Duplicate Invoice": 2
+  },
+  "percentage_other": 0.0,
+  "communication_drafts_produced": 0,
+  "business_value_metrics": {
+    "valid_invoice_value": 0,
+    "blocked_payment_value": 0.0,
+    "potential_duplicate_payment_value": 4200.0,
+    "auto_resolved_value": 8400.0
+  }
+}

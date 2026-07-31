@@ -1,0 +1,7 @@
+This note is to request your review and sign-off on a high-priority invoice exception. Invoice TC-022 from Zeta Manufacturing for $35,000.00 has been flagged for a "GRN Not Received" exception. The invoice is currently 0 days outstanding.
+
+The root cause is that the invoice was submitted for payment before the goods or services were formally recorded as received in our ERP system. Controller-level review is required due to the significant value of the invoice. Paying this amount without a confirmed goods receipt notice (GRN) presents a material financial risk and a deviation from our standard three-way match control procedure.
+
+My recommended action is to place the invoice on hold while we contact the business requester to confirm receipt and process the GRN for the associated purchase order, PO-6005.
+
+Your approval to proceed with this action is requested within two business days to ensure we maintain internal controls and mitigate financial risk. Please advise.

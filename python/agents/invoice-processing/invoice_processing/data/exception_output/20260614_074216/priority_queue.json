@@ -1,0 +1,46 @@
+[
+  {
+    "invoice_id": "T-011",
+    "invoice_amount": 95000.0,
+    "invoice_age_days": 0,
+    "vendor_name": "Eta Consulting",
+    "invoice_number": "INV-7001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "The invoice is missing several critical data points required for validation and processing. The invoice date, currency, and purchase order number are all absent, preventing most validation checks.",
+        "recommended_action": "Reject invoice and return to vendor or business contact to provide the missing PO number, invoice date, and currency information.",
+        "evidence_used": "Raw Invoice Data shows 'po_number': '', 'currency': '', and 'invoice_date': ''. The Phase 1 Master Rules ('extraction_schemas.invoice.fields') explicitly define 'invoice_date' as a required field.",
+        "evidence_checked": "Raw Invoice Data fields: 'po_number', 'currency', 'invoice_date'. Phase 1 Master Rules: 'extraction_schemas.invoice.fields' for required status.",
+        "missing_data": [],
+        "business_rule_triggered": "The invoice is missing a required field (e.g. invoice_number, vendor_name, invoice_amount, currency) or the field has a default 'UNKNOWN' value indicating missing data.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 100.0,
+    "raw_priority_score": 555.0,
+    "root_cause_categories": [
+      "Vendor Submission"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 4,
+    "decision_trace": [
+      "Evaluated Missing Required Data with confidence 1.00.",
+      "Critical Priority applied: Missing Required Data on High Value Invoice (>10k). SLA reduced to 4h.",
+      "Calculated Priority Score: 100.0 from 1 evaluated exceptions (Raw: 555.0).",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Age Weight Applied: 5 points (invoice age = 0 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for T-011 regarding escalations."
+  }
+]

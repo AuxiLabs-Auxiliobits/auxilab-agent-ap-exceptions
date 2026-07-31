@@ -1,0 +1,27 @@
+{
+  "agent": "classifier",
+  "version": "1.0",
+  "timestamp": "2026-06-14T19:16:59.391111",
+  "input_refs": [],
+  "source_folder": "upload_af60e130",
+  "files": {
+    "invoice_fraud_vendor.pdf": {
+      "type": "pdf",
+      "extraction_method": "gemini",
+      "has_invoice": true,
+      "has_waf": false
+    },
+    "invoice_sources": [
+      {
+        "path": "invoice_fraud_vendor.pdf",
+        "full_path": "C:\\Users\\rohan.walia\\Desktop\\APInvoiceExceptionHandling\\python\\agents\\invoice-processing\\invoice_processing\\exemplary_data\\upload_af60e130\\invoice_fraud_vendor.pdf",
+        "content": "Shadow Corp\nUnknown Address, Unknown City\npay@shadowcorp.biz\nVendor ID: V-999\n\nBILL TO:\nAP Department Your Company Inc 456 Business Ave,\nNew York, NY 10001\n\nPURCHASE ORDER:\nPO Number: PO-5011\n\nPayment Terms: NET15\nCurrency: USD\n\nINVOICE\nInvoice No: INV-9903\nDate: 2026-05-01\nDue Date: 2026-05-15\n\n# Description Qty Unit Price Total\n1 Consulting & Advisory Services 1 USD 227,272.73 USD 227,272.73\n\nSubtotal: USD 227,272.73\nTax (10%): USD 22,727.27\nTOTAL DUE: USD 250,000.00\n\nNotes: URGENT — Please process immediately. Wire transfer preferred.\nPlease remit payment by the due date. For queries contact the vendor directly. Thank you for your business."
+      }
+    ],
+    "waf_sources": []
+  },
+  "summary": {
+    "invoice_count": 1,
+    "waf_count": 0
+  }
+}

@@ -1,0 +1,80 @@
+[
+  {
+    "invoice_id": "T-011",
+    "invoice_amount": 95000.0,
+    "invoice_age_days": 0,
+    "vendor_name": "Eta Consulting",
+    "invoice_number": "INV-7001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "The invoice was submitted without a Purchase Order number, which is required for three-way matching against ERP records for PO-based invoices.",
+        "recommended_action": "Contact the vendor or internal business requestor to obtain the correct PO number or confirm if it is a non-PO invoice.",
+        "evidence_used": "RAW INVOICE DATA shows the `po_number` field is empty ('').",
+        "evidence_checked": "RAW INVOICE DATA",
+        "missing_data": [
+          "po_number"
+        ],
+        "business_rule_triggered": "The invoice is missing a required field (po_number) necessary for PO matching and validation.",
+        "confidence": 0.2
+      },
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "The invoice was submitted without a currency code, preventing validation against a purchase order and ensuring correct payment processing.",
+        "recommended_action": "Return invoice to the vendor to add the currency code, or confirm the currency with the business owner.",
+        "evidence_used": "RAW INVOICE DATA shows the `currency` field is empty ('').",
+        "evidence_checked": "RAW INVOICE DATA",
+        "missing_data": [
+          "currency"
+        ],
+        "business_rule_triggered": "The invoice is missing a required field (currency).",
+        "confidence": 0.2
+      },
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "The invoice is missing a date, which is a required field for financial compliance, duplicate checks, and payment term calculation.",
+        "recommended_action": "Return invoice to the vendor and request a corrected version with a valid invoice date.",
+        "evidence_used": "RAW INVOICE DATA shows `invoice_date` is empty (''). PHASE 1 MASTER RULES `extraction_schemas.invoice.fields` specifies `invoice_date` is a required field.",
+        "evidence_checked": "RAW INVOICE DATA, PHASE 1 MASTER RULES",
+        "missing_data": [
+          "invoice_date"
+        ],
+        "business_rule_triggered": "The invoice is missing a required field (invoice_date) as defined in the master business rules.",
+        "confidence": 0.2
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 100.0,
+    "raw_priority_score": 585.0,
+    "root_cause_categories": [
+      "Vendor Submission"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 4,
+    "decision_trace": [
+      "Evaluated Missing Required Data with confidence 0.20.",
+      "Critical Priority applied: Missing Required Data on High Value Invoice (>10k). SLA reduced to 4h.",
+      "Evaluated Missing Required Data with confidence 0.20.",
+      "Critical Priority applied: Missing Required Data on High Value Invoice (>10k). SLA reduced to 4h.",
+      "Evaluated Missing Required Data with confidence 0.20.",
+      "Critical Priority applied: Missing Required Data on High Value Invoice (>10k). SLA reduced to 4h.",
+      "Calculated Priority Score: 100.0 from 3 evaluated exceptions (Raw: 585.0).",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Age Weight Applied: 5 points (invoice age = 0 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for T-011 regarding escalations."
+  }
+]

@@ -1,0 +1,15 @@
+Dear BetaTech Corp Accounts Receivable,
+
+We are writing to you regarding invoice TC-017, which is currently 42 days outstanding.
+
+Upon review, we have identified a currency discrepancy that is preventing payment processing. The invoice was issued for €5000, whereas our agreed-upon purchase terms specified the currency as USD.
+
+To rectify this, please issue a credit note for the original invoice and provide a corrected invoice for $5000 USD.
+
+We kindly request the updated documentation within the next 5 business days to ensure we can process your payment without further delay.
+
+Thank you for your prompt attention to this matter.
+
+Best regards,
+
+Accounts Payable Team

@@ -1,0 +1,19 @@
+Invoice: INV-2026-003
+Vendor: Salesforce Inc
+Type: vendor_query
+Severity: Medium
+============================================================
+
+We are writing to query a discrepancy on invoice INV-2026-003, which references our purchase order PO-7743.
+
+Our review indicates a quantity mismatch. The invoice bills for 45 licenses, whereas our purchase order only authorized 38 licenses, resulting in an overbilling of 7 units.
+
+Payment for this invoice is on hold pending resolution. Please investigate this matter and issue a revised invoice for the correct quantity of 38 licenses.
+
+We kindly request a response and the corrected document within 5 business days to ensure timely payment processing.
+
+Thank you for your prompt attention to this issue.
+
+Regards,
+
+Accounts Payable Team

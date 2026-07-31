@@ -1,0 +1,15 @@
+Dear Acme Supplies Ltd,
+
+We are writing regarding your invoice TC-003 for the amount of $11,500.00.
+
+Our records show the invoiced amount is higher than the total value approved on our corresponding purchase order. This discrepancy exceeds our payment tolerance and has placed a hold on processing this invoice.
+
+Could you please investigate this variance? To resolve this matter and facilitate payment, please provide either a corrected invoice that matches the purchase order or a credit note for the difference.
+
+We kindly request a response with the required documentation within 5 business days to avoid further delays.
+
+Thank you for your prompt attention to this matter.
+
+Best regards,
+
+Accounts Payable Team

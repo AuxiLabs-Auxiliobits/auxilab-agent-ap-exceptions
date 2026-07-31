@@ -1,0 +1,9 @@
+This note is to request your guidance and approval on a high-priority exception for invoice TC-012 from Eta Consulting, outstanding for 47 days.
+
+The invoice is for an amount listed as '120,000', but it critically lacks a currency code, making the value ambiguous and creating a significant financial risk. Furthermore, it was submitted without a Purchase Order number, preventing our standard 2-way matching process.
+
+Due to the high value and the critical nature of the missing currency data, AP cannot assume the currency or process the payment. This requires Controller-level sign-off before we proceed or reject the invoice.
+
+Our recommendation is to contact the vendor immediately and request a corrected invoice that includes both the currency code and a valid PO number.
+
+Please provide your decision or an alternative course of action within the next two business days to resolve this aged, high-value item.

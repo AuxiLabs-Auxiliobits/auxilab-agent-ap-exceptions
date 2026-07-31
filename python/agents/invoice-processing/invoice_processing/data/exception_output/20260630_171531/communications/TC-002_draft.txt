@@ -1,0 +1,16 @@
+Subject: URGENT: Payment Hold & Resolution Request — Invoice INV-A002 (Acme Supplies Ltd)
+
+Hi AP Manager,
+
+We are holding Invoice INV-A002 from Acme Supplies Ltd for $10,500.00 (currently 60 days outstanding).
+
+Payment processing has been blocked due to the following critical exception(s):
+• Amount Exceeds Tolerance: The invoiced amount is $500 higher than the amount specified on the purchase order. This could be due to unapproved additional charges, a price variance, or a data entry error by the vendor.
+
+Recommended Action Paths:
+• Route invoice to the PO owner or department manager for review and approval of the amount variance before payment.
+
+This item has been assigned priority tier MEDIUM with a resolution SLA of 48 hours. Please investigate the discrepancy and provide confirmation or corrected documentation so we can proceed with payment.
+
+Thank you,
+Accounts Payable Operations

@@ -1,0 +1,61 @@
+[
+  {
+    "invoice_id": "T2-002",
+    "invoice_amount": 7000.0,
+    "invoice_age_days": 497,
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "An invoice with the same vendor and invoice number but a different amount has been previously processed. This may be a corrected invoice or a revision sent by the vendor.",
+        "recommended_action": "Investigate if this is a corrected/revised invoice or an erroneous duplicate. Confirm with the business unit if the new amount is expected before processing.",
+        "evidence_used": "Incoming invoice has vendor_name 'Tech Solutions Inc' and invoice_number 'INV-5542' with amount '7000'. A historical invoice exists with the same vendor_name and invoice_number but a different invoice_amount of 5000.0.",
+        "evidence_checked": "RAW INVOICE DATA (vendor_name, invoice_number, invoice_amount), ERP DATABASE CONTEXT.historical_invoices",
+        "missing_data": [],
+        "business_rule_triggered": "The exact same vendor_name AND invoice_number exist in the ERP historical_invoices, BUT the invoice_amount is DIFFERENT.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The Purchase Order number provided on the invoice does not exist in the ERP system's purchase order database. This is likely a data entry error or the PO was never created.",
+        "recommended_action": "Contact the vendor or internal requestor to confirm the correct PO number. If no PO exists, follow procedures for non-PO invoices.",
+        "evidence_used": "Invoice po_number 'PO-77777' was not found as a key in the ERP 'purchase_orders' database.",
+        "evidence_checked": "RAW INVOICE DATA.po_number, ERP DATABASE CONTEXT.purchase_orders",
+        "missing_data": [],
+        "business_rule_triggered": "Purchase Order number from invoice does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 83.33,
+    "raw_priority_score": 175.0,
+    "root_cause_categories": [
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Potential Duplicate Invoice with confidence 1.00.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 83.33 from 2 evaluated exceptions (Raw: 175.0).",
+      "Skipped routing for Potential Duplicate Invoice due to PO Not Found dependency lock.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 497 days)."
+    ],
+    "skipped_exceptions_trace": [
+      {
+        "skipped_rule": "Potential Duplicate Invoice",
+        "reason": "Routing lock by PO Not Found",
+        "confidence_if_evaluated": 1.0
+      }
+    ],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for T2-002 regarding escalations."
+  }
+]

@@ -1,0 +1,19 @@
+Invoice: INV-US-001
+Vendor: US Supplier
+Type: internal_po_request
+Severity: Low
+============================================================
+
+Hi there,
+
+A quick heads-up from the AP team. We have received an invoice that requires your urgent attention as it is missing a Purchase Order.
+
+Vendor: US Supplier
+Invoice ID: INV-US-001
+Amount: $1000.00
+
+As per our policy, this payment is currently on hold and cannot be processed until a valid PO is raised and approved.
+
+To ensure timely payment to the vendor and remain compliant, please raise the PO for this expense within the next 3 business days.
+
+Let us know if you have any questions. Thanks for your prompt help

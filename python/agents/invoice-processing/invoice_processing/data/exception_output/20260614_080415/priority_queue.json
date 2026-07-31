@@ -1,0 +1,144 @@
+[
+  {
+    "invoice_id": "T-004",
+    "invoice_amount": 7800.0,
+    "invoice_age_days": 581,
+    "vendor_name": "Gamma Logistics",
+    "invoice_number": "INV-3001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The invoice was submitted without a Purchase Order number, which is required for automated matching. This could be a non-PO invoice that needs manual coding and approval, or the PO number was simply omitted by the vendor.",
+        "recommended_action": "Contact the vendor or internal business requester to obtain the correct PO number. If it is a non-PO invoice, route for appropriate coding and approval.",
+        "evidence_used": "The 'po_number' field in the Raw Invoice Data is an empty string: \"\".",
+        "evidence_checked": "RAW INVOICE DATA.po_number",
+        "missing_data": [],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice is blank, empty, or does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 73.81,
+    "raw_priority_score": 155.0,
+    "root_cause_categories": [
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 73.81 from 1 evaluated exceptions (Raw: 155.0).",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 581 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for T-004 regarding escalations."
+  },
+  {
+    "invoice_id": "T-010",
+    "invoice_amount": 22000.0,
+    "invoice_age_days": 470,
+    "vendor_name": "Zeta Manufacturing",
+    "invoice_number": "INV-6001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice date is set for a future date, which is not allowed as per standard AP procedures, possibly due to a data entry error or pre-invoicing for a future delivery.",
+        "recommended_action": "Hold this invoice and schedule it for processing on or after the invoice date. Alternatively, contact the vendor to request a corrected invoice.",
+        "evidence_used": "The invoice_date is '2025-03-01' which is after the provided processing_date of '2024-12-01'.",
+        "evidence_checked": "Compared RAW INVOICE DATA.invoice_date with PROCESSING DATE.",
+        "missing_data": [],
+        "business_rule_triggered": "An invoice date cannot be in the future relative to the processing date (Ref: Master Rules, Phase 3, Step 3.3).",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 61.9,
+    "raw_priority_score": 130.0,
+    "root_cause_categories": [
+      "Data Error"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Future Date with confidence 1.00.",
+      "Calculated Priority Score: 61.9 from 1 evaluated exceptions (Raw: 130.0).",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Age Weight Applied: 30 points (invoice age = 470 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": ""
+  },
+  {
+    "invoice_id": "T-009",
+    "invoice_amount": 4200.0,
+    "invoice_age_days": 575,
+    "vendor_name": "Epsilon Parts",
+    "invoice_number": "INV-5002",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "Historical ERP lookup detected potential duplicate.",
+        "recommended_action": "Verify if this is a duplicate submission of a recently processed invoice.",
+        "evidence_used": "Matched historical invoice INV-5001 on vendor, PO, and amount within 7 days.",
+        "evidence_checked": "ERP historical_invoices",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification historical duplicate pass",
+        "confidence": 0.85
+      },
+      {
+        "primary_type": "Potential Duplicate Invoice",
+        "root_cause_hypothesis": "Pre-classification detected potential duplicate in the current batch (similar dates, diff invoice numbers).",
+        "recommended_action": "Verify if this is a duplicate submission under a different number.",
+        "evidence_used": "Matched another invoice on vendor, PO, amount, currency, and date within 3 days.",
+        "evidence_checked": "Batch internal check",
+        "missing_data": [],
+        "business_rule_triggered": "Pre-classification potential duplicate pass",
+        "confidence": 0.85
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 59.52,
+    "raw_priority_score": 125.0,
+    "root_cause_categories": [
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Potential Duplicate Invoice with confidence 0.85.",
+      "Evaluated Potential Duplicate Invoice with confidence 0.85.",
+      "Calculated Priority Score: 59.52 from 2 evaluated exceptions (Raw: 125.0).",
+      "Payment blocked by Potential Duplicate Invoice.",
+      "Escalation required by Potential Duplicate Invoice.",
+      "Payment blocked by Potential Duplicate Invoice.",
+      "Escalation required by Potential Duplicate Invoice.",
+      "Age Weight Applied: 30 points (invoice age = 575 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for T-009 regarding escalations."
+  }
+]

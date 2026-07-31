@@ -1,0 +1,14 @@
+Hi Procurement Team,
+
+We require your urgent assistance regarding an invoice that is currently blocked for payment.
+
+**Invoice ID:** TC-014
+**Vendor:** Phantom Invoicing LLC
+**Amount:** $88,000.0
+**Days Outstanding:** 45
+
+We cannot process this invoice for two reasons. Firstly, "Phantom Invoicing LLC" is not an approved supplier in our vendor master list, and the name does not match the vendor on the associated purchase order. Secondly, the invoiced amount is significantly higher than the approved PO value.
+
+These discrepancies prevent payment. Please investigate and confirm if this is a legitimate supplier requiring onboarding, or if there has been an error in the PO or vendor details provided. The invoice will remain on hold until this matter is resolved.
+
+Your prompt action is appreciated to avoid further payment delays.

@@ -1,0 +1,15 @@
+# ============================================================
+# requirements.txt — Core AP Exception Queue Pipeline
+# ============================================================
+# No GCP project, no ADK, no Vertex AI required.
+# Works with just a GEMINI_API_KEY or ANTHROPIC_API_KEY.
+#
+# Install:   pip install -r requirements.txt
+# Run:       python run_queue_cli.py --file your_queue.csv
+
+google-generativeai>=0.8.0
+anthropic>=0.25.0
+python-dotenv>=1.0.0
+pydantic>=2.8.0
+pdfplumber>=0.10.0
+pyyaml>=6.0

@@ -1,0 +1,62 @@
+[
+  {
+    "invoice_id": "DEMO-001",
+    "invoice_amount": 250000.0,
+    "invoice_age_days": 59,
+    "vendor_name": "Shadow Corp",
+    "invoice_number": "INV-DEMO-001",
+    "final_exception_list": [
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The invoice was submitted by a vendor not associated with the purchase order, and this vendor is not an approved supplier in the master data.",
+        "recommended_action": "Verify if PO-6001 was subcontracted. If not, reject the invoice. If so, determine if 'Shadow Corp' needs to be onboarded as an approved vendor.",
+        "evidence_used": "The invoice vendor_name is 'Shadow Corp', but the vendor_name associated with PO-6001 in the ERP is 'Acme Supplies Ltd'. Furthermore, 'Shadow Corp' is not listed in the ERP vendor_master.",
+        "evidence_checked": "RAW INVOICE DATA: vendor_name, ERP DATABASE CONTEXT: purchase_orders['PO-6001'].vendor_name, ERP DATABASE CONTEXT: vendor_master",
+        "missing_data": [],
+        "business_rule_triggered": "Vendor Mismatch: The vendor_name from the invoice is not in the ERP vendor_master list, OR the invoice vendor_name does not match the vendor_name associated with the PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "Amount Exceeds Tolerance",
+        "root_cause_hypothesis": "The invoiced amount is significantly higher than the expected amount on the purchase order, suggesting a potential data entry error, a major scope change not reflected in the PO, or incorrect billing.",
+        "recommended_action": "Contact the business owner or procurement to understand the discrepancy and either get the PO updated or reject the invoice for correction.",
+        "evidence_used": "The invoice amount is 250000 USD, while the ERP purchase_orders database shows an expected_amount of 10000.0 USD for PO-6001.",
+        "evidence_checked": "RAW INVOICE DATA: invoice_amount, ERP DATABASE CONTEXT: purchase_orders['PO-6001'].expected_amount",
+        "missing_data": [],
+        "business_rule_triggered": "Amount Exceeds Tolerance: Invoice amount differs from the expected amount for that PO in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 71.43,
+    "raw_priority_score": 150.0,
+    "root_cause_categories": [
+      "Vendor Master Data",
+      "Accounts Payable"
+    ],
+    "resolution_owners": [
+      "Vendor Master Team",
+      "AP Manager"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Vendor Mismatch with confidence 1.00.",
+      "Evaluated Amount Exceeds Tolerance with confidence 1.00.",
+      "Calculated Priority Score: 71.43 from 2 evaluated exceptions (Raw: 150.0).",
+      "Payment blocked by Vendor Mismatch.",
+      "Escalation required by Vendor Mismatch.",
+      "Payment blocked by Amount Exceeds Tolerance.",
+      "Escalation required by Amount Exceeds Tolerance.",
+      "Age Weight Applied: 30 points (invoice age = 59 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for DEMO-001 regarding escalations."
+  }
+]

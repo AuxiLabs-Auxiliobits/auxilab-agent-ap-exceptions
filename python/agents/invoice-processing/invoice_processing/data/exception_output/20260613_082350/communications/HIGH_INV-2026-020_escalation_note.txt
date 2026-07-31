@@ -1,0 +1,15 @@
+Invoice: INV-2026-020
+Vendor: Snowflake Inc
+Type: escalation_note
+Severity: High
+============================================================
+
+This note is to escalate a high-priority, aged invoice exception for your review and decision.
+
+Invoice INV-2026-020 from Snowflake Inc. for $37,200.00 has a price variance of $2,200 against PO-1157. The invoice is critically aged at 200 days outstanding, posing a risk to vendor relations.
+
+The root cause is a legitimate overage in data warehouse usage, which exceeded the original forecast on the purchase order. Standard procedure requires the business owner to approve a PO change order to cover this variance, but this has not been completed despite multiple follow-ups.
+
+Given the significant aging of this item, Controller-level intervention is now necessary to ensure resolution. Our recommendation is to secure business owner validation for a PO change order.
+
+We request your decision on how to proceed within two business days to expedite the resolution of this long-outstanding payment.

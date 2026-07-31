@@ -1,0 +1,11 @@
+Invoice: INV-2026-018
+Vendor: DocuSign
+Type: duplicate_hold
+Severity: High
+============================================================
+
+Payment for DocuSign invoice INV-2026-018 for $750.00 has been placed on hold.
+
+The invoice is a suspected duplicate, appearing to be a resubmission of INV-2026-015 which was declined last cycle. A duplicate is an invoice for a service we may have already been billed for.
+
+To prevent a double payment, payment is blocked while we investigate with the vendor to verify the charge. The AP Manager has been notified of this action. The hold will remain until we receive clarification from DocuSign.

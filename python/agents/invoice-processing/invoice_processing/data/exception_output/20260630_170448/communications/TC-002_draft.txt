@@ -1,0 +1,15 @@
+Dear Acme Supplies Ltd,
+
+We are writing in reference to invoice TC-002 for the amount of $10,500.00.
+
+Our records show that the invoiced amount is $500.00 greater than the amount authorized on the associated purchase order. As this exceeds our payment tolerance, the invoice has been placed on hold.
+
+To resolve this discrepancy, could you please provide either a revised invoice for the correct amount or a credit note for $500.00?
+
+We kindly request a response and the necessary documentation within five (5) business days to proceed with payment processing.
+
+Thank you for your prompt attention to this matter.
+
+Best regards,
+
+Accounts Payable Team

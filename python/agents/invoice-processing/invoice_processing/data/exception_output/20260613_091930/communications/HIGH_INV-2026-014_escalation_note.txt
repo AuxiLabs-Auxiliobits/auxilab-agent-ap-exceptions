@@ -1,0 +1,13 @@
+Invoice: INV-2026-014
+Vendor: Dell Technologies
+Type: escalation_note
+Severity: High
+============================================================
+
+This note is to request your review and approval for a high-priority invoice exception.
+
+Invoice INV-2026-014 from Dell Technologies for $44,500.00 has a significant price variance of 8% against PO-6612. This server hardware invoice has now been outstanding for 50 days.
+
+The root cause appears to be a vendor price increase or unbudgeted costs added after the PO was approved. Due to the high value and variance percentage, this exception exceeds standard AP approval thresholds and requires Controller sign-off. Standard resolution attempts with the business requester and procurement team have been unsuccessful in obtaining a revised PO.
+
+To avoid further payment delays and potential vendor relationship issues, we request your decision within two business days. Please advise if we should continue to pursue a revised PO from procurement or if you will provide formal approval for the existing variance.

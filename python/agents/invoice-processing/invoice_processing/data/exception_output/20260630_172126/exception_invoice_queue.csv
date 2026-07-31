@@ -1,0 +1,10 @@
+invoice_id,invoice_amount,priority_tier,payment_blocked,escalation_required,escalation_decision_reason,normalized_priority_score,raw_priority_score,sla_hours,auto_resolved,auto_close_flag,communication_required,communication_draft,root_cause_categories,resolution_owners,exceptions_summary,skipped_exceptions_trace,decision_trace
+TC-012,120000.0,HIGH,True,True,,100.0,600.0,4,False,False,False,"This note is to request your review and decision on a high-priority exception for invoice TC-012 from Eta Consulting. The invoice amount is $120,000 and it has been outstanding for 47 days.
+
+Processing is stalled due to two critical data omissions. First, the invoice is missing a currency code, which prevents financial validation and payment. Second, it was submitted without a Purchase Order number, preventing it from entering the standard approval workflow.
+
+Due to the significant value and extended aging of this invoice, your sign-off is required to authorize an exception action.
+
+The AP team's recommended action is to return the invoice to the vendor and formally request they resubmit it with the mandatory currency code and applicable PO number. This ensures compliance and proper financial controls are met before processing.
+
+Your approval is required to proceed. Please provide your decision within two business days to mitigate further payment delays and manage this vendor exception.",Vendor Submission | Procurement,AP Manager | Procurement,Missing Required Data (1.00); PO Not Found (1.00),[],Evaluated Missing Required Data with confidence 1.00. | Critical Priority applied: Missing Required Data on High Value Invoice (>10k). SLA reduced to 4h. | Evaluated PO Not Found with confidence 1.00. | Calculated Priority Score: 100.0 from 2 evaluated exceptions. | Payment blocked by Missing Required Data. | Escalation required by Missing Required Data. | Payment blocked by PO Not Found. | Escalation required by PO Not Found. | Age Weight Applied: 30 points (invoice age = 47 days). | Assigned Priority Tier: HIGH

@@ -1,0 +1,9 @@
+This note requests your review and decision on a high-priority invoice exception for Eta Consulting (Invoice ID: TC-012). The invoice is for an ambiguous amount of 120,000 and has been outstanding for 47 days.
+
+Processing is stalled due to two critical data omissions. The invoice is missing a currency code, which is a required field, and was also submitted without a PO number, preventing standard validation.
+
+Due to the significant value ($120,000) and prolonged aging, this exception requires senior oversight to mitigate financial risk and potential damage to vendor relations. Standard AP follow-up has failed to resolve the issue.
+
+We recommend contacting the vendor to request a corrected invoice that includes both the currency and the applicable PO number. We seek your authorization to proceed with this action or provide alternative direction.
+
+To resolve this aged item promptly, please provide a decision within two business days.

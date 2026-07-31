@@ -1,0 +1,28 @@
+{
+  "agent": "transformer",
+  "version": "1.0",
+  "timestamp": "2026-06-14T18:42:52.584183",
+  "input_refs": [
+    "02_extraction.json",
+    "06_phase4_validation.json"
+  ],
+  "currency": "USD",
+  "tax_rate": 0.0,
+  "line_items_mapped": [
+    {
+      "line_number": 1,
+      "item_code": "PARTS",
+      "description": "Office Widgets x100 (price adjustment)",
+      "quantity": "100.00",
+      "unit_cost": "95.45",
+      "line_cost": "9,545.00",
+      "tax": "0.00",
+      "tax_code": null
+    }
+  ],
+  "totals": {
+    "line_cost_total": 9545.0,
+    "tax_total": 0.0,
+    "grand_total": 9545.0
+  }
+}

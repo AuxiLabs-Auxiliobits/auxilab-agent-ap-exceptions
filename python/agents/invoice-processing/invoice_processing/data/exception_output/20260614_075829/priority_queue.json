@@ -1,0 +1,177 @@
+[
+  {
+    "invoice_id": "T-006",
+    "invoice_amount": 15000.0,
+    "invoice_age_days": 19,
+    "vendor_name": "Delta Services",
+    "invoice_number": "INV-4001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Currency Mismatch",
+        "root_cause_hypothesis": "The invoice was submitted in EUR, but the corresponding purchase order was created with an expected currency of USD. This suggests a potential discrepancy in the agreed-upon currency for the transaction or a data entry error in the ERP system.",
+        "recommended_action": "Verify the correct transaction currency with the vendor and/or procurement. If the invoice is correct, amend the purchase order to reflect EUR. If the PO is correct, reject the invoice and request a new one in USD.",
+        "evidence_used": "Invoice currency is 'EUR' for invoice_id 'T-006'. The ERP database for the corresponding PO-5005 lists the 'expected_currency' as 'USD'.",
+        "evidence_checked": "RAW INVOICE DATA.currency, ERP DATABASE CONTEXT.purchase_orders['PO-5005'].expected_currency",
+        "missing_data": [],
+        "business_rule_triggered": "Currency Mismatch: The currency on the invoice does not match the expected_currency on the PO in the ERP database.",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 54.76,
+    "raw_priority_score": 115.0,
+    "root_cause_categories": [
+      "Finance Controls"
+    ],
+    "resolution_owners": [
+      "Finance Controls"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Currency Mismatch with confidence 1.00.",
+      "Calculated Priority Score: 54.76 from 1 evaluated exceptions (Raw: 115.0).",
+      "Payment blocked by Currency Mismatch.",
+      "Escalation required by Currency Mismatch.",
+      "Age Weight Applied: 15 points (invoice age = 19 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for T-006 regarding escalations."
+  },
+  {
+    "invoice_id": "T-010",
+    "invoice_amount": 22000.0,
+    "invoice_age_days": 0,
+    "vendor_name": "Zeta Manufacturing",
+    "invoice_number": "INV-6001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice has been issued with a date that is in the future relative to the current processing date. This could be a data entry error by the vendor or an early submission for future-dated billing.",
+        "recommended_action": "Reject the invoice and request the vendor to resubmit it on or after the invoice date. Alternatively, place the invoice on hold until the invoice date arrives.",
+        "evidence_used": "The invoice_date is '2025-03-01', which is after the provided processing_date of '2024-12-01'.",
+        "evidence_checked": "RAW INVOICE DATA: invoice_date; ERP DATABASE CONTEXT: processing_date",
+        "missing_data": [],
+        "business_rule_triggered": "Future Date: The invoice_date is in the future compared to the provided processing_date. (Master Rules Step 3.3: Future Date Check)",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 50.0,
+    "raw_priority_score": 105.0,
+    "root_cause_categories": [
+      "Data Error"
+    ],
+    "resolution_owners": [
+      "AP Team"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Future Date with confidence 1.00.",
+      "Calculated Priority Score: 50.0 from 1 evaluated exceptions (Raw: 105.0).",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Age Weight Applied: 5 points (invoice age = 0 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": ""
+  },
+  {
+    "invoice_id": "T-004",
+    "invoice_amount": 7800.0,
+    "invoice_age_days": 21,
+    "vendor_name": "Gamma Logistics",
+    "invoice_number": "INV-3001",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "Missing Required Data",
+        "root_cause_hypothesis": "Deterministic router fallback for missing data.",
+        "recommended_action": "",
+        "evidence_used": "Dependency check failed: Skipped PO Not Found evaluation because required field 'po_number' is missing.",
+        "evidence_checked": "",
+        "missing_data": [],
+        "business_rule_triggered": "Phase 1 Master Rules",
+        "confidence": 1.0
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 42.86,
+    "raw_priority_score": 90.0,
+    "root_cause_categories": [
+      "Vendor Submission"
+    ],
+    "resolution_owners": [
+      "AP Manager"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Skipped PO Not Found evaluation because required field 'po_number' is missing.",
+      "Evaluated Missing Required Data with confidence 1.00.",
+      "Calculated Priority Score: 42.86 from 1 evaluated exceptions (Raw: 90.0).",
+      "Payment blocked by Missing Required Data.",
+      "Escalation required by Missing Required Data.",
+      "Age Weight Applied: 15 points (invoice age = 21 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for T-004 regarding escalations."
+  },
+  {
+    "invoice_id": "T-005",
+    "invoice_amount": 7800.0,
+    "invoice_age_days": 21,
+    "vendor_name": "Gamma Logistics",
+    "invoice_number": "INV-3002",
+    "evaluated_exceptions": [
+      {
+        "primary_type": "GRN Not Received",
+        "root_cause_hypothesis": "The invoice has been submitted for payment, but the goods or services for the corresponding Purchase Order have not yet been logged as received in the ERP system.",
+        "recommended_action": "Place invoice on hold. Contact the business unit or receiving department to confirm receipt of goods/services for PO-5004 and have them create the Goods Received Note (GRN).",
+        "evidence_used": "The invoice references PO Number 'PO-5004'. While 'PO-5004' is a valid entry in the 'purchase_orders' database, there is no corresponding entry for 'PO-5004' in the 'grn_records' database.",
+        "evidence_checked": "ERP Database Context (grn_records), Raw Invoice Data (po_number)",
+        "missing_data": [
+          "GRN record for PO-5004"
+        ],
+        "business_rule_triggered": "A valid PO exists but there is no GRN record, or the GRN record says received=false.",
+        "confidence": 0.2
+      }
+    ],
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 42.86,
+    "raw_priority_score": 90.0,
+    "root_cause_categories": [
+      "Receiving"
+    ],
+    "resolution_owners": [
+      "Receiving Team"
+    ],
+    "sla_hours": 72,
+    "decision_trace": [
+      "Evaluated GRN Not Received with confidence 0.20.",
+      "Calculated Priority Score: 42.86 from 1 evaluated exceptions (Raw: 90.0).",
+      "Payment blocked by GRN Not Received.",
+      "Escalation required by GRN Not Received.",
+      "Age Weight Applied: 15 points (invoice age = 21 days)."
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for T-005 regarding escalations."
+  }
+]

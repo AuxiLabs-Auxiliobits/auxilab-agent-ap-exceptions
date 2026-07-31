@@ -1,0 +1,17 @@
+Dear Acme Supplies Ltd,
+
+We hope this email finds you well.
+
+We are writing in reference to your invoice TC-021 for the amount of $9999.99.
+
+Our team has identified a minor discrepancy where the invoiced amount is slightly higher than the expected total on our corresponding purchase order. This appears to be a small variance, possibly due to rounding or a price adjustment.
+
+To ensure we can process this payment, could you please review the discrepancy? If this is an error, please provide a credit note for the difference or a fully corrected invoice that aligns with our purchase order.
+
+We kindly request a response within the next 5 business days to help resolve this matter promptly.
+
+Thank you for your assistance.
+
+Best regards,
+
+Accounts Payable Team

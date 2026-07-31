@@ -1,0 +1,5 @@
+Invoice TC-013 from Theta Wholesale for $17,500.00 has been placed on payment hold. Our ERP system flagged this as a potential duplicate, which means we may have already processed and paid for this charge.
+
+Payment is blocked pending a full investigation. The AP team will verify our payment history and contact the vendor to confirm the invoice's validity.
+
+The AP Manager has been notified of this action. No payment will be issued until the matter is resolved.

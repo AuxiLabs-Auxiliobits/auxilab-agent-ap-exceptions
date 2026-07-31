@@ -1,0 +1,122 @@
+[
+  {
+    "invoice_id": "upload_0db3113d",
+    "invoice_amount": 93.5,
+    "invoice_age_days": 3793,
+    "vendor_name": "DEMO - Sliced Invoices",
+    "invoice_number": "INV-3337",
+    "final_exception_list": [
+      {
+        "primary_type": "Vendor Mismatch",
+        "root_cause_hypothesis": "The vendor 'DEMO - Sliced Invoices' is not an approved supplier in the ERP system. The vendor may be new and requires setup, or the invoice is from an unauthorized supplier.",
+        "recommended_action": "Verify if this is a legitimate new vendor and initiate the vendor onboarding process. If not, reject the invoice.",
+        "evidence_used": "The invoice vendor_name 'DEMO - Sliced Invoices' is not present in the list of approved vendors in the ERP DATABASE CONTEXT.vendor_master.",
+        "evidence_checked": "RAW INVOICE DATA: vendor_name, ERP DATABASE CONTEXT: vendor_master",
+        "missing_data": [],
+        "business_rule_triggered": "Vendor Mismatch: The vendor_name from the invoice is not in the ERP vendor_master list.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The invoice was submitted without a Purchase Order number, which is required for automated matching. This could be a non-PO invoice that requires manual coding and approval.",
+        "recommended_action": "Route the invoice for non-PO approval to the appropriate cost center manager. Confirm if this purchase should have had a PO.",
+        "evidence_used": "The 'po_number' field in the RAW INVOICE DATA is an empty string ('').",
+        "evidence_checked": "RAW INVOICE DATA: po_number",
+        "missing_data": [],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice is blank, empty, or does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "HIGH",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 76.19,
+    "raw_priority_score": 160.0,
+    "root_cause_categories": [
+      "Vendor Master Data",
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "Vendor Master Team",
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Vendor Mismatch with confidence 1.00.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 76.19 from 2 evaluated exceptions (Raw: 160.0).",
+      "Payment blocked by Vendor Mismatch.",
+      "Escalation required by Vendor Mismatch.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 30 points (invoice age = 3793 days).",
+      "Assigned Priority Tier: HIGH"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for upload_0db3113d regarding escalations."
+  },
+  {
+    "invoice_id": "TST-001",
+    "invoice_amount": 5000.0,
+    "invoice_age_days": 0,
+    "vendor_name": "Tech Solutions Inc",
+    "invoice_number": "INV-1001",
+    "final_exception_list": [
+      {
+        "primary_type": "Future Date",
+        "root_cause_hypothesis": "The invoice date is set for a future date relative to when it is being processed. Invoices should not be dated in the future.",
+        "recommended_action": "Hold this invoice and do not process for payment until on or after the invoice date. Alternatively, contact the vendor to confirm if the date is an error.",
+        "evidence_used": "Invoice `invoice_date` is '2025-01-10', which is after the system `processing_date` of '2024-12-01'.",
+        "evidence_checked": "RAW INVOICE DATA: invoice_date; PROCESSING DATE context.",
+        "missing_data": [],
+        "business_rule_triggered": "Future Date: The invoice_date is in the future compared to the provided processing_date.",
+        "confidence": 1.0
+      },
+      {
+        "primary_type": "PO Not Found",
+        "root_cause_hypothesis": "The Purchase Order number 'PO-90001' provided on the invoice does not exist in the ERP's purchase order database. This is likely a data entry error on the invoice or the PO was never created.",
+        "recommended_action": "Contact the vendor or internal requestor to confirm the correct PO number. If no PO exists, follow non-PO invoice processing procedures.",
+        "evidence_used": "The invoice lists `po_number` as 'PO-90001', but this key is not found in the ERP `purchase_orders` database object.",
+        "evidence_checked": "RAW INVOICE DATA: po_number; ERP DATABASE CONTEXT: purchase_orders",
+        "missing_data": [],
+        "business_rule_triggered": "PO Not Found: Purchase Order number from invoice is blank, empty, or does not exist in the ERP purchase_orders database.",
+        "confidence": 1.0
+      }
+    ],
+    "priority_tier": "MEDIUM",
+    "payment_blocked": true,
+    "escalation_required": true,
+    "escalation_decision_reason": "",
+    "normalized_priority_score": 71.43,
+    "raw_priority_score": 150.0,
+    "root_cause_categories": [
+      "Data Error",
+      "Procurement"
+    ],
+    "resolution_owners": [
+      "AP Team",
+      "Procurement"
+    ],
+    "sla_hours": 48,
+    "decision_trace": [
+      "Evaluated Future Date with confidence 1.00.",
+      "Evaluated PO Not Found with confidence 1.00.",
+      "Calculated Priority Score: 71.43 from 2 evaluated exceptions (Raw: 150.0).",
+      "Payment blocked by Future Date.",
+      "Escalation required by Future Date.",
+      "Payment blocked by PO Not Found.",
+      "Escalation required by PO Not Found.",
+      "Age Weight Applied: 5 points (invoice age = 0 days).",
+      "Assigned Priority Tier: MEDIUM"
+    ],
+    "skipped_exceptions_trace": [],
+    "auto_resolved": false,
+    "auto_close_flag": false,
+    "communication_required": false,
+    "communication_draft": "Drafted communication for TST-001 regarding escalations."
+  }
+]

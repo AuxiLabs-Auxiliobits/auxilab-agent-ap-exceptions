@@ -1,0 +1,199 @@
+invoice_id,invoice_amount,priority_tier,payment_blocked,escalation_required,escalation_decision_reason,normalized_priority_score,raw_priority_score,sla_hours,auto_resolved,auto_close_flag,communication_required,communication_draft,root_cause_categories,resolution_owners,exceptions_summary,skipped_exceptions_trace,decision_trace
+TC-012,120000.0,HIGH,True,True,,100.0,600.0,4,False,False,False,"This note is to formally escalate a high-priority invoice exception requiring your decision.
+
+The invoice, TC-012 from Eta Consulting for 120,000.0, has been outstanding for 47 days. Processing is blocked due to two critical data omissions:
+1.  **Missing Currency Code:** The value is ambiguous without a specified currency, posing a risk to financial reporting accuracy.
+2.  **Missing PO Number:** This prevents standard matching and indicates the invoice may require a non-PO approval workflow.
+
+Given the significant amount, extended aging, and risk of improper financial recording, Controller-level guidance is necessary to ensure compliance with internal controls. Our recommendation is to either request a corrected invoice from the vendor or confirm the currency with the internal business owner before processing.
+
+To resolve this aged item and manage the vendor relationship, please advise on the preferred path forward within two business days.",Vendor Submission | Procurement,AP Manager | Procurement,Missing Required Data (1.00); PO Not Found (1.00),[],Evaluated Missing Required Data with confidence 1.00. | Critical Priority applied: Missing Required Data on High Value Invoice (>10k). SLA reduced to 4h. | Evaluated PO Not Found with confidence 1.00. | Calculated Priority Score: 100.0 from 2 evaluated exceptions (Raw: 600.0). | Payment blocked by Missing Required Data. | Escalation required by Missing Required Data. | Payment blocked by PO Not Found. | Escalation required by PO Not Found. | Age Weight Applied: 30 points (invoice age = 47 days). | Assigned Priority Tier: HIGH
+TC-018,15000.0,HIGH,True,True,,85.71,180.0,48,False,False,False,"Hi there,
+
+Following up on an urgent invoice from **Omega Contractors (ID: TC-018)** for $15,000.
+
+This payment is currently on hold and is now 41 days outstanding because it was submitted without a Purchase Order number. We cannot process the payment until a PO is raised.
+
+To avoid further delays and ensure our vendor is paid, please raise a PO for this expense within the next **3 business days**.
+
+Please let us know once this is done or if you have any questions. Thanks for your prompt attention to this matter.",Procurement,Procurement,PO Not Found (1.00),[],Evaluated PO Not Found with confidence 1.00. | Calculated Priority Score: 85.71 from 1 evaluated exceptions (Raw: 180.0). | Payment blocked by PO Not Found. | Escalation required by PO Not Found. | Age Weight Applied: 30 points (invoice age = 41 days). | Assigned Priority Tier: HIGH
+TC-004,5000.0,MEDIUM,True,True,,73.81,155.0,24,False,False,False,"Invoice TC-004 from BetaTech Corp for $5,000.00 has been placed on hold. A pre-classification check detected a potential exact duplicate in the current batch, meaning we may have already received and processed this same invoice.
+
+Payment is now blocked pending an investigation to confirm its validity. If it is a true duplicate, the new invoice will be rejected. If it is a unique and valid charge, it will be released for payment processing.
+
+The AP Manager has been notified of this hold.",Accounts Payable,AP Manager,Exact Duplicate Invoice (1.00),[],Evaluated Exact Duplicate Invoice with confidence 1.00. | Calculated Priority Score: 73.81 from 1 evaluated exceptions (Raw: 155.0). | Payment blocked by Exact Duplicate Invoice. | Escalation required by Exact Duplicate Invoice. | Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing. | Age Weight Applied: 30 points (invoice age = 56 days). | Assigned Priority Tier: MEDIUM
+TC-005,5000.0,MEDIUM,True,True,,73.81,155.0,24,False,False,False,"Please be advised that invoice TC-005 from BetaTech Corp for $5000.0 has been placed on a payment hold.
+
+Our system has flagged this as a potential exact duplicate, meaning we may have already received or processed this same invoice. Payment is blocked pending investigation.
+
+AP will now verify if a prior version was processed and paid. We will contact the vendor if necessary to resolve the discrepancy. The AP Manager has been notified of this action.",Accounts Payable,AP Manager,Exact Duplicate Invoice (1.00),[],Evaluated Exact Duplicate Invoice with confidence 1.00. | Calculated Priority Score: 73.81 from 1 evaluated exceptions (Raw: 155.0). | Payment blocked by Exact Duplicate Invoice. | Escalation required by Exact Duplicate Invoice. | Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing. | Age Weight Applied: 30 points (invoice age = 56 days). | Assigned Priority Tier: MEDIUM
+TC-006,5000.0,MEDIUM,True,True,,73.81,155.0,24,False,False,False,"Invoice TC-006 from BetaTech Corp for $5,000.00 has been placed on payment hold. Our pre-classification system detected an exact duplicate of this invoice in the current payment batch.
+
+A duplicate means we have received the same charge more than once. To prevent an overpayment, this invoice is blocked pending investigation. AP will now contact the vendor to verify the charge and confirm which invoice is the correct one for processing.
+
+The AP Manager has been notified of this hold.",Accounts Payable,AP Manager,Exact Duplicate Invoice (1.00),[],Evaluated Exact Duplicate Invoice with confidence 1.00. | Calculated Priority Score: 73.81 from 1 evaluated exceptions (Raw: 155.0). | Payment blocked by Exact Duplicate Invoice. | Escalation required by Exact Duplicate Invoice. | Exact Duplicate Invoice has stop_further_checks=true. Remaining validations skip routing. | Age Weight Applied: 30 points (invoice age = 56 days). | Assigned Priority Tier: MEDIUM
+TC-010,4500.0,MEDIUM,True,True,,73.81,155.0,48,False,False,False,"Hi team,
+
+Urgent request from AP regarding invoice **TC-010** from **Epsilon Parts** for $4500.
+
+This payment is currently on hold as the Purchase Order number provided is invalid in our system. The invoice is now 49 days outstanding and requires your immediate attention.
+
+To get this paid, please urgently raise a new Purchase Order in the ERP. Per our policy, this must be completed within **3 business days** to avoid further delays and maintain our vendor relationship.
+
+We cannot process the payment until we receive the new PO number. Please let us know as soon as it has been created.
+
+Thanks for your prompt help on this.",Procurement,Procurement,PO Not Found (1.00),[],Evaluated PO Not Found with confidence 1.00. | Calculated Priority Score: 73.81 from 1 evaluated exceptions (Raw: 155.0). | Payment blocked by PO Not Found. | Escalation required by PO Not Found. | Age Weight Applied: 30 points (invoice age = 49 days). | Assigned Priority Tier: MEDIUM
+TC-013,17500.0,MEDIUM,True,True,,71.43,150.0,48,False,False,False,"Please be advised that invoice TC-013 from Theta Wholesale for $17,500.00 has been placed on payment hold.
+
+A historical lookup in our ERP system flagged this as a potential duplicate, meaning we may have already received or paid an identical invoice.
+
+AP is now investigating to confirm the invoice's validity. This will involve reviewing our payment history and may require contacting the vendor for clarification. No payment will be released until this matter is resolved.
+
+The AP Manager has been notified of this hold. We will provide an update once our investigation is complete.",Accounts Payable,AP Team,Potential Duplicate Invoice (0.85),[],Evaluated Potential Duplicate Invoice with confidence 0.85. | Evaluated Potential Duplicate Invoice with confidence 0.85. | Calculated Priority Score: 71.43 from 2 evaluated exceptions (Raw: 150.0). | Payment blocked by Potential Duplicate Invoice. | Escalation required by Potential Duplicate Invoice. | Payment blocked by Potential Duplicate Invoice. | Escalation required by Potential Duplicate Invoice. | Age Weight Applied: 30 points (invoice age = 46 days). | Assigned Priority Tier: MEDIUM
+TC-014,88000.0,MEDIUM,True,True,,71.43,150.0,48,False,False,False,"Hi Procurement Team,
+
+We are escalating invoice TC-014 from Phantom Invoicing LLC for your urgent attention. This $88,000.00 invoice, now 45 days outstanding, is currently blocked for payment due to two critical issues.
+
+First, ""Phantom Invoicing LLC"" is not an approved vendor in our master list and the name does not match the vendor on the referenced purchase order. Second, the invoiced amount is significantly greater than the authorized PO amount.
+
+To proceed, please investigate and confirm the correct vendor entity. If Phantom Invoicing LLC is the correct party, please initiate the vendor onboarding process. We also require your team to provide clarification and approval for the variance between the invoice and the PO.
+
+Payment will remain on hold until these discrepancies are fully resolved. Please advise on the next steps as soon as possible.",Vendor Master Data | Accounts Payable,Vendor Master Team | AP Manager,Vendor Mismatch (1.00); Amount Exceeds Tolerance (1.00),[],Evaluated Vendor Mismatch with confidence 1.00. | Evaluated Amount Exceeds Tolerance with confidence 1.00. | Calculated Priority Score: 71.43 from 2 evaluated exceptions (Raw: 150.0). | Payment blocked by Vendor Mismatch. | Escalation required by Vendor Mismatch. | Payment blocked by Amount Exceeds Tolerance. | Escalation required by Amount Exceeds Tolerance. | Age Weight Applied: 30 points (invoice age = 45 days). | Assigned Priority Tier: MEDIUM
+TC-002,10500.0,MEDIUM,True,True,,61.9,130.0,48,False,False,False,"Subject: URGENT: Payment Hold & Resolution Request — Invoice INV-A002 (Acme Supplies Ltd)
+
+Hi AP Manager,
+
+We are holding Invoice INV-A002 from Acme Supplies Ltd for $10,500.00 (currently 60 days outstanding).
+
+Payment processing has been blocked due to the following critical exception(s):
+• Amount Exceeds Tolerance: The invoiced amount is $500 higher than the amount specified on the purchase order. This could be due to unapproved additional charges, a price variance, or a data entry error by the vendor.
+
+Recommended Action Paths:
+• Route invoice to the PO owner or department manager for review and approval of the amount variance before payment.
+
+This item has been assigned priority tier MEDIUM with a resolution SLA of 48 hours. Please investigate the discrepancy and provide confirmation or corrected documentation so we can proceed with payment.
+
+Thank you,
+Accounts Payable Operations",Accounts Payable,AP Manager,Amount Exceeds Tolerance (1.00),[],Evaluated Amount Exceeds Tolerance with confidence 1.00. | Calculated Priority Score: 61.9 from 1 evaluated exceptions (Raw: 130.0). | Payment blocked by Amount Exceeds Tolerance. | Escalation required by Amount Exceeds Tolerance. | Age Weight Applied: 30 points (invoice age = 60 days). | Assigned Priority Tier: MEDIUM
+TC-003,11500.0,MEDIUM,True,True,,61.9,130.0,48,False,False,False,"Dear Acme Supplies Ltd,
+
+We are writing in regard to your outstanding invoice TC-003 for the amount of $11,500.00.
+
+Our team has reviewed this invoice and noted a discrepancy. The total amount is higher than the expected cost for the goods/services rendered, placing it outside our payment tolerance. This may be due to a price variance, additional quantities, or unapproved charges.
+
+To proceed with payment, could you please investigate this matter? We kindly request that you either issue a corrected invoice reflecting the agreed-upon amount or provide a credit note for the difference.
+
+Please respond within the next 5 business days so we can resolve this and process your payment promptly.
+
+Thank you for your attention to this query.
+
+Kind regards,
+
+Accounts Payable Team",Accounts Payable,AP Manager,Amount Exceeds Tolerance (1.00),[],Evaluated Amount Exceeds Tolerance with confidence 1.00. | Calculated Priority Score: 61.9 from 1 evaluated exceptions (Raw: 130.0). | Payment blocked by Amount Exceeds Tolerance. | Escalation required by Amount Exceeds Tolerance. | Age Weight Applied: 30 points (invoice age = 60 days). | Assigned Priority Tier: MEDIUM
+TC-008,20000.0,MEDIUM,True,True,,61.9,130.0,48,False,False,False,"Please be advised that payment for invoice TC-008 from Delta Services ($20,000.00) has been placed on hold. Our system detected this as a potential duplicate, flagging an invoice in the current batch with a similar service date but a different invoice number.
+
+This means we may have been billed twice for the same service. Payment is blocked while we investigate with the vendor and the relevant department to confirm the charge's validity.
+
+The AP Manager has been notified of this hold. We will provide an update once the investigation is complete.",Accounts Payable,AP Team,Potential Duplicate Invoice (0.85),[],Evaluated Potential Duplicate Invoice with confidence 0.85. | Calculated Priority Score: 61.9 from 1 evaluated exceptions (Raw: 130.0). | Payment blocked by Potential Duplicate Invoice. | Escalation required by Potential Duplicate Invoice. | Age Weight Applied: 30 points (invoice age = 51 days). | Assigned Priority Tier: MEDIUM
+TC-009,20000.0,MEDIUM,True,True,,61.9,130.0,48,False,False,False,"Invoice TC-009 from Delta Services for $20,000 has been placed on hold. Our pre-classification checks flagged a potential duplicate invoice in the current batch. A suspected duplicate means we may have been billed twice for the same service under a different invoice number.
+
+Payment for TC-009 is blocked pending investigation. We will now contact the vendor to confirm the validity of both invoices and prevent a duplicate payment. The AP Manager has been notified. Further updates will follow once the issue is resolved.",Accounts Payable,AP Team,Potential Duplicate Invoice (0.85),[],Evaluated Potential Duplicate Invoice with confidence 0.85. | Calculated Priority Score: 61.9 from 1 evaluated exceptions (Raw: 130.0). | Payment blocked by Potential Duplicate Invoice. | Escalation required by Potential Duplicate Invoice. | Age Weight Applied: 30 points (invoice age = 50 days). | Assigned Priority Tier: MEDIUM
+TC-020,20000.0,MEDIUM,True,True,,61.9,130.0,48,False,False,False,"Invoice TC-020 from Delta Services for $20,000.00 has been placed on payment hold.
+
+Our system flagged this as a potential duplicate, noting similar details to another invoice in the current batch despite a different number. A duplicate means we risk paying twice for the same goods or services.
+
+Payment is now blocked pending a full investigation to confirm the charge's validity and prevent an incorrect payment. The AP Manager has been notified of this action. Further updates will follow once the review is complete.",Accounts Payable,AP Team,Potential Duplicate Invoice (0.85),[],Evaluated Potential Duplicate Invoice with confidence 0.85. | Calculated Priority Score: 61.9 from 1 evaluated exceptions (Raw: 130.0). | Payment blocked by Potential Duplicate Invoice. | Escalation required by Potential Duplicate Invoice. | Age Weight Applied: 30 points (invoice age = 51 days). | Assigned Priority Tier: MEDIUM
+TC-007,8000.0,MEDIUM,True,True,,59.52,125.0,48,False,False,False,"Dear Gamma Logistics Team,
+
+We are writing in reference to your invoice TC-007 for the amount of £8,000.00.
+
+We have identified a currency discrepancy that is preventing payment. Our records indicate that the agreed currency for this transaction was USD, but the invoice has been issued in GBP.
+
+To resolve this, could you please issue a credit note to cancel invoice TC-007 and provide a corrected invoice in USD? If you believe the GBP charge is correct, please provide documentation reflecting this agreed change.
+
+We kindly request a response or the corrected documents within 5 business days to avoid further delays in payment processing.
+
+Thank you for your prompt attention to this matter.
+
+Best regards,
+
+Accounts Payable Team",Finance Controls | Receiving,Finance Controls | Receiving Team,Currency Mismatch (1.00); GRN Not Received (1.00),[],Evaluated Currency Mismatch with confidence 1.00. | Evaluated GRN Not Received with confidence 1.00. | Calculated Priority Score: 59.52 from 2 evaluated exceptions (Raw: 125.0). | Payment blocked by Currency Mismatch. | Escalation required by Currency Mismatch. | Payment blocked by GRN Not Received. | Escalation required by GRN Not Received. | Age Weight Applied: 30 points (invoice age = 53 days). | Assigned Priority Tier: MEDIUM
+TC-011,35000.0,MEDIUM,True,True,,59.52,125.0,48,False,False,False,"This note is to formally escalate a high-priority exception for a newly received invoice from Zeta Manufacturing (ID: TC-011) for $35,000.
+
+The invoice has been flagged as it lacks a corresponding Goods Receipt Note (GRN) in the system, which is a mandatory requirement for our three-way match process. This indicates we have been billed for goods that have not been formally recorded as received against the expected PO (PO-6005). Furthermore, the invoice is dated in the future, representing a second compliance violation.
+
+Given the significant amount and dual policy deviations, I am escalating for your awareness and direction. This situation presents a material risk of paying for unconfirmed deliveries.
+
+Our recommended action is to place the invoice on hold and contact the receiving department to expedite the GRN. Please provide your guidance or approval on this matter within the next two business days.",Receiving | Data Error,Receiving Team | AP Team,GRN Not Received (1.00); Future Date (1.00),[],Evaluated GRN Not Received with confidence 1.00. | Evaluated Future Date with confidence 1.00. | Calculated Priority Score: 59.52 from 2 evaluated exceptions (Raw: 125.0). | Payment blocked by GRN Not Received. | Escalation required by GRN Not Received. | Payment blocked by Future Date. | Escalation required by Future Date. | Age Weight Applied: 5 points (invoice age = 0 days). | Assigned Priority Tier: MEDIUM
+TC-022,35000.0,MEDIUM,True,True,,59.52,125.0,48,False,False,False,"This note is to request your review and sign-off on a high-priority invoice exception. Invoice TC-022 from Zeta Manufacturing for $35,000.00 has been flagged for a ""GRN Not Received"" exception. The invoice is currently 0 days outstanding.
+
+The root cause is that the invoice was submitted for payment before the goods or services were formally recorded as received in our ERP system. Controller-level review is required due to the significant value of the invoice. Paying this amount without a confirmed goods receipt notice (GRN) presents a material financial risk and a deviation from our standard three-way match control procedure.
+
+My recommended action is to place the invoice on hold while we contact the business requester to confirm receipt and process the GRN for the associated purchase order, PO-6005.
+
+Your approval to proceed with this action is requested within two business days to ensure we maintain internal controls and mitigate financial risk. Please advise.",Receiving | Data Error,Receiving Team | AP Team,GRN Not Received (1.00); Future Date (1.00),[],Evaluated GRN Not Received with confidence 1.00. | Evaluated Future Date with confidence 1.00. | Calculated Priority Score: 59.52 from 2 evaluated exceptions (Raw: 125.0). | Payment blocked by GRN Not Received. | Escalation required by GRN Not Received. | Payment blocked by Future Date. | Escalation required by Future Date. | Age Weight Applied: 5 points (invoice age = 0 days). | Assigned Priority Tier: MEDIUM
+TC-023,500.0,MEDIUM,True,True,,52.38,110.0,48,False,False,False,"Dear Theta Wholesale,
+
+We are writing in reference to your invoice TC-023 for the amount of $500.0.
+
+Our team has identified a discrepancy that is preventing payment. The invoiced amount is significantly lower than our expected purchase order value. This could indicate either a partial shipment or a data entry error.
+
+Additionally, we have not yet registered the receipt of the associated goods or services in our system, which is a required step for our payment approval process.
+
+Could you please investigate this matter and clarify if this was a partial shipment? If the invoice is incorrect, please issue a corrected invoice. To avoid further delays, we also require confirmation of the delivery date so we can update our records.
+
+Please provide a response within five business days.
+
+Thank you for your prompt attention to this query.
+
+Sincerely,
+
+Accounts Payable Team",Accounts Payable | Receiving,AP Manager | Receiving Team,Amount Exceeds Tolerance (1.00); GRN Not Received (1.00),[],Evaluated Amount Exceeds Tolerance with confidence 1.00. | Evaluated GRN Not Received with confidence 1.00. | Calculated Priority Score: 52.38 from 2 evaluated exceptions (Raw: 110.0). | Payment blocked by Amount Exceeds Tolerance. | Escalation required by Amount Exceeds Tolerance. | Payment blocked by GRN Not Received. | Escalation required by GRN Not Received. | Age Weight Applied: 30 points (invoice age = 37 days). | Assigned Priority Tier: MEDIUM
+TC-017,5000.0,MEDIUM,True,True,,50.0,105.0,48,False,False,False,"Dear BetaTech Corp Accounts Receivable,
+
+We are writing to you regarding invoice TC-017, which is currently 42 days outstanding.
+
+Upon review, we have identified a currency discrepancy that is preventing payment processing. The invoice was issued for €5000, whereas our agreed-upon purchase terms specified the currency as USD.
+
+To rectify this, please issue a credit note for the original invoice and provide a corrected invoice for $5000 USD.
+
+We kindly request the updated documentation within the next 5 business days to ensure we can process your payment without further delay.
+
+Thank you for your prompt attention to this matter.
+
+Best regards,
+
+Accounts Payable Team",Finance Controls,Finance Controls,Currency Mismatch (1.00),[],Evaluated Currency Mismatch with confidence 1.00. | Calculated Priority Score: 50.0 from 1 evaluated exceptions (Raw: 105.0). | Payment blocked by Currency Mismatch. | Escalation required by Currency Mismatch. | Age Weight Applied: 30 points (invoice age = 42 days). | Assigned Priority Tier: MEDIUM
+TC-021,9999.99,MEDIUM,True,True,,50.0,105.0,48,False,False,False,"Subject: URGENT: Payment Hold & Resolution Request — Invoice INV-A005 (Acme Supplies Ltd)
+
+Hi AP Manager,
+
+We are holding Invoice INV-A005 from Acme Supplies Ltd for $9,999.99 (currently 39 days outstanding).
+
+Payment processing has been blocked due to the following critical exception(s):
+• Amount Exceeds Tolerance: The invoice amount is slightly different from the purchase order's expected amount, likely due to a minor rounding discrepancy or a small price adjustment.
+
+Recommended Action Paths:
+• Verify if the 0.01 USD difference is an acceptable rounding variance. If so, approve; otherwise, contact the vendor for clarification.
+
+This item has been assigned priority tier MEDIUM with a resolution SLA of 48 hours. Please investigate the discrepancy and provide confirmation or corrected documentation so we can proceed with payment.
+
+Thank you,
+Accounts Payable Operations",Accounts Payable,AP Manager,Amount Exceeds Tolerance (1.00),[],Evaluated Amount Exceeds Tolerance with confidence 1.00. | Calculated Priority Score: 50.0 from 1 evaluated exceptions (Raw: 105.0). | Payment blocked by Amount Exceeds Tolerance. | Escalation required by Amount Exceeds Tolerance. | Age Weight Applied: 30 points (invoice age = 39 days). | Assigned Priority Tier: MEDIUM
+TC-025,1250.0,MEDIUM,True,True,,42.86,90.0,72,False,False,False,"Dear ABC Office Supplies,
+
+We hope this email finds you well.
+
+We are writing to you regarding a discrepancy with invoice TC-025 for $1250.0.
+
+Our records show this invoice was processed, but we have no corresponding Goods Receipt Note (GRN) logged in our system. This indicates the goods were not formally recorded as received before the invoice was processed.
+
+To resolve this, could you please provide a Proof of Delivery (POD) for this order? If the goods have not yet been delivered or a POD is unavailable, please issue a credit note for the full invoice amount to cancel the original charge.
+
+We kindly request your response and the necessary documentation within the next 5 business days.
+
+Thank you for your prompt assistance in this matter.
+
+Sincerely,
+
+Accounts Payable Team",Receiving,Receiving Team,GRN Not Received (1.00),[],Evaluated GRN Not Received with confidence 1.00. | Calculated Priority Score: 42.86 from 1 evaluated exceptions (Raw: 90.0). | Payment blocked by GRN Not Received. | Escalation required by GRN Not Received. | Age Weight Applied: 30 points (invoice age = 35 days). | Assigned Priority Tier: MEDIUM

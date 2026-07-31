@@ -1,0 +1,9 @@
+Hi Team,
+
+This is an urgent request regarding invoice **TC-010** from **Epsilon Parts**. The payment is currently on hold.
+
+The invoice is 50 days outstanding because the Purchase Order number provided does not exist in our system. We cannot process the $4,500 payment until a valid PO is created and approved.
+
+To resolve this, please raise a new PO for this expense immediately. To comply with our internal SLA and prevent further vendor delays, this must be completed within **3 business days**.
+
+Please let me know once this is actioned. Thanks for your prompt assistance with this matter.
