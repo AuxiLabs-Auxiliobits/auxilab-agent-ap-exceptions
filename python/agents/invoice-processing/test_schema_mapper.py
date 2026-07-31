@@ -7,7 +7,7 @@ os.environ.setdefault('LOCATION', 'us-central1')
 
 from invoice_processing.core.schema_mapper import SchemaMapper
 
-def run_test():
+def test_schema_mapper():
     mapper = SchemaMapper()
     raw_headers = [
         "InvoiceID", 
@@ -40,5 +40,3 @@ def run_test():
         
     print("test_schema_mapper PASSED!")
 
-if __name__ == '__main__':
-    run_test()
