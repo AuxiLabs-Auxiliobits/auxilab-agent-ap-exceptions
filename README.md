@@ -47,3 +47,15 @@ the scoring model, and the full configuration reference.
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+
+---
+
+## Built By
+
+| Name | GitHub |
+|------|--------|
+| Anmolpreet Singh | [@Anmolpreetsingh001](https://github.com/Anmolpreetsingh001) |
+| Kamaljit Singh | [@jasskml000](https://github.com/jasskml000) |
+
+Built during the **AuxiLab Founding Hackathon** by [Auxiliobits Technologies](https://auxiliobits.com) · [AuxiLab Catalogue](https://auxiliobits.com/auxilab)
