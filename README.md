@@ -112,18 +112,13 @@ pytest tests/ -v
 
 ---
 
-## Built By
-
-| Name | GitHub | Role |
-|------|--------|------|
-| _Team Member 1_ | [@handle](https://github.com/handle) | _Role_ |
-| _Team Member 2_ | [@handle](https://github.com/handle) | _Role_ |
-| _Team Member 3_ | [@handle](https://github.com/handle) | _Role_ |
-
-Built during the **AuxiLab Founding Hackathon** by [Auxiliobits Technologies](https://auxiliobits.com).
-
 ---
 
-## Licence
+## Built By
 
-MIT — see [LICENSE](./LICENSE)
+| Name | GitHub |
+|------|--------|
+| Anmolpreet Singh | [@Anmolpreetsingh001](https://github.com/Anmolpreetsingh001) |
+| Kamaljit Singh | [@jasskml000](https://github.com/jasskml000) |
+
+Built during the **AuxiLab Founding Hackathon** by [Auxiliobits Technologies](https://auxiliobits.com) · [AuxiLab Catalogue](https://auxiliobits.com/auxilab)
